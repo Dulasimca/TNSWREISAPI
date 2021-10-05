@@ -47,36 +47,36 @@ namespace TNSWREISAPI.Controllers.Master
         }
 
         [HttpGet("{id}")]
-        public string Get(int Type,int Id)
+        public string Get(int Type, int Id)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(Id)));
-            var result = manageSQL.InsertData("GetHostelMaster", sqlParameters);
+            var result = manageSQL.GetDataSetValues("GetHostelMaster", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
     }
 
-    }
+}
 
-    public class HostelEntity
-    {
-        public int Slno { get; set; }
-        public string HostelName { get; set; }
-        public string HostelNameTamil { get; set; }
-        public int HTypeId { get; set; }
-        public int Districtcode { get; set; }
-        public int Talukid { get; set; }
-        public string BuildingNo { get; set; }
-        public string Street { get; set; }
-        public string Landmark { get; set; }
-        public string Pincode { get; set; }
-        public string Longitude { get; set; }
-        public string Latitude { get; set; }
-        public int Radius { get; set; }
-        public string TotalStudent { get; set; }
-        public string Phone { get; set; }
-        public string HostelImage { get; set; }
-    }
+public class HostelEntity
+{
+    public int Slno { get; set; }
+    public string HostelName { get; set; }
+    public string HostelNameTamil { get; set; }
+    public int HTypeId { get; set; }
+    public int Districtcode { get; set; }
+    public int Talukid { get; set; }
+    public string BuildingNo { get; set; }
+    public string Street { get; set; }
+    public string Landmark { get; set; }
+    public string Pincode { get; set; }
+    public string Longitude { get; set; }
+    public string Latitude { get; set; }
+    public int Radius { get; set; }
+    public string TotalStudent { get; set; }
+    public string Phone { get; set; }
+    public string HostelImage { get; set; }
+}
 }
