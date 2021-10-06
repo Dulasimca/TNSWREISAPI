@@ -79,4 +79,3 @@ public class HostelEntity
     public string Phone { get; set; }
     public string HostelImage { get; set; }
 }
-}
