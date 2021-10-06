@@ -58,8 +58,6 @@ namespace TNSWREISAPI.Controllers.Master
         }
     }
 
-}
-
 public class HostelEntity
 {
     public int Slno { get; set; }
