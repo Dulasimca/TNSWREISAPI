@@ -46,6 +46,7 @@ namespace TNSWREISAPI.Controllers.Master
             return "false";
         }
 
+
         [HttpGet("{id}")]
         public string Get(int Type, int Id)
         {
@@ -58,22 +59,23 @@ namespace TNSWREISAPI.Controllers.Master
         }
     }
 
-public class HostelEntity
-{
-    public int Slno { get; set; }
-    public string HostelName { get; set; }
-    public string HostelNameTamil { get; set; }
-    public int HTypeId { get; set; }
-    public int Districtcode { get; set; }
-    public int Talukid { get; set; }
-    public string BuildingNo { get; set; }
-    public string Street { get; set; }
-    public string Landmark { get; set; }
-    public string Pincode { get; set; }
-    public string Longitude { get; set; }
-    public string Latitude { get; set; }
-    public int Radius { get; set; }
-    public string TotalStudent { get; set; }
-    public string Phone { get; set; }
-    public string HostelImage { get; set; }
+    public class HostelEntity
+    {
+        public int Slno { get; set; }
+        public string HostelName { get; set; }
+        public string HostelNameTamil { get; set; }
+        public int HTypeId { get; set; }
+        public int Districtcode { get; set; }
+        public int Talukid { get; set; }
+        public string BuildingNo { get; set; }
+        public string Street { get; set; }
+        public string Landmark { get; set; }
+        public string Pincode { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+        public int Radius { get; set; }
+        public string TotalStudent { get; set; }
+        public string Phone { get; set; }
+        public string HostelImage { get; set; }
+    }
 }
