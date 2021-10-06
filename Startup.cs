@@ -35,6 +35,14 @@ namespace TNSWREISAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(options =>
+        options.WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials()
+        );
+
+            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

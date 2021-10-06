@@ -20,7 +20,7 @@ namespace TNSWREISAPI.Controllers.Master
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             ds = manageSQL.GetDataSetValues("GetMasterData");
-            return JsonConvert.SerializeObject(ds.Tables[0]);
+            return JsonConvert.SerializeObject(ds);
         }
     }
 }
