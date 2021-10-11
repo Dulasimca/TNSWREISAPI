@@ -39,7 +39,7 @@ namespace TNSWREISAPI.Controllers.Forms
             return "false";
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public string Get(int Districtcode, int Talukid,int HostelId, int AccountingId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
