@@ -48,12 +48,12 @@ namespace TNSWREISAPI.Controllers.Master
 
 
         [HttpGet("{id}")]
-        public string Get(int Type, int Id)
+        public string Get(int Type, int Value)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(Id)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(Value)));
             var result = manageSQL.GetDataSetValues("GetHostelMaster", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
