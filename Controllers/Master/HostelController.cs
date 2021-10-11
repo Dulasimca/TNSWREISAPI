@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
@@ -51,11 +52,12 @@ namespace TNSWREISAPI.Controllers.Master
         public string Get(int Type, int Value)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(Value)));
-            var result = manageSQL.GetDataSetValues("GetHostelMaster", sqlParameters);
-            return JsonConvert.SerializeObject(result);
+            ds = manageSQL.GetDataSetValues("GetHostelMaster", sqlParameters);
+            return JsonConvert.SerializeObject(ds.Tables[0]);
         }
     }
 
