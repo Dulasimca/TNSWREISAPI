@@ -19,6 +19,8 @@ namespace TNSWREISAPI.Controllers.Master
             try
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
+                Security security = new Security();
+                var encryptedValue = security.Encryptword(entity.Pwd);
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
                 sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.Id)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(entity.Districtcode)));
@@ -29,7 +31,7 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@EMailId", entity.EMailId));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Pwd", entity.Pwd));
-                sqlParameters.Add(new KeyValuePair<string, string>("@EntryptedPwd", entity.EntryptedPwd));
+                sqlParameters.Add(new KeyValuePair<string, string>("@EntryptedPwd", encryptedValue));
                 var result = manageSQL.InsertData("InsertUserMaster", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
@@ -58,7 +60,6 @@ namespace TNSWREISAPI.Controllers.Master
         public string UserName { get; set; }
         public string EMailId { get; set; }
         public string Pwd { get; set; }
-        public string EntryptedPwd { get; set; }
         public bool Flag { get; set; }
     }
 }
