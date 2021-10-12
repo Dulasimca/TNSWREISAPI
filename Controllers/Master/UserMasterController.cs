@@ -23,9 +23,18 @@ namespace TNSWREISAPI.Controllers.Master
                 var encryptedValue = security.Encryptword(entity.Pwd);
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
                 sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.Id)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(entity.Districtcode)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@HostelID", Convert.ToString(entity.HostelID)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(entity.Talukid)));
+                if (entity.Districtcode > 0)
+                {
+                    sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(entity.Districtcode)));
+                }
+                if (entity.HostelID > 0)
+                {
+                    sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(entity.HostelID)));
+                }
+                if (entity.Talukid > 0)
+                {
+                    sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(entity.Talukid)));
+                }
                 sqlParameters.Add(new KeyValuePair<string, string>("@UserName", entity.UserName));
                 sqlParameters.Add(new KeyValuePair<string, string>("@RoleId", Convert.ToString(entity.RoleId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@EMailId", entity.EMailId));
