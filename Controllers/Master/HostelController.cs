@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
@@ -30,12 +31,8 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@Street", hostelEntity.Street));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Landmark", hostelEntity.Landmark));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Pincode", hostelEntity.Pincode));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Longitude", hostelEntity.Longitude));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Latitude", hostelEntity.Latitude));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Radius", Convert.ToString(hostelEntity.Radius)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@TotalStudent", hostelEntity.TotalStudent));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Phone", hostelEntity.Phone));
-                sqlParameters.Add(new KeyValuePair<string, string>("@HostelImage", hostelEntity.HostelImage));
                 var result = manageSQL.InsertData("InsertHostelMaster", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
@@ -48,27 +45,41 @@ namespace TNSWREISAPI.Controllers.Master
 
 
         [HttpGet("{id}")]
-        public string Get(string sType, string HostelId)
+
+        public string Get(int Type, int Value)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(sType)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(HostelId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(Value)));
             var result = manageSQL.GetDataSetValues("GetHostelMaster", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
+       
         [HttpPut("{id}")]
-        public string Put(HostelEntity entity)
+        public string Put(HostelUpdateEntity updateEntity)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.Slno)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@HostelImage", Convert.ToString(entity.HostelImage)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@Longitude", Convert.ToString(entity.Longitude)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@Latitude", Convert.ToString(entity.Latitude)));
-            var result = manageSQL.GetDataSetValues("GetHostelMaster", sqlParameters);
-            return JsonConvert.SerializeObject(result);
+            sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(updateEntity.HostelId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Longitude", updateEntity.Longitude));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Latitude", updateEntity.Latitude));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Radius", Convert.ToString(updateEntity.Radius)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@HostelImage", updateEntity.HostelImage));
+            ds = manageSQL.GetDataSetValues("UpdateHostelMasterById", sqlParameters);
+            return JsonConvert.SerializeObject(ds.Tables[0]);
         }
+    }
+
+    public class HostelUpdateEntity
+    {
+        public int HostelId { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+        public int Radius { get; set; }
+        public string HostelImage { get; set; }
     }
 
     public class HostelEntity
