@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
@@ -39,8 +40,9 @@ namespace TNSWREISAPI.Controllers.Master
         public string Get()
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
-            var result = manageSQL.GetDataSetValues("GetCommodityMaster");
-            return JsonConvert.SerializeObject(result);
+            DataSet ds = new DataSet();
+            ds = manageSQL.GetDataSetValues("GetCommodityMaster");
+            return JsonConvert.SerializeObject(ds.Tables[0]);
         }
     }
     public class CommodityMasterEntity

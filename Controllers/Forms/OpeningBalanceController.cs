@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
@@ -39,17 +40,18 @@ namespace TNSWREISAPI.Controllers.Forms
             return "false";
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public string Get(int Districtcode, int Talukid,int HostelId, int AccountingId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(Districtcode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(Talukid)));
             sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@AccountingId", Convert.ToString(AccountingId)));
-            var result = manageSQL.GetDataSetValues("GetOpeningBalance", sqlParameters);
-            return JsonConvert.SerializeObject(result);
+            ds = manageSQL.GetDataSetValues("GetOpeningBalance", sqlParameters);
+            return JsonConvert.SerializeObject(ds.Tables[0]);
         }
     }
 
