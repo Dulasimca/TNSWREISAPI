@@ -3,12 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TNSWREISAPI.ManageSQL;
 
 namespace TNSWREISAPI.Controllers.Forms
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class RegistrationController : Controller
     {
-      
+      [HttpPost("{id}")]
+      public bool Post(StudentEntity entity)
+        {
+            ManageRegistration manageRegistration = new ManageRegistration();
+            var result = manageRegistration.InsertStudentDetails(entity);
+            return result;
+        }
+
     }
 
     public class StudentEntity
@@ -35,7 +45,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public string lastStudiedInstituteName { get; set; }
         public string lastStudiedInstituteAddress { get; set; }
         public string distanceFromHostelToHome { get; set; }
-        public string distanceFromHomeToHostel { get; set; }
+        public string distanceFromHostelToInstitute { get; set; }
         public string disabilityType { get; set; }
         public string address1 { get; set; }
         public string address2 { get; set; }
@@ -78,6 +88,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public string guardianOccupation { get; set; }
         public string guardianMobileNo { get; set; }
         public string guardianQualification { get; set; }
+        public string totalYIncome { get; set; }
     }
 
     public class StudentDocumentEntity
