@@ -48,12 +48,24 @@ namespace TNSWREISAPI.Controllers.Master
 
 
         [HttpGet("{id}")]
-        public string Get(int Type, int Id)
+        public string Get(string sType, string HostelId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(Id)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(sType)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(HostelId)));
+            var result = manageSQL.GetDataSetValues("GetHostelMaster", sqlParameters);
+            return JsonConvert.SerializeObject(result);
+        }
+        [HttpPut("{id}")]
+        public string Put(HostelEntity entity)
+        {
+            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.Slno)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@HostelImage", Convert.ToString(entity.HostelImage)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Longitude", Convert.ToString(entity.Longitude)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Latitude", Convert.ToString(entity.Latitude)));
             var result = manageSQL.GetDataSetValues("GetHostelMaster", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
