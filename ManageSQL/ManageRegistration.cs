@@ -15,7 +15,7 @@ namespace TNSWREISAPI.ManageSQL
         public bool InsertStudentDetails(StudentEntity studentEntity)
         {
             SqlTransaction objTrans = null;
-            string StudentId = string.Empty;
+            int StudentId;
             using (sqlConnection = new SqlConnection(GlobalVariable.ConnectionString))
             {
                 DataSet ds = new DataSet();
@@ -48,7 +48,7 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@StudentFilename", studentEntity.studentFilename);
                     sqlCommand.Parameters.AddWithValue("@InstituteName", studentEntity.instituteName);
                     sqlCommand.Parameters.AddWithValue("@Course", studentEntity.course);
-                    sqlCommand.Parameters.AddWithValue("@Medium", studentEntity.medium);
+                    sqlCommand.Parameters.AddWithValue("@Medium", "-");
                     sqlCommand.Parameters.AddWithValue("@ClassId", studentEntity.classId);
                     sqlCommand.Parameters.AddWithValue("@CourseTitle", studentEntity.courseTitle);
                     sqlCommand.Parameters.AddWithValue("@LastInstituteName", studentEntity.lastStudiedInstituteName);
@@ -66,13 +66,13 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@AadharNo", studentEntity.aadharNo);
                     sqlCommand.Parameters.AddWithValue("@RationCardNo", studentEntity.rationCardrNo);
                     sqlCommand.Parameters.AddWithValue("@EMISNo", studentEntity.emisno);
-                    sqlCommand.Parameters.AddWithValue("@TalukApproval", studentEntity.talukApproval);
-                    sqlCommand.Parameters.AddWithValue("@DistrictApproval", studentEntity.districtApproval);
-                    sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt);
+                    sqlCommand.Parameters.AddWithValue("@TalukApproval", "0");
+                    sqlCommand.Parameters.AddWithValue("@DistrictApproval", "0");
+                    sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt, 13);
                     sqlCommand.Parameters["@StudentId"].Direction = ParameterDirection.Output;
                     sqlCommand.ExecuteNonQuery();
 
-                    StudentId = Convert.ToString(sqlCommand.Parameters["@StudentId"].Value);
+                    StudentId = (int)(long)(sqlCommand.Parameters["@StudentId"].Value);
                     sqlCommand.Parameters.Clear();
                     sqlCommand.Dispose();
 
