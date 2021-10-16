@@ -73,9 +73,9 @@ namespace TNSWREISAPI.Controllers.Master
                     List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
                     sqlParameters.Add(new KeyValuePair<string, string>("@UserId", Convert.ToString(entity.UserId)));
                     sqlParameters.Add(new KeyValuePair<string, string>("@Newpwd", entity.NewPwd));
-                    sqlParameters.Add(new KeyValuePair<string, string>("@NewEntryptedPwd", encryptedValue));
-                    var result = manageSQL.InsertData("UpdateUserMaster", sqlParameters);
-                    return new Tuple<bool, string>(result, "success");
+                    sqlParameters.Add(new KeyValuePair<string, string>("@NewEncryptedpwd", encryptedValue));
+                    var result = manageSQL.UpdateValues("UpdateChangePassword", sqlParameters);
+                    return new Tuple<bool, string>(result, "");
                 } else
                 {
                     return new Tuple<bool, string>(false, "Please try different password");
@@ -84,8 +84,8 @@ namespace TNSWREISAPI.Controllers.Master
             catch (Exception ex)
             {
                 AuditLog.WriteError(ex.Message);
+                return new Tuple<bool, string>(false, "Please enter valid input");
             }
-            return new Tuple<bool, string>(false, "Please enter valid input");
 
         }
     }

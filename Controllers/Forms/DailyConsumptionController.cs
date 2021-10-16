@@ -82,7 +82,25 @@ namespace TNSWREISAPI.Controllers.Forms
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
 
-    }
+        [HttpPut("{id}")]
+        public bool Put(ConsumptionEntity entity)
+        {
+            try
+            {
+                ManageSQLConnection manageSQL = new ManageSQLConnection();
+                List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+                sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.Id)));
+                var result = manageSQL.UpdateValues("DeleteDailyConsumption", sqlParameters);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                AuditLog.WriteError(ex.Message);
+                return false;
+            }
+
+        }
+}
 
         public class ConsumptionEntity
         {

@@ -12,7 +12,7 @@ namespace TNSWREISAPI.ManageSQL
     {
         SqlConnection sqlConnection = new SqlConnection();
         SqlCommand sqlCommand = new SqlCommand();
-        public bool InsertPurchaseOrder(PurchaseEntity entity)
+        public Tuple<bool, string> InsertPurchaseOrder(PurchaseEntity entity)
         {
             SqlTransaction objTrans = null;
             using (sqlConnection = new SqlConnection(GlobalVariable.ConnectionString))
@@ -67,13 +67,13 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.Clear();
                     sqlCommand.Dispose();
                     objTrans.Commit();
-                    return true;
+                    return new Tuple<bool, string>(true, "success");
                 }
                 catch (Exception ex)
                 {
                     AuditLog.WriteError(ex.Message + " : " + ex.StackTrace);
                     objTrans.Rollback();
-                    return false;
+                    return new Tuple<bool, string>(false, "Error Occurred");
                 }
                 finally
                 {
