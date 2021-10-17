@@ -15,13 +15,14 @@ namespace TNSWREISAPI.Controllers.Forms
     public class PurchaseOrderController : ControllerBase
     {
         [HttpPost("{id}")]
-        public Tuple<bool, string> Post(PurchaseEntity entity)
+        public Tuple<bool, DataTable> Post(PurchaseEntity entity)
         {
             if (entity.Type == 1)
             {
                 ManagePurchaseOrder managePurchaseOrder = new ManagePurchaseOrder();
+                DataSet ds = new DataSet();
                 var result = managePurchaseOrder.InsertPurchaseOrder(entity);
-                return result;
+                return new Tuple<bool, DataTable>(result, ds.Tables[0]);
             }
             else
             {
@@ -34,7 +35,7 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(entity.TalukId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(entity.HostelId)));
                 ds = manageSQL.GetDataSetValues("GetPurchaseOrderByDate", sqlParameters);
-                return new Tuple<bool, string>(true, JsonConvert.SerializeObject(ds.Tables[0]));
+                return new Tuple<bool, DataTable>(true, ds.Tables[0]);
             }
         }
 
