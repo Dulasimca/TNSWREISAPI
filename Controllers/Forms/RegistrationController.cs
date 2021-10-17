@@ -38,7 +38,6 @@ namespace TNSWREISAPI.Controllers.Forms
         public string subcaste { get; set; }
         public string studentFilename { get; set; }
         public string instituteName { get; set; }
-        public int course { get; set; }
         public string medium { get; set; }
         public int classId { get; set; }
         public string courseTitle { get; set; }

@@ -20,9 +20,9 @@ namespace TNSWREISAPI.Controllers.Forms
             if (entity.Type == 1)
             {
                 ManagePurchaseOrder managePurchaseOrder = new ManagePurchaseOrder();
-                DataSet ds = new DataSet();
+                DataTable dt = new DataTable();
                 var result = managePurchaseOrder.InsertPurchaseOrder(entity);
-                return new Tuple<bool, DataTable>(result, ds.Tables[0]);
+                return new Tuple<bool, DataTable>(result, dt);
             }
             else
             {
@@ -45,21 +45,21 @@ namespace TNSWREISAPI.Controllers.Forms
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@OrderId", Convert.ToString(OrderId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(OrderId)));
 
             ds = manageSQL.GetDataSetValues("GetPurchaseOrderById", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
 
         [HttpPut("{id}")]
-        public bool Put(int Type, int PId)
+        public bool Put(PurchaseEntity entity)
         {
             try
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(PId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.PurchaseId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(entity.Type)));
                 var result = manageSQL.UpdateValues("DeletePuchaseOrder", sqlParameters);
                 return result;
             }
