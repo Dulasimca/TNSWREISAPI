@@ -77,6 +77,7 @@ namespace TNSWREISAPI.Controllers.Master
                     sqlParameters.Add(new KeyValuePair<string, string>("@NewEncryptedpwd", encryptedValue));
                     var result = manageSQL.UpdateValues("UpdateChangePassword", sqlParameters);
                     return new Tuple<bool, string>(result, "Password has been updated");
+ 
                 } else
                 {
                     return new Tuple<bool, string>(false, "Please enter valid current password");
@@ -85,8 +86,8 @@ namespace TNSWREISAPI.Controllers.Master
             catch (Exception ex)
             {
                 AuditLog.WriteError(ex.Message);
+                return new Tuple<bool, string>(false, "Please enter valid input");
             }
-            return new Tuple<bool, string>(false, "Please enter valid input");
 
         }
     }

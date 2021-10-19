@@ -18,6 +18,7 @@ namespace TNSWREISAPI.ManageSQL
             using (sqlConnection = new SqlConnection(GlobalVariable.ConnectionString))
             {
                 DataSet ds = new DataSet();
+                Int64 PId;
 
                 sqlCommand = new SqlCommand();
                 try
@@ -41,7 +42,11 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@ShopName", entity.ShopName);
                     sqlCommand.Parameters.AddWithValue("@GSTNo", entity.GSTNo);
                     sqlCommand.Parameters.AddWithValue("@Flag", 1);
+                    sqlCommand.Parameters.Add("@PId", SqlDbType.BigInt, 13);
+                    sqlCommand.Parameters["@PId"].Direction = ParameterDirection.Output;
                     sqlCommand.ExecuteNonQuery();
+
+                    PId = Convert.ToInt64(sqlCommand.Parameters["@PId"].Value);
                     sqlCommand.Parameters.Clear();
                     sqlCommand.Dispose();
 
@@ -56,7 +61,7 @@ namespace TNSWREISAPI.ManageSQL
                         sqlCommand.CommandText = "InsertIntoPurchaseOrderDetails";
                         sqlCommand.CommandType = CommandType.StoredProcedure;
                         sqlCommand.Parameters.AddWithValue("@Id", item.DetailId);
-                        sqlCommand.Parameters.AddWithValue("@OrderId", item.OrderId);
+                        sqlCommand.Parameters.AddWithValue("@OrderId", PId);
                         sqlCommand.Parameters.AddWithValue("@CommodityId", item.CommodityId);
                         sqlCommand.Parameters.AddWithValue("@UnitId", item.UnitId);
                         sqlCommand.Parameters.AddWithValue("@Quantity", item.Quantity);

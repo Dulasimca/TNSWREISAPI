@@ -15,22 +15,60 @@ namespace TNSWREISAPI.Controllers.Forms
     public class PurchaseOrderController : ControllerBase
     {
         [HttpPost("{id}")]
-        public bool Post(PurchaseEntity entity)
+        public Tuple<bool, DataTable> Post(PurchaseEntity entity)
         {
-            ManagePurchaseOrder managePurchaseOrder = new ManagePurchaseOrder();
-            var result = managePurchaseOrder.InsertPurchaseOrder(entity);
-            return result;
+            if (entity.Type == 1)
+            {
+                ManagePurchaseOrder managePurchaseOrder = new ManagePurchaseOrder();
+                DataTable dt = new DataTable();
+                var result = managePurchaseOrder.InsertPurchaseOrder(entity);
+                return new Tuple<bool, DataTable>(result, dt);
+            }
+            else
+            {
+                ManageSQLConnection manageSQL = new ManageSQLConnection();
+                DataSet ds = new DataSet();
+                List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+                sqlParameters.Add(new KeyValuePair<string, string>("@FDate", entity.FDate));
+                sqlParameters.Add(new KeyValuePair<string, string>("@TDate", entity.TDate));
+                sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(entity.DistrictCode)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(entity.TalukId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(entity.HostelId)));
+                ds = manageSQL.GetDataSetValues("GetPurchaseOrderByDate", sqlParameters);
+                return new Tuple<bool, DataTable>(true, ds.Tables[0]);
+            }
         }
 
         [HttpGet("{id}")]
-        public string Get(string Value)
+        public string Get(int OrderId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@Date", Value));
-            var result = manageSQL.GetDataSetValues("GetPurchaseOrderByDate", sqlParameters);
-            return JsonConvert.SerializeObject(result);
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(OrderId)));
+
+            ds = manageSQL.GetDataSetValues("GetPurchaseOrderById", sqlParameters);
+            return JsonConvert.SerializeObject(ds.Tables[0]);
+        }
+
+        [HttpPut("{id}")]
+        public bool Put(PurchaseEntity entity)
+        {
+            try
+            {
+                ManageSQLConnection manageSQL = new ManageSQLConnection();
+                List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+                sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.PurchaseId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(entity.Type)));
+                var result = manageSQL.UpdateValues("DeletePuchaseOrder", sqlParameters);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                AuditLog.WriteError(ex.Message);
+                return false;
+            }
+
         }
     }
 
@@ -46,6 +84,9 @@ namespace TNSWREISAPI.Controllers.Forms
         public string ShopName { get; set; }
         public string GSTNo { get; set; }
         public int Flag { get; set; }
+        public int Type { get; set; }
+        public string FDate { get; set; }
+        public string TDate { get; set; }
         public List<PurchaseDetailsEntity> OrderList { get; set; }
     }
 
@@ -58,8 +99,5 @@ namespace TNSWREISAPI.Controllers.Forms
         public decimal Quantity { get; set; }
         public decimal Rate { get; set; }
         public decimal Total { get; set; }
-
-
-
     }
 }
