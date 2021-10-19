@@ -29,11 +29,11 @@ namespace TNSWREISAPI.Controllers.Master
                 }
                 if (entity.HostelID > 0)
                 {
-                    sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(entity.HostelID)));
+                    sqlParameters.Add(new KeyValuePair<string, string>("@HostelID", Convert.ToString(entity.HostelID)));
                 }
                 if (entity.Talukid > 0)
                 {
-                    sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(entity.Talukid)));
+                    sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(entity.Talukid)));
                 }
                 sqlParameters.Add(new KeyValuePair<string, string>("@UserName", entity.UserName));
                 sqlParameters.Add(new KeyValuePair<string, string>("@RoleId", Convert.ToString(entity.RoleId)));
