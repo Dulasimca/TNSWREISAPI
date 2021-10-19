@@ -23,7 +23,7 @@ namespace TNSWREISAPI.Controllers.Forms
 
     public class StudentEntity
     {
-        public int studentId { get; set; }
+        public Int64 studentId { get; set; }
         public int hostelId { get; set; }
         public string studentName { get; set; }
         public int age { get; set; }
@@ -38,8 +38,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public string subcaste { get; set; }
         public string studentFilename { get; set; }
         public string instituteName { get; set; }
-        public int course { get; set; }
-        public int medium { get; set; }
+        public string medium { get; set; }
         public int classId { get; set; }
         public string courseTitle { get; set; }
         public string lastStudiedInstituteName { get; set; }
@@ -64,7 +63,7 @@ namespace TNSWREISAPI.Controllers.Forms
     public class StudentBankEntity
     {
         public int bankId { get; set; }
-        public int studentId { get; set; } 
+        public Int64 studentId { get; set; } 
         public string bankName { get; set; }
         public string bankAccNo { get; set; }
         public string ifscCode { get; set; }
@@ -73,7 +72,7 @@ namespace TNSWREISAPI.Controllers.Forms
     public class StudentParentInfoEntity
     {
         public int parentId { get; set; }
-        public int studentId { get; set; }
+        public Int64 studentId { get; set; }
         public string fatherName { get; set; }
         public string fatherOccupation { get; set; }
         public string fatherMoileNo { get; set; }
@@ -94,7 +93,7 @@ namespace TNSWREISAPI.Controllers.Forms
     public class StudentDocumentEntity
     {
         public int documentId { get; set; }
-        public int studentId { get; set; }
+        public Int64 studentId { get; set; }
         public string incomeCertificateFilename { get; set; }
         public string tcFilename { get; set; }
         public string bankPassbookFilename { get; set; }

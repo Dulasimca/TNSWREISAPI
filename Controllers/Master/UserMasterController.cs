@@ -41,8 +41,9 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Pwd", entity.Pwd));
                 sqlParameters.Add(new KeyValuePair<string, string>("@EntryptedPwd", encryptedValue));
-                var result = manageSQL.InsertData("InsertUserMaster", sqlParameters);
+                var result = manageSQL.UpdateValues("InsertUserMaster", sqlParameters);
                 return JsonConvert.SerializeObject(result);
+
             }
             catch (Exception ex)
             {
@@ -58,7 +59,37 @@ namespace TNSWREISAPI.Controllers.Master
             var result = manageSQL.GetDataSetValues("GetUserMaster");
             return JsonConvert.SerializeObject(result);
         }
+
+        [HttpPut("{id}")]
+        public Tuple<bool, string> Post(ChangePasswordEntity entity)
+        {
+            try
+            {
+                ManageSQLConnection manageSQL = new ManageSQLConnection();
+                Security security = new Security();
+                var encryptedValue = security.Encryptword(entity.NewPwd);
+                if (encryptedValue != entity.OldEncryptedPwd)
+                {
+                    List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+                    sqlParameters.Add(new KeyValuePair<string, string>("@UserId", Convert.ToString(entity.UserId)));
+                    sqlParameters.Add(new KeyValuePair<string, string>("@Newpwd", entity.NewPwd));
+                    sqlParameters.Add(new KeyValuePair<string, string>("@NewEncryptedpwd", encryptedValue));
+                    var result = manageSQL.UpdateValues("UpdateChangePassword", sqlParameters);
+                    return new Tuple<bool, string>(result, "");
+                } else
+                {
+                    return new Tuple<bool, string>(false, "Please try different password");
+                }
+            }
+            catch (Exception ex)
+            {
+                AuditLog.WriteError(ex.Message);
+                return new Tuple<bool, string>(false, "Please enter valid input");
+            }
+
+        }
     }
+
     public class UserMasterEntity
     {
         public Int64 Id { get; set; }
@@ -70,5 +101,13 @@ namespace TNSWREISAPI.Controllers.Master
         public string EMailId { get; set; }
         public string Pwd { get; set; }
         public bool Flag { get; set; }
+    }
+
+    public class ChangePasswordEntity
+    {
+        public int UserId { get; set; }
+        public string NewPwd { get; set; }
+        public string OldPwd { get; set; }
+        public string OldEncryptedPwd { get; set; }
     }
 }

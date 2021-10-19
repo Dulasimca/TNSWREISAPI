@@ -45,6 +45,7 @@ namespace TNSWREISAPI.Controllers.Master
 
 
         [HttpGet("{id}")]
+
         public string Get(int Type, int Value)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
@@ -52,10 +53,10 @@ namespace TNSWREISAPI.Controllers.Master
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(Value)));
-            ds = manageSQL.GetDataSetValues("GetHostelMaster", sqlParameters);
-            return JsonConvert.SerializeObject(ds.Tables[0]);
+            var result = manageSQL.GetDataSetValues("GetHostelMaster", sqlParameters);
+            return JsonConvert.SerializeObject(result);
         }
-
+       
         [HttpPut("{id}")]
         public string Put(HostelUpdateEntity updateEntity)
         {
