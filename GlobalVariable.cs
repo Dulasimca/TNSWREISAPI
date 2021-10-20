@@ -9,7 +9,7 @@ namespace TNSWREISAPI
     {
         //Testing connection
          public const string ConnectionString = "data source=180.179.49.72;initial catalog=TNSWREIS;user id = sqladmin; password =sql@svc&ac!72;";
-        // public const string FolderPath = "D://Angular Project//Education-portal-live//src//assets//layout//";
+         public const string FolderPath = "E://Angular//TNSWREIS//src//assets//layout//";
 
         //Live connection
         //public const string ConnectionString = "data source=localhost;initial catalog=TNSWREIS;user id =sqladmin; password =sql@svc&ac!72;";

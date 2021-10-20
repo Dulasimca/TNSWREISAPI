@@ -15,7 +15,7 @@ namespace TNSWREISAPI.ManageSQL
         public bool InsertStudentDetails(StudentEntity studentEntity)
         {
             SqlTransaction objTrans = null;
-            string StudentId = string.Empty;
+            int StudentId;
             using (sqlConnection = new SqlConnection(GlobalVariable.ConnectionString))
             {
                 DataSet ds = new DataSet();
@@ -47,7 +47,6 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@Subcaste", studentEntity.subcaste);
                     sqlCommand.Parameters.AddWithValue("@StudentFilename", studentEntity.studentFilename);
                     sqlCommand.Parameters.AddWithValue("@InstituteName", studentEntity.instituteName);
-                    sqlCommand.Parameters.AddWithValue("@Course", studentEntity.course);
                     sqlCommand.Parameters.AddWithValue("@Medium", studentEntity.medium);
                     sqlCommand.Parameters.AddWithValue("@ClassId", studentEntity.classId);
                     sqlCommand.Parameters.AddWithValue("@CourseTitle", studentEntity.courseTitle);
@@ -68,11 +67,11 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@EMISNo", studentEntity.emisno);
                     sqlCommand.Parameters.AddWithValue("@TalukApproval", studentEntity.talukApproval);
                     sqlCommand.Parameters.AddWithValue("@DistrictApproval", studentEntity.districtApproval);
-                    sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt);
+                    sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt, 13);
                     sqlCommand.Parameters["@StudentId"].Direction = ParameterDirection.Output;
                     sqlCommand.ExecuteNonQuery();
 
-                    StudentId = Convert.ToString(sqlCommand.Parameters["@StudentId"].Value);
+                    StudentId = (int)(long)(sqlCommand.Parameters["@StudentId"].Value);
                     sqlCommand.Parameters.Clear();
                     sqlCommand.Dispose();
 
