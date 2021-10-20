@@ -61,31 +61,33 @@ namespace TNSWREISAPI.Controllers.Master
         }
 
         [HttpPut("{id}")]
-        public Tuple<bool, string> Post(ChangePasswordEntity entity)
+        public Tuple<bool, string> Put(ChangePasswordEntity entity)
         {
             try
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 Security security = new Security();
                 var encryptedValue = security.Encryptword(entity.NewPwd);
-                if (encryptedValue != entity.OldEncryptedPwd)
+                var encryptedValue1 = security.Encryptword(entity.OldPwd);
+                if (encryptedValue1 == entity.OldEncryptedPwd)
                 {
                     List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
                     sqlParameters.Add(new KeyValuePair<string, string>("@UserId", Convert.ToString(entity.UserId)));
                     sqlParameters.Add(new KeyValuePair<string, string>("@Newpwd", entity.NewPwd));
-                    sqlParameters.Add(new KeyValuePair<string, string>("@NewEntryptedPwd", encryptedValue));
-                    var result = manageSQL.InsertData("UpdateUserMaster", sqlParameters);
-                    return new Tuple<bool, string>(result, "success");
+                    sqlParameters.Add(new KeyValuePair<string, string>("@NewEncryptedpwd", encryptedValue));
+                    var result = manageSQL.UpdateValues("UpdateChangePassword", sqlParameters);
+                    return new Tuple<bool, string>(result, "Password has been updated");
+ 
                 } else
                 {
-                    return new Tuple<bool, string>(false, "Please try different password");
+                    return new Tuple<bool, string>(false, "Please enter valid current password");
                 }
             }
             catch (Exception ex)
             {
                 AuditLog.WriteError(ex.Message);
+                return new Tuple<bool, string>(false, "Please enter valid input");
             }
-            return new Tuple<bool, string>(false, "Please enter valid input");
 
         }
     }
