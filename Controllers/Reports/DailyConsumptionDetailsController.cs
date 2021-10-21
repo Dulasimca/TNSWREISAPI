@@ -26,6 +26,7 @@ namespace TNSWREISAPI.Controllers.Reports
                 sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode",  reportEntity.Districtcode));
                 sqlParameters.Add(new KeyValuePair<string, string>("@FromDate", reportEntity.FromDate));
                 sqlParameters.Add(new KeyValuePair<string, string>("@ToDate", reportEntity.ToDate));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", reportEntity.HostelId));
                 ds = manageSQL.GetDataSetValues("GetDailyConsumptionDetails", sqlParameters);
                 return JsonConvert.SerializeObject(ds);
             }
@@ -43,5 +44,6 @@ namespace TNSWREISAPI.Controllers.Reports
         public string Districtcode { get; set; }
         public string FromDate { get; set; }
         public string ToDate { get; set; }
+        public string HostelId { get; set; }
     }
 }
