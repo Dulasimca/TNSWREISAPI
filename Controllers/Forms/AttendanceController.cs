@@ -37,11 +37,17 @@ namespace TNSWREISAPI.Controllers.Forms
             return "false";
         }
 
-        [HttpGet]
-        public string Get()
+        [HttpGet("{id}")]
+        public string Get(string HostelID,string Districtcode, string Talukid,string FromDate, string Todate)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
-            var result = manageSQL.GetDataSetValues("GetAttendance");
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@HostelID", HostelID));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Districtcode));
+            sqlParameters.Add(new KeyValuePair<string, string>("@FromDate", FromDate));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Talukid));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Todate", Todate));
+            var result = manageSQL.GetDataSetValues("GetAttendance", sqlParameters);
             return JsonConvert.SerializeObject(result);
 
         }
