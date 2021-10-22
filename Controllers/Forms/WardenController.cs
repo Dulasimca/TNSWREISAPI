@@ -58,6 +58,26 @@ namespace TNSWREISAPI.Controllers.Forms
             var result = manageSQL.GetDataSetValues("GetWarden", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
+
+        [HttpPut("{id}")]
+        public bool Put(WardenEntity entity)
+        {
+            try
+            { 
+            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@Date", entity.EndDate));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.WardenId)));
+            var result = manageSQL.UpdateValues("UpdateWardenDetails", sqlParameters);
+            return result;
+        }
+            catch (Exception ex)
+            {
+                AuditLog.WriteError(ex.Message);
+                return false;
+            }
+
+}
     }
 
     public class WardenEntity
@@ -69,6 +89,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public string Qualification { get; set; }
         public DateTime ServiceJoinedDate { get; set; }
         public DateTime HostelJoinedDate { get; set; }
+        public string EndDate { get; set; }
         public string Designation { get; set; }
         public string EMail { get; set; }
         public string PhoneNo { get; set; }
