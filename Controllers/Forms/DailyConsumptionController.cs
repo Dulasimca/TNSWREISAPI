@@ -71,13 +71,14 @@ namespace TNSWREISAPI.Controllers.Forms
         }
 
         [HttpGet("{id}")]
-        public string Get(string FromDate, string ToDate)
+        public string Get(string FromDate, string ToDate, int HostelId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@FromDate", FromDate));
             sqlParameters.Add(new KeyValuePair<string, string>("@ToDate", ToDate));
+            sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelId)));
             ds = manageSQL.GetDataSetValues("GetDailyConsumption", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
