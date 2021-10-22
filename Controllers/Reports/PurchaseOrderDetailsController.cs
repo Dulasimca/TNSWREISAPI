@@ -12,7 +12,7 @@ namespace TNSWREISAPI.Controllers.Reports
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PurchaseOrderController : ControllerBase
+    public class PurchaseOrderDetailsController : ControllerBase
     {
         [HttpPost("{id}")]
         public string Post(ReportEntity reportEntity)
