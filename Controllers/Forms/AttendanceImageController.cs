@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
-using TNSWREISAPI.Module;
+using TNSWREISAPI.Model;
 
 namespace TNSWREISAPI.Controllers.Forms
 {
