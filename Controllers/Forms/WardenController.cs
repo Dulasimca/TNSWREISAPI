@@ -99,7 +99,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public int Districtcode { get; set; }
-        public int WardenImage { get; set; }
+        public string WardenImage { get; set; }
         
         public int Talukid { get; set; }
         public string Pincode { get; set; }
