@@ -35,6 +35,7 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@Address1", wardenEntity.Address1));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Address2",  wardenEntity.Address2));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(wardenEntity.Districtcode)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@WardenImage", Convert.ToString(wardenEntity.WardenImage)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(wardenEntity.Talukid)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Pincode", wardenEntity.Pincode));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(wardenEntity.Flag)));
@@ -98,6 +99,8 @@ namespace TNSWREISAPI.Controllers.Forms
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public int Districtcode { get; set; }
+        public int WardenImage { get; set; }
+        
         public int Talukid { get; set; }
         public string Pincode { get; set; }
         public bool Flag { get; set; }
