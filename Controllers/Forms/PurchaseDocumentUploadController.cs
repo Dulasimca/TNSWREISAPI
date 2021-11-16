@@ -20,6 +20,7 @@ namespace TNSWREISAPI.Controllers.Forms
             try
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
+               
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
                 sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(purchaseEntity.Id)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@OrderId", Convert.ToString(purchaseEntity.OrderId)));
@@ -45,8 +46,8 @@ namespace TNSWREISAPI.Controllers.Forms
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@BillNo", BillNo));
-            var result = manageSQL.GetDataSetValues("GetPurchaseOrderByBillNo", sqlParameters);
-            return JsonConvert.SerializeObject(result);
+              ds = manageSQL.GetDataSetValues("GetPurchaseOrderByBillNo", sqlParameters);
+            return JsonConvert.SerializeObject(ds.Tables[0]);
         }
     }
         public class PurchaseUploadEntity
