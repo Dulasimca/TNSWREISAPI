@@ -50,12 +50,15 @@ namespace TNSWREISAPI.Controllers.Forms
         }
 
         [HttpGet("{id}")]
-        public string Get(int Type, int Value)
+        public string Get(int Type, int RoleId, int DCode, int TCode, int WardenId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(Value)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@RoleId", Convert.ToString(RoleId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@WardenId", Convert.ToString(WardenId)));
             var result = manageSQL.GetDataSetValues("GetWarden", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
