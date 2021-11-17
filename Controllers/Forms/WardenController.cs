@@ -35,6 +35,7 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@Address1", wardenEntity.Address1));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Address2",  wardenEntity.Address2));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(wardenEntity.Districtcode)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@WardenImage", Convert.ToString(wardenEntity.WardenImage)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(wardenEntity.Talukid)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Pincode", wardenEntity.Pincode));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(wardenEntity.Flag)));
@@ -49,12 +50,15 @@ namespace TNSWREISAPI.Controllers.Forms
         }
 
         [HttpGet("{id}")]
-        public string Get(int Type, int Value)
+        public string Get(int Type, int RoleId, int DCode, int TCode, int Value)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(Value)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@RoleId", Convert.ToString(RoleId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Value", Convert.ToString(Value)));
             var result = manageSQL.GetDataSetValues("GetWarden", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
@@ -98,6 +102,8 @@ namespace TNSWREISAPI.Controllers.Forms
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public int Districtcode { get; set; }
+        public string WardenImage { get; set; }
+        
         public int Talukid { get; set; }
         public string Pincode { get; set; }
         public bool Flag { get; set; }
