@@ -34,6 +34,7 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@Pincode", hostelEntity.Pincode));
                 sqlParameters.Add(new KeyValuePair<string, string>("@TotalStudent", hostelEntity.TotalStudent));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Phone", hostelEntity.Phone));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HostelFunctioningType", hostelEntity.HostelFunctioningType));
                 var result = manageSQL.InsertData("InsertHostelMaster", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
@@ -117,5 +118,7 @@ namespace TNSWREISAPI.Controllers.Master
         public string TotalStudent { get; set; }
         public string Phone { get; set; }
         public string HostelImage { get; set; }
+
+        public string HostelFunctioningType { get; set; }
     }
 }
