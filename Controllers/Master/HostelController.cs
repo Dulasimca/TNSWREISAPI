@@ -48,16 +48,15 @@ namespace TNSWREISAPI.Controllers.Master
 
         [HttpGet("{id}")]
 
-        public string Get(int Type, int RoleId, int DCode, int TCode, int HostelId)
+        public string Get(int Type, int DCode, int TCode, int HostelId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@RoleId", Convert.ToString(RoleId)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(DCode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HostelId)));
             var result = manageSQL.GetDataSetValues("GetHostelMaster", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
