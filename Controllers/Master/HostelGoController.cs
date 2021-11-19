@@ -45,11 +45,9 @@ namespace TNSWREISAPI.Controllers.Master
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@RoleId", Convert.ToString(RoleId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Value", Convert.ToString(HostelId)));
             var result = manageSQL.GetDataSetValues("GetGOMaster", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
