@@ -41,7 +41,7 @@ namespace TNSWREISAPI.Controllers.Master
 
 
         [HttpGet("{id}")]
-        public string Get(int Type, int RoleId, int DCode, int TCode, int HostelId)
+        public string Get(int DCode, int TCode, int HostelId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
