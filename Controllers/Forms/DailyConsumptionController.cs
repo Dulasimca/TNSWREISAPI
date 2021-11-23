@@ -42,6 +42,9 @@ namespace TNSWREISAPI.Controllers.Forms
                         sqlCommand.CommandText = "InsertIntoConsumption";
                         sqlCommand.CommandType = CommandType.StoredProcedure;
                         sqlCommand.Parameters.AddWithValue("@Id", item.Id);
+                        sqlCommand.Parameters.AddWithValue("@HostelId", item.HostelId);
+                        sqlCommand.Parameters.AddWithValue("@TalukCode", item.TalukCode);
+                        sqlCommand.Parameters.AddWithValue("@DistrictCode", item.DistrictCode);
                         sqlCommand.Parameters.AddWithValue("@ConsumptionType", item.ConsumptionType);
                         sqlCommand.Parameters.AddWithValue("@ConsumptionDate", item.ConsumptionDate);
                         sqlCommand.Parameters.AddWithValue("@CommodityId", item.CommodityId);
@@ -106,6 +109,9 @@ namespace TNSWREISAPI.Controllers.Forms
         public class ConsumptionEntity
         {
             public Int64 Id { get; set; }
+            public int HostelId { get; set; }
+            public int TalukCode { get; set; }
+            public int DistrictCode { get; set; }
             public int ConsumptionType { get; set; }
             public string ConsumptionDate { get; set; }
             public int CommodityId { get; set; }

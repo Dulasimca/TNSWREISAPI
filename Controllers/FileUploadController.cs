@@ -50,7 +50,7 @@ namespace TNSWREISAPI.Controllers
                         if(fi.Exists)
                         {
                              sFileName = DateTime.Now.ToString("ddMMyyyyhhmmss");
-                             newFileName = fileName.Replace("."+ fi.Extension, "_") + sFileName + "." + fi.Extension;
+                             newFileName = fileName.Replace("."+ fi.Extension, "_") + sFileName +  fi.Extension;
                             var NewfullPath = Path.Combine(pathToSave, newFileName);
                             fi.MoveTo(NewfullPath);
                         }

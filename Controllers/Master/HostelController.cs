@@ -34,6 +34,7 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@Pincode", hostelEntity.Pincode));
                 sqlParameters.Add(new KeyValuePair<string, string>("@TotalStudent", hostelEntity.TotalStudent));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Phone", hostelEntity.Phone));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HostelFunctioningType", hostelEntity.HostelFunctioningType));
                 var result = manageSQL.InsertData("InsertHostelMaster", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
@@ -47,13 +48,15 @@ namespace TNSWREISAPI.Controllers.Master
 
         [HttpGet("{id}")]
 
-        public string Get(int Type, int Value)
+        public string Get(int Type, int DCode, int TCode, int HostelId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(Value)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(DCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HostelId)));
             var result = manageSQL.GetDataSetValues("GetHostelMaster", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
@@ -117,5 +120,7 @@ namespace TNSWREISAPI.Controllers.Master
         public string TotalStudent { get; set; }
         public string Phone { get; set; }
         public string HostelImage { get; set; }
+
+        public string HostelFunctioningType { get; set; }
     }
 }

@@ -40,14 +40,16 @@ namespace TNSWREISAPI.Controllers.Master
         }
 
 
-        [HttpGet]
-        public string Get()
+        [HttpGet("{id}")]
+        public string Get(int DCode, int TCode, int HostelId)
         {
-
             ManageSQLConnection manageSQL = new ManageSQLConnection();
-            var result = manageSQL.GetDataSetValues("GetGOMaster");
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Value", Convert.ToString(HostelId)));
+            var result = manageSQL.GetDataSetValues("GetGOMaster", sqlParameters);
             return JsonConvert.SerializeObject(result);
-
         }
     }
 
