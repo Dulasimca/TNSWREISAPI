@@ -24,6 +24,7 @@ namespace TNSWREISAPI.Controllers.Reports
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
                 sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", wardenEntity.Talukid));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", wardenEntity.Districtcode));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", wardenEntity.HostelId));
                 ds = manageSQL.GetDataSetValues("GetWardenDetails", sqlParameters);
                 return JsonConvert.SerializeObject(ds);
             }
@@ -39,6 +40,7 @@ namespace TNSWREISAPI.Controllers.Reports
     {
         public string Talukid { get; set; }
         public string Districtcode { get; set; }
+        public string HostelId { get; set; }
 
     }
 
