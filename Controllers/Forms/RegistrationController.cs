@@ -94,6 +94,38 @@ namespace TNSWREISAPI.Controllers.Forms
         public string emisno { get; set; }
         public string talukApproval { get; set; }
         public string districtApproval { get; set; }
+
+        //Bank
+        public int bankId { get; set; }
+        public string bankName { get; set; }
+        public string bankAccNo { get; set; }
+        public string ifscCode { get; set; }
+        public string branchName { get; set; }
+
+        //Parent
+        public int parentId { get; set; }
+        public string fatherName { get; set; }
+        public string fatherOccupation { get; set; }
+        public string fatherMoileNo { get; set; }
+        public string fatherQualification { get; set; }
+        public string fatherYIncome { get; set; }
+        public string motherName { get; set; }
+        public string motherOccupation { get; set; }
+        public string motherMoileNo { get; set; }
+        public string motherQualification { get; set; }
+        public string motherYIncome { get; set; }
+        public string guardianName { get; set; }
+        public string guardianOccupation { get; set; }
+        public string guardianMobileNo { get; set; }
+        public string guardianQualification { get; set; }
+        public string totalYIncome { get; set; }
+
+        //Document
+        public int documentId { get; set; }
+        public string incomeCertificateFilename { get; set; }
+        public string tcFilename { get; set; }
+        public string bankPassbookFilename { get; set; }
+        public string declarationFilename { get; set; }
     }
 
     public class StudentBankEntity
