@@ -50,7 +50,7 @@ namespace TNSWREISAPI.Controllers.Forms
         }
 
         [HttpGet("{id}")]
-        public string Get(int Type, int RoleId, int DCode, int TCode, int Value)
+        public string Get(int DCode, int TCode, int Value)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
