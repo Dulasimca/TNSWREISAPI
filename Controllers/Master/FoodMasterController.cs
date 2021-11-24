@@ -21,7 +21,8 @@ namespace TNSWREISAPI.Controllers.Master
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
                 sqlParameters.Add(new KeyValuePair<string, string>("@Slno", Convert.ToString(foodEntity.Slno)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@DayId", Convert.ToString(foodEntity.DayId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HTypeId", Convert.ToString(foodEntity.HTypeId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@DayId", Convert.ToString(foodEntity.DayId)));  
                 sqlParameters.Add(new KeyValuePair<string, string>("@Breakfast", foodEntity.Breakfast));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Lunch", foodEntity.Lunch));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Snacks", foodEntity.Snacks));
@@ -36,11 +37,13 @@ namespace TNSWREISAPI.Controllers.Master
             return "false";
         }
 
-        [HttpGet]
-        public string Get()
+        [HttpGet("{id}")]
+        public string Get(int HTypeId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
-            var result = manageSQL.GetDataSetValues("GetFoodMaster");
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@HTypeId", Convert.ToString(HTypeId)));
+            var result = manageSQL.GetDataSetValues("GetFoodMaster", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
     }
@@ -48,6 +51,7 @@ namespace TNSWREISAPI.Controllers.Master
     public class FoodEntity
     {
         public int Slno { get; set; }
+        public int HTypeId { get; set; }
         public int DayId { get; set; }
         public string Breakfast { get; set; }
         public string Lunch { get; set; }
