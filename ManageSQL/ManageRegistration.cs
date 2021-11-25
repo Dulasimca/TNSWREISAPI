@@ -131,7 +131,7 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.ExecuteNonQuery();
                     sqlCommand.Parameters.Clear();
                     sqlCommand.Dispose();
-
+                    objTrans.Commit();
                     return true;
 
                 }
