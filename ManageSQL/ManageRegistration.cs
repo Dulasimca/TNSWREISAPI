@@ -86,6 +86,7 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@BankAccNo", studentEntity.bankAccNo);
                     sqlCommand.Parameters.AddWithValue("@IFSCCode", studentEntity.ifscCode);
                     sqlCommand.Parameters.AddWithValue("@BranchName", studentEntity.branchName);
+                    sqlCommand.Parameters.AddWithValue("@MICRNo", studentEntity.micrNo);
                     sqlCommand.ExecuteNonQuery();
                     sqlCommand.Parameters.Clear();
                     sqlCommand.Dispose();
@@ -111,7 +112,7 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@GuardianOccupation", studentEntity.guardianOccupation);
                     sqlCommand.Parameters.AddWithValue("@GuardianMobileNo", studentEntity.guardianMobileNo);
                     sqlCommand.Parameters.AddWithValue("@GuardianQualification", studentEntity.guardianQualification);
-                    sqlCommand.Parameters.AddWithValue("@TotalYIncome", 0);
+                    sqlCommand.Parameters.AddWithValue("@TotalYIncome", studentEntity.totalYIncome);
                     sqlCommand.ExecuteNonQuery();
                     sqlCommand.Parameters.Clear();
                     sqlCommand.Dispose();

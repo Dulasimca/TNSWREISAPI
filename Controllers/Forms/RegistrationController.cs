@@ -101,6 +101,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public string bankAccNo { get; set; }
         public string ifscCode { get; set; }
         public string branchName { get; set; }
+        public string micrNo { get; set; }
 
         //Parent
         public int parentId { get; set; }
