@@ -55,7 +55,7 @@ namespace TNSWREISAPI.Controllers.Master
      public int Districtcode { get;set;}
      public int Talukid { get;set;}
      public string   GoNumber           {get;set;}
-     public DateTime   GoDate           {get;set;}
+     public string   GoDate           {get;set;}
      public int   AllotmentStudent      {get;set;}
      public string Remarks              {get;set;}
      public bool Flag { get; set; }
