@@ -1,4 +1,4 @@
-﻿ 
+﻿
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,22 +13,22 @@ namespace TNSWREISAPI.Controllers.Forms
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HOFundAllotmentController : ControllerBase
+    public class DOFundAllotmentController : ControllerBase
     {
         [HttpPost("{id}")]
-        public string Post(HOFundAllotmentEntity entity)
+        public string Post(DOFundAllotmentEntity entity)
         {
             try
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@HOFundId", Convert.ToString(entity.Id)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@DOFundId", Convert.ToString(entity.Id)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HOFundId", Convert.ToString(entity.HoFundId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@AccountingYearId", Convert.ToString(entity.AccYear)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@GONumber", Convert.ToString(entity.GoNumber)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@GODate", entity.GoDate));
-                sqlParameters.Add(new KeyValuePair<string, string>("@BudjetAmount", entity.BudjetAmount));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(entity.DCode)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@DOBudjetAmount",entity.DOBudjetAmount));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
-                var result = manageSQL.InsertData("InsertHoFundAllotment", sqlParameters);
+                var result = manageSQL.InsertData("InsertDoFundAllotment", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
             catch (Exception ex)
@@ -37,25 +37,25 @@ namespace TNSWREISAPI.Controllers.Forms
             }
             return "false";
         }
-
         [HttpGet("{id}")]
-        public string Get(int AccountingYearId)
+        public string Get(int YearId, int DCode)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@AccountingYearId", Convert.ToString(AccountingYearId)));
-            ds = manageSQL.GetDataSetValues("GetHOFundAllotment", sqlParameters);
+            sqlParameters.Add(new KeyValuePair<string, string>("@YearId", Convert.ToString(YearId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
+            ds = manageSQL.GetDataSetValues("GetDOFundAllotment", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
 
-        public class HOFundAllotmentEntity
+        public class DOFundAllotmentEntity
         {
-            public long Id { get; set; }
+            public int Id { get; set; }
+            public int HoFundId { get; set; }
             public int AccYear { get; set; }
-            public int GoNumber { get; set; }
-            public string GoDate { get; set; }
-            public string BudjetAmount { get; set; }
+            public int DCode { get; set; }
+            public string DOBudjetAmount { get; set; }
             public bool Flag { get; set; }
         }
 
