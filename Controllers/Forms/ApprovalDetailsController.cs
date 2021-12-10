@@ -38,6 +38,30 @@ namespace TNSWREISAPI.Controllers.Forms
             }
             return "false";
         }
+        [HttpGet("{id}")]
+
+        public string Get(int DCode, int TCode, int HostelId)
+        {
+            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(DCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HostelId)));
+            var result = manageSQL.GetDataSetValues("GetApprovalDetails", sqlParameters);
+            return JsonConvert.SerializeObject(result);
+        }
+        [HttpPut("{id}")]
+        public string Put(ApprovalDetailsEntity ApprovalDetailsEntity)
+        {
+            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(ApprovalDetailsEntity.FacilityDetailId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@ApprovalStatus", Convert.ToString(ApprovalDetailsEntity.ApprovalStatus)));
+            var result = manageSQL.UpdateValues("UpdateApprovalDetails", sqlParameters);
+            return JsonConvert.SerializeObject(result);
+        }
     }
     public class ApprovalDetailsEntity
     {
@@ -47,6 +71,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public int Talukid { get; set; }
         public int ApprovalType { get; set; }
         public int RequestId { get; set; }
+        public int ApprovalStatus { get; set; }
         public bool Flag { get; set; }
     }
 }
