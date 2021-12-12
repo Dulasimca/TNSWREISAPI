@@ -70,7 +70,6 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@Scholarship", studentEntity.scholarshipId);
                     sqlCommand.Parameters.AddWithValue("@AdmissionNo", studentEntity.admissionNo);
                     sqlCommand.Parameters.AddWithValue("@Remarks", studentEntity.remarks);
-                    sqlCommand.Parameters.AddWithValue("@PoliceStationAddress", studentEntity.policeStationAddress);
                     sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt, 13);
                     sqlCommand.Parameters["@StudentId"].Direction = ParameterDirection.Output;
                     sqlCommand.ExecuteNonQuery();
