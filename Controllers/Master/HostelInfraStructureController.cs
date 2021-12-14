@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
@@ -40,11 +41,16 @@ namespace TNSWREISAPI.Controllers.Master
             }
             return "false";
         }
-        [HttpGet]
-        public string Get()
+        [HttpGet("{id}")]
+        public string Get(int Districtcode, int Talukid, int HostelId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
-            var result = manageSQL.GetDataSetValues("GetHostelInfraStructure");
+            DataSet ds = new DataSet();
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(Districtcode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(Talukid)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelId)));
+            var result = manageSQL.GetDataSetValues("GetHostelInfraStructure", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
     }

@@ -40,13 +40,14 @@ namespace TNSWREISAPI.Controllers.Forms
             return "false";
         }
         [HttpGet("{id}")]
-        public string Get(int YearId, int HCode)
+        public string Get(int YearId, int HCode, int Type)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@YearId", Convert.ToString(YearId)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(HCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
             ds = manageSQL.GetDataSetValues("GetHostelFundAllotment", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }

@@ -28,6 +28,7 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(ApprovalDetailsEntity.Talukid)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@ApprovalType", Convert.ToString(ApprovalDetailsEntity.ApprovalType)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@RequestId", Convert.ToString(ApprovalDetailsEntity.RequestId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Remarks", Convert.ToString(ApprovalDetailsEntity.Remarks)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(ApprovalDetailsEntity.Flag)));
                 var result = manageSQL.InsertData("InsertApprovalDetails", sqlParameters);
                 return JsonConvert.SerializeObject(result);
@@ -71,6 +72,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public int Talukid { get; set; }
         public int ApprovalType { get; set; }
         public int RequestId { get; set; }
+        public string Remarks { get; set; }
         public int ApprovalStatus { get; set; }
         public bool Flag { get; set; }
     }

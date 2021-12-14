@@ -39,13 +39,14 @@ namespace TNSWREISAPI.Controllers.Forms
             return "false";
         }
         [HttpGet("{id}")]
-        public string Get(int YearId, int TCode)
+        public string Get(int YearId, int TCode, int Type)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@YearId", Convert.ToString(YearId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
             ds = manageSQL.GetDataSetValues("GetTOFundAllotment", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
