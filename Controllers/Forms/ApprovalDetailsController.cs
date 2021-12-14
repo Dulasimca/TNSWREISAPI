@@ -28,6 +28,7 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(ApprovalDetailsEntity.Talukid)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@ApprovalType", Convert.ToString(ApprovalDetailsEntity.ApprovalType)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@RequestId", Convert.ToString(ApprovalDetailsEntity.RequestId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Remarks", Convert.ToString(ApprovalDetailsEntity.Remarks)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(ApprovalDetailsEntity.Flag)));
                 var result = manageSQL.InsertData("InsertApprovalDetails", sqlParameters);
                 return JsonConvert.SerializeObject(result);
@@ -38,6 +39,30 @@ namespace TNSWREISAPI.Controllers.Forms
             }
             return "false";
         }
+        [HttpGet("{id}")]
+
+        public string Get(int DCode, int TCode, int HostelId)
+        {
+            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(DCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HostelId)));
+            var result = manageSQL.GetDataSetValues("GetApprovalDetails", sqlParameters);
+            return JsonConvert.SerializeObject(result);
+        }
+        [HttpPut("{id}")]
+        public string Put(ApprovalDetailsEntity ApprovalDetailsEntity)
+        {
+            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(ApprovalDetailsEntity.FacilityDetailId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@ApprovalStatus", Convert.ToString(ApprovalDetailsEntity.ApprovalStatus)));
+            var result = manageSQL.UpdateValues("UpdateApprovalDetails", sqlParameters);
+            return JsonConvert.SerializeObject(result);
+        }
     }
     public class ApprovalDetailsEntity
     {
@@ -47,6 +72,8 @@ namespace TNSWREISAPI.Controllers.Forms
         public int Talukid { get; set; }
         public int ApprovalType { get; set; }
         public int RequestId { get; set; }
+        public string Remarks { get; set; }
+        public int ApprovalStatus { get; set; }
         public bool Flag { get; set; }
     }
 }
