@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
 using TNSWREISAPI.Model;
+using System.Data;
 
 namespace TNSWREISAPI.Controllers.Forms
 {
@@ -21,6 +22,34 @@ namespace TNSWREISAPI.Controllers.Forms
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 /// Need to check conditions
+                DataSet ds = new DataSet();
+                List<KeyValuePair<string, string>> sqlParameters1 = new List<KeyValuePair<string, string>>();
+                sqlParameters1.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(AttendanceImageEntity.HostelID)));
+                ds = manageSQL.GetDataSetValues("GetHostelMasterById", sqlParameters1);
+                if(ds.Tables.Count>0)
+                {
+                    if(ds.Tables[0].Rows.Count>0)
+                    {
+                        double Diffdistance;
+                        double lat1, lon1, lat2, lon2;
+
+                        VerifyLocation verify = new VerifyLocation();
+                        lat1 = Convert.ToDouble(ds.Tables[0].Rows[0]["Latitude"]);
+                        lon1 = Convert.ToDouble(ds.Tables[0].Rows[0]["Longitude"]);
+                        lat2 = Convert.ToDouble(AttendanceImageEntity.Latitute);
+                        lon2 = Convert.ToDouble(AttendanceImageEntity.Longitude);
+                        Diffdistance =  verify.DistanceTo(lat1, lon1, lat2, lon2);
+                        if(Diffdistance < 1)
+                        {
+                            return new Tuple<bool, string>(false, " You have to take a image with in the Hostel location. ");
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                }
+
                 ImageUpload imageUpload = new ImageUpload();
                 var uploadResult = imageUpload.SaveImage(AttendanceImageEntity.uploadImage._imageAsDataUrl, AttendanceImageEntity.uploadImage._mimeType, Convert.ToString(AttendanceImageEntity.HostelID));
                 if (uploadResult.Item1)
