@@ -47,7 +47,7 @@ namespace TNSWREISAPI.Controllers.Master
         {
             public int TypeId { get; set; }
             public string Name { get; set; }
-            public int Flag { get; set; }
+            public bool Flag { get; set; }
 
             public bool Priorities { get; set; }
         }

@@ -67,7 +67,7 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@EMISNo", studentEntity.emisno);
                     sqlCommand.Parameters.AddWithValue("@TalukApproval", studentEntity.talukApproval);
                     sqlCommand.Parameters.AddWithValue("@DistrictApproval", studentEntity.districtApproval);
-                    sqlCommand.Parameters.AddWithValue("@Scholarship", studentEntity.scholarshipId);
+                    sqlCommand.Parameters.AddWithValue("@ScholarshipId", studentEntity.scholarshipId);
                     sqlCommand.Parameters.AddWithValue("@AdmissionNo", studentEntity.admissionNo);
                     sqlCommand.Parameters.AddWithValue("@Remarks", studentEntity.remarks);
                     sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt, 13);

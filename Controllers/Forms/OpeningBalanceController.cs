@@ -49,8 +49,8 @@ namespace TNSWREISAPI.Controllers.Forms
             sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(Districtcode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(Talukid)));
             sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelId)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@AccountingId", Convert.ToString(AccountingId)));
-            ds = manageSQL.GetDataSetValues("GetOpeningBalance", sqlParameters);
+            sqlParameters.Add(new KeyValuePair<string, string>("@ShortYear", Convert.ToString(AccountingId)));
+            ds = manageSQL.GetDataSetValues("GetOpeningBalanceDetails", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
     }
