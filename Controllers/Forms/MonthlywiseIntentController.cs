@@ -12,10 +12,11 @@ namespace TNSWREISAPI.Controllers.Forms
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OpeningBalanceController : ControllerBase
+    public class MonthlywiseIntentController : ControllerBase
     {
+
         [HttpPost("{id}")]
-        public string Post(OpeningBalanceEntity entity)
+        public string Post(MonthlywiseIntentEntity entity)
         {
             try
             {
@@ -30,7 +31,8 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@Qty", Convert.ToString(entity.Qty)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(entity.Talukid)));
-                var result = manageSQL.InsertData("InsertOpeningBalance", sqlParameters);
+                sqlParameters.Add(new KeyValuePair<string, string>("@MonthwiseDate", Convert.ToString(entity.MonthwiseDate)));
+                var result = manageSQL.InsertData("InsertMonthlywiseIntent", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
             catch (Exception ex)
@@ -39,9 +41,8 @@ namespace TNSWREISAPI.Controllers.Forms
             }
             return "false";
         }
-
         [HttpGet("{id}")]
-        public string Get(int Districtcode, int Talukid,int HostelId, int AccountingId)
+        public string Get(int Districtcode, int Talukid, int HostelId, int AccountingId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
@@ -49,23 +50,38 @@ namespace TNSWREISAPI.Controllers.Forms
             sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(Districtcode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(Talukid)));
             sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelId)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@ShortYear", Convert.ToString(AccountingId)));
-            ds = manageSQL.GetDataSetValues("GetOpeningBalanceDetails", sqlParameters);
+            sqlParameters.Add(new KeyValuePair<string, string>("@AccountingId", Convert.ToString(AccountingId)));
+            ds = manageSQL.GetDataSetValues("GetMonthlywiseIntent", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
-    }
+        [HttpPut("{id}")]
+        public string Put(MonthlywiseIntentEntity MonthlywiseIntentEntity)
+        {
+            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(MonthlywiseIntentEntity.Id)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@ApprovalStatus", Convert.ToString(MonthlywiseIntentEntity.ApprovalStatus)));
+            var result = manageSQL.UpdateValues("UpdateMonthlywiseIntent", sqlParameters);
+            return JsonConvert.SerializeObject(result);
+        }
 
-    public class OpeningBalanceEntity
+
+    }
+    public class MonthlywiseIntentEntity
     {
-       public long  Id              { get;set;}
-       public int  Districtcode     { get;set;}
-       public int Talukid           { get;set;}
-       public int HostelId          { get;set;}
-       public int AccountingId      { get;set;}
-       public int CommodityId       { get;set;}
-       public int UnitId            { get;set;}
-       public decimal  Qty          { get;set;}
-       public bool Flag { get; set; }
-    }
+        public int Id { get; set; }
+        public int Districtcode { get; set; }
+        public int Talukid { get; set; }
+        public int HostelId { get; set; }
+        public int AccountingId { get; set; }
+        public int CommodityId { get; set; }
+        public int UnitId { get; set; }
+        public decimal Qty { get; set; }
+        public bool Flag { get; set; }
+        public int ApprovalStatus { get; set; }
+        public string MonthwiseDate { get; set; }
 
+
+    }
 }
