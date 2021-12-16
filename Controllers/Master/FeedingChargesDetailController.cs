@@ -39,11 +39,11 @@ namespace TNSWREISAPI.Controllers.Master
         }
 
         [HttpGet("{id}")]
-        public string Get(int AcountingYear)
+        public string Get(int AccountingYearId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@AccountingYearId", Convert.ToString(AcountingYear)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@AccountingYearId", Convert.ToString(AccountingYearId)));
             var result = manageSQL.GetDataSetValues("GetFeedingChargeDetails", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
