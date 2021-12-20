@@ -35,7 +35,7 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@UrinalNos", Convert.ToString(HostelInfraStructureExtentEntity.UrinalNos)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@StudyingArea", Convert.ToString(HostelInfraStructureExtentEntity.StudyingArea)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(HostelInfraStructureExtentEntity.Flag)));
-               
+                sqlParameters.Add(new KeyValuePair<string, string>("@Kitchen", Convert.ToString(HostelInfraStructureExtentEntity.Kitchen)));
                 var result = manageSQL.InsertData("InsertHostelInfraStructureExtent", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
@@ -89,6 +89,6 @@ namespace TNSWREISAPI.Controllers.Master
 
         public bool Flag { get; set; }
 
-
+        public string Kitchen { get; set; }
     }
     }
