@@ -22,18 +22,18 @@ namespace TNSWREISAPI.Controllers.Master
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
                 sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(HostelInfraStructureExtentEntity.Id)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(HostelInfraStructureExtentEntity.HostelInfraStructureId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HostelInfraStructureId", Convert.ToString(HostelInfraStructureExtentEntity.HostelInfraStructureId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(HostelInfraStructureExtentEntity.Districtcode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(HostelInfraStructureExtentEntity.Talukid)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelInfraStructureExtentEntity.HostelId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@TotalArea", Convert.ToString(HostelInfraStructureExtentEntity.AccountingId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@BuildingArea", Convert.ToString(HostelInfraStructureExtentEntity.FloorNo)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@NoOfFloor", Convert.ToString(HostelInfraStructureExtentEntity.StudentRoom)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@NoOfRoom", Convert.ToString(HostelInfraStructureExtentEntity.WardenRoom)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Kitchen", Convert.ToString(HostelInfraStructureExtentEntity.BathRoomNos)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Bathroom", Convert.ToString(HostelInfraStructureExtentEntity.ToiletRoomNos)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(HostelInfraStructureExtentEntity.UrinalNos)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(HostelInfraStructureExtentEntity.StudyingArea)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@AccountingId", Convert.ToString(HostelInfraStructureExtentEntity.AccountingId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@FloorNo", Convert.ToString(HostelInfraStructureExtentEntity.FloorNo)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@StudentRoom", Convert.ToString(HostelInfraStructureExtentEntity.StudentRoom)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@WardenRoom", Convert.ToString(HostelInfraStructureExtentEntity.WardenRoom)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@BathRoomNos", Convert.ToString(HostelInfraStructureExtentEntity.BathRoomNos)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@ToiletRoomNos", Convert.ToString(HostelInfraStructureExtentEntity.ToiletRoomNos)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@UrinalNos", Convert.ToString(HostelInfraStructureExtentEntity.UrinalNos)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@StudyingArea", Convert.ToString(HostelInfraStructureExtentEntity.StudyingArea)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(HostelInfraStructureExtentEntity.Flag)));
                
                 var result = manageSQL.InsertData("InsertHostelInfraStructureExtent", sqlParameters);
