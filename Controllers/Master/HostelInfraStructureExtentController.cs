@@ -26,7 +26,6 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(HostelInfraStructureExtentEntity.Districtcode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(HostelInfraStructureExtentEntity.Talukid)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelInfraStructureExtentEntity.HostelId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@AccountingId", Convert.ToString(HostelInfraStructureExtentEntity.AccountingId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@FloorNo", Convert.ToString(HostelInfraStructureExtentEntity.FloorNo)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@StudentRoom", Convert.ToString(HostelInfraStructureExtentEntity.StudentRoom)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@WardenRoom", Convert.ToString(HostelInfraStructureExtentEntity.WardenRoom)));
@@ -36,7 +35,8 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@StudyingArea", Convert.ToString(HostelInfraStructureExtentEntity.StudyingArea)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(HostelInfraStructureExtentEntity.Flag)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Kitchen", Convert.ToString(HostelInfraStructureExtentEntity.Kitchen)));
-                var result = manageSQL.InsertData("InsertHostelInfraStructureExtent", sqlParameters);
+                sqlParameters.Add(new KeyValuePair<string, string>("@Library", Convert.ToString(HostelInfraStructureExtentEntity.Library)));
+                var result = manageSQL.InsertData("InsertHostelInfraStructureExtents", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
             catch (Exception ex)
@@ -71,8 +71,6 @@ namespace TNSWREISAPI.Controllers.Master
 
         public int HostelId { get; set; }
 
-        public int AccountingId { get; set; }
-
         public string FloorNo { get; set; }
 
         public string StudentRoom { get; set; }
@@ -90,5 +88,8 @@ namespace TNSWREISAPI.Controllers.Master
         public bool Flag { get; set; }
 
         public string Kitchen { get; set; }
-    }
+
+        public string Library { get; set; }
+
+     }
     }
