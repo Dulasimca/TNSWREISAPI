@@ -58,7 +58,7 @@ namespace TNSWREISAPI.Controllers.Forms
       public int  HostelID              {get;set;}
       public int  Districtcode          {get;set;}
       public int  Talukid               {get;set;}
-      public DateTime  AttendanceDate   {get;set;}
+      public string  AttendanceDate   {get;set;}
      public int NOOfStudent       { get; set; }
      public string  Remarks            {get;set;}
       public bool Flag { get; set; }
