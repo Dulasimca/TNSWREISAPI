@@ -36,7 +36,7 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(HostelInfraStructureExtentEntity.Flag)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Kitchen", Convert.ToString(HostelInfraStructureExtentEntity.Kitchen)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Library", Convert.ToString(HostelInfraStructureExtentEntity.Library)));
-                var result = manageSQL.InsertData("InsertHostelInfraStructureExtents", sqlParameters);
+                var result = manageSQL.InsertData("InsertHostelInfraStructureExtent", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
             catch (Exception ex)
@@ -55,8 +55,8 @@ namespace TNSWREISAPI.Controllers.Master
             sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(Districtcode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(Talukid)));
             sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelId)));
-            var result = manageSQL.GetDataSetValues("GetHostelInfraStructureExtent", sqlParameters);
-            return JsonConvert.SerializeObject(result);
+            ds = manageSQL.GetDataSetValues("GetHostelInfraStructureExtent", sqlParameters);
+            return JsonConvert.SerializeObject(ds.Tables[0]);
         }
     }
     public class HostelInfraStructureExtentEntity
