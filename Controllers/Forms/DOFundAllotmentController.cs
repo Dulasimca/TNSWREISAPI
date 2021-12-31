@@ -22,13 +22,12 @@ namespace TNSWREISAPI.Controllers.Forms
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@DOFundId", Convert.ToString(entity.Id)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@HOFundId", Convert.ToString(entity.HoFundId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@AccountingYearId", Convert.ToString(entity.AccYear)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(entity.DCode)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@DOBudjetAmount",entity.DOBudjetAmount));
+                sqlParameters.Add(new KeyValuePair<string, string>("@DOFundId", Convert.ToString(entity.DOFundId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@AccHeadFundId", Convert.ToString(entity.AccHeadFundId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(entity.DCode)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@DistrictAmount", Convert.ToString (entity.DistrictFund)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
-                var result = manageSQL.InsertData("InsertDoFundAllotment", sqlParameters);
+                var result = manageSQL.InsertData("InsertDistrictFundAllotment", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
             catch (Exception ex)
@@ -38,12 +37,12 @@ namespace TNSWREISAPI.Controllers.Forms
             return "false";
         }
         [HttpGet("{id}")]
-        public string Get(int YearId, int DCode, int Type)
+        public string Get(int AccHeadFundId, int DCode, int Type)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@YearId", Convert.ToString(YearId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@AccHeadId", Convert.ToString(AccHeadFundId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
             ds = manageSQL.GetDataSetValues("GetDOFundAllotment", sqlParameters);
@@ -52,11 +51,11 @@ namespace TNSWREISAPI.Controllers.Forms
 
         public class DOFundAllotmentEntity
         {
-            public int Id { get; set; }
-            public int HoFundId { get; set; }
-            public int AccYear { get; set; }
+            public int DOFundId { get; set; }
+            public int AccHeadFundId { get; set; }
+
             public int DCode { get; set; }
-            public string DOBudjetAmount { get; set; }
+            public float DistrictFund { get; set; }
             public bool Flag { get; set; }
         }
 
