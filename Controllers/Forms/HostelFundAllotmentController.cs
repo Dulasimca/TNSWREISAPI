@@ -22,13 +22,13 @@ namespace TNSWREISAPI.Controllers.Forms
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@HostelFundId", Convert.ToString(entity.Id)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HostelFundId", Convert.ToString(entity.HosteFundId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@TOFundId", Convert.ToString(entity.ToFundId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@AccountingYearId", Convert.ToString(entity.AccYear)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(entity.DCode)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(entity.TCode)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@AccHeadFundId", Convert.ToString(entity.AccHeadFundId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(entity.DCode)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(entity.TCode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@HostelId ", Convert.ToString(entity.HCode)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@HostelBudjetAmount", entity.HostelBudjetAmount));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HostelFund", entity.HostelAmount));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
                 var result = manageSQL.InsertData("InsertHostelFundAllotment", sqlParameters);
                 return JsonConvert.SerializeObject(result);
@@ -40,12 +40,12 @@ namespace TNSWREISAPI.Controllers.Forms
             return "false";
         }
         [HttpGet("{id}")]
-        public string Get(int YearId, int HCode, int Type)
+        public string Get(int AccHeadFundId, int HCode, int Type)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@YearId", Convert.ToString(YearId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@AccHeadFundId", Convert.ToString(AccHeadFundId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HCode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
             ds = manageSQL.GetDataSetValues("GetHostelFundAllotment", sqlParameters);
@@ -54,13 +54,13 @@ namespace TNSWREISAPI.Controllers.Forms
 
         public class HostelFundAllotmentEntity
         {
-            public int Id { get; set; }
+            public int HosteFundId { get; set; }
             public int ToFundId { get; set; }
-            public int AccYear { get; set; }
+            public int AccHeadFundId { get; set; }
             public int DCode { get; set; }
             public int TCode { get; set; }
             public int HCode { get; set; }
-            public string HostelBudjetAmount { get; set; }
+            public string HostelAmount { get; set; }
             public bool Flag { get; set; }
         }
 
