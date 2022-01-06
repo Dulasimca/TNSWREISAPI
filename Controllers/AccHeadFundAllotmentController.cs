@@ -50,7 +50,7 @@ namespace TNSWREISAPI.Controllers.Forms
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
 
             ds = manageSQL.GetDataSetValues("GetAccHeadFundAllotment", sqlParameters);
-            return JsonConvert.SerializeObject(ds.Tables[0]);
+            return JsonConvert.SerializeObject(ds);
         }
 
         public class HOFundAllotmentEntity
