@@ -28,7 +28,8 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(entity.DCode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(entity.TCode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@TalukAmount", Convert.ToString(entity.TalukAmount)));
-                  sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@AccYearId", Convert.ToString(entity.YearId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
                 var result = manageSQL.InsertData("InsertToFundAllotment", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
@@ -50,6 +51,7 @@ namespace TNSWREISAPI.Controllers.Forms
             ds = manageSQL.GetDataSetValues("GetTOFundAllotment", sqlParameters);
             return JsonConvert.SerializeObject(ds);
         }
+    }
 
         public class TOFundAllotmentEntity
         {
@@ -59,9 +61,9 @@ namespace TNSWREISAPI.Controllers.Forms
             public int DCode { get; set; }
             public int TCode { get; set; }
             public float TalukAmount { get; set; }
+            public int YearId { get; set; }
             public bool Flag { get; set; }
         }
 
-    }
 }
 
