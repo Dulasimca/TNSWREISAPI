@@ -26,6 +26,8 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@AccHeadFundId", Convert.ToString(entity.AccHeadFundId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(entity.DCode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@DistrictAmount", Convert.ToString (entity.DistrictFund)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@AccountingYearId", Convert.ToString(entity.AccYearId)));
+
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
                 var result = manageSQL.InsertData("InsertDistrictFundAllotment", sqlParameters);
                 return JsonConvert.SerializeObject(result);
@@ -37,7 +39,7 @@ namespace TNSWREISAPI.Controllers.Forms
             return "false";
         }
         [HttpGet("{id}")]
-        public string Get(int AccHeadFundId, int DCode, int Type)
+        public string Get(int AccHeadFundId, int DCode, int Type, int YearId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
@@ -45,8 +47,10 @@ namespace TNSWREISAPI.Controllers.Forms
             sqlParameters.Add(new KeyValuePair<string, string>("@AccHeadId", Convert.ToString(AccHeadFundId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@YearId", Convert.ToString(YearId)));
+
             ds = manageSQL.GetDataSetValues("GetDOFundAllotment", sqlParameters);
-            return JsonConvert.SerializeObject(ds.Tables[0]);
+            return JsonConvert.SerializeObject(ds);
         }
 
         public class DOFundAllotmentEntity
@@ -55,6 +59,8 @@ namespace TNSWREISAPI.Controllers.Forms
             public int AccHeadFundId { get; set; }
 
             public int DCode { get; set; }
+            public int AccYearId { get; set; }
+
             public float DistrictFund { get; set; }
             public bool Flag { get; set; }
         }
