@@ -49,8 +49,9 @@ namespace TNSWREISAPI.Controllers.Forms
             sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HCode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
             ds = manageSQL.GetDataSetValues("GetHostelFundAllotment", sqlParameters);
-            return JsonConvert.SerializeObject(ds.Tables[0]);
+            return JsonConvert.SerializeObject(ds);
         }
+    }
 
         public class HostelFundAllotmentEntity
         {
@@ -62,8 +63,6 @@ namespace TNSWREISAPI.Controllers.Forms
             public int HCode { get; set; }
             public string HostelAmount { get; set; }
             public bool Flag { get; set; }
-        }
-
     }
 }
 
