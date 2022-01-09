@@ -35,8 +35,18 @@ namespace TNSWREISAPI.Controllers.Forms
             }
             return "false";
         }
-
+        [HttpGet("{id}")]
+        public string Get()
+        {
+            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            var result = manageSQL.GetDataSetValues("GetBiometricDeviceMapping");
+            return JsonConvert.SerializeObject(result);
+        }
     }
+
+      
+
+
     public class BioMetricEntity
     {
         public int Slno { get; set; }
