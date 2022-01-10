@@ -19,7 +19,7 @@ namespace TNSWREISAPI.Model
         {
             try
             {
-                return list.Where(x => x.parentId == parent).OrderBy(a => a.ID).Select(x => new Menu
+                return list.Where(x => x.parentId == parent).OrderBy(a => a.Priorities).Select(x => new Menu
                 {
                     ID = x.ID,
                     label = x.label,
@@ -52,7 +52,8 @@ namespace TNSWREISAPI.Model
                                  icon = Convert.ToString(dr["ICon"] != null ? dr["ICon"] : ""),
                                  RoleId = Convert.ToInt32(dr["RoleId"] != null ? dr["RoleId"] : 0),
                                  routerLink = Convert.ToString(dr["URL"] != null ? dr["URL"] : ""),
-                                 isActive = Convert.ToBoolean(dr["IsActive"] != null ? dr["IsActive"] : 1)
+                                 isActive = Convert.ToBoolean(dr["IsActive"] != null ? dr["IsActive"] : 1),
+                                 Priorities = Convert.ToInt32(dr["Priorities"] != null ? dr["Priorities"] : 0)
                              }).ToList();
 
                 }
@@ -101,6 +102,7 @@ namespace TNSWREISAPI.Model
         public string icon { get; set; }
         public bool isActive { get; set; }
         public int RoleId { get; set; }
+        public int Priorities { get; set; }
         public List<Menu> items { get; set; }
     }
 }
