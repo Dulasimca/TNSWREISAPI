@@ -57,6 +57,18 @@ namespace TNSWREISAPI.Controllers.Forms
             var result = manageSQL.GetDataSetValues("GetEmployeeDetails", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
+        [HttpPut("{id}")]
+        public string Put(EmployeeDetailsEntity EmployeeDetailsEntity)
+        {
+            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(EmployeeDetailsEntity.Id)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@EndDate", Convert.ToString(EmployeeDetailsEntity.EndDate)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Remarks", Convert.ToString(EmployeeDetailsEntity.Remarks)));
+            var result = manageSQL.UpdateValues("UpdateEmployeeDetails", sqlParameters);
+            return JsonConvert.SerializeObject(result);
+        }
     }
 
 
@@ -74,6 +86,8 @@ namespace TNSWREISAPI.Controllers.Forms
         public string Address { get; set; }
         public string NativeDistrict { get; set; }
         public string MobileNo { get; set; }
+        public string EndDate { get; set; }
+        public string Remarks { get; set; }
         public bool Flag { get; set; }
         
     }

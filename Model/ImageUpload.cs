@@ -17,7 +17,7 @@ namespace TNSWREISAPI.Model
             try
             {
                 // imageData = imageData.Replace("data:image/png;base64,", "");
-                nimgData = imageData.Replace("data:image/jpeg;base64,", "");
+                nimgData = imageData.Replace("data:image/jpeg;base64,", "").Replace("data:image/png;base64,", "");
                 string[] _mimeType = mimeType.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                 extn = string.Empty;
                 if (_mimeType.Count() > 1)
