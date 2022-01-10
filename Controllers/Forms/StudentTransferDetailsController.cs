@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
@@ -13,28 +14,58 @@ namespace TNSWREISAPI.Controllers.Forms
     [ApiController]
     public class StudentTransferDetailsController : Controller
     {
+        SqlConnection sqlConnection = new SqlConnection();
+        SqlCommand sqlCommand = new SqlCommand();
         [HttpPost("{id}")]
-        public string Post(TransferEntity entity)
+        public bool Post([FromBody] List<TransferEntity> entity)
         {
-            try
+            SqlTransaction objTrans = null;
+            using (sqlConnection = new SqlConnection(GlobalVariable.ConnectionString))
             {
-                ManageSQLConnection manageSQL = new ManageSQLConnection();
-                List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.Id)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@AcademicYear", Convert.ToString(entity.AcademicYear)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(entity.HostelId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@StudentId", Convert.ToString(entity.StudentId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@EMISNO", Convert.ToString(entity.EMISNO)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@AcademicStatus", Convert.ToString(entity.AcademicStatus)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
-                var result = manageSQL.InsertData("InsertIntoStudentApprovalDetails", sqlParameters);
-                return JsonConvert.SerializeObject(result);
+                sqlCommand = new SqlCommand();
+                try
+                {
+                    if (sqlConnection.State == 0)
+                    {
+                        sqlConnection.Open();
+                    }
+                    objTrans = sqlConnection.BeginTransaction();
+
+                    foreach (var item in entity)
+                    {
+                        sqlCommand.Parameters.Clear();
+                        sqlCommand.Dispose();
+                        sqlCommand = new SqlCommand();
+                        sqlCommand.Transaction = objTrans;
+                        sqlCommand.Connection = sqlConnection;
+                        sqlCommand.CommandText = "InsertIntoStudentApprovalDetails";
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlCommand.Parameters.AddWithValue("@Id", item.Id);
+                        sqlCommand.Parameters.AddWithValue("@HostelId", item.HostelId);
+                        sqlCommand.Parameters.AddWithValue("@AcademicYear", item.AcademicYear);
+                        sqlCommand.Parameters.AddWithValue("@StudentId", item.StudentId);
+                        sqlCommand.Parameters.AddWithValue("@EMISNO", item.EMISNO);
+                        sqlCommand.Parameters.AddWithValue("@AcademicStatus", item.AcademicStatus);
+                        sqlCommand.Parameters.AddWithValue("@Flag", item.Flag);
+                        sqlCommand.Parameters.AddWithValue("@Remarks", item.Remarks);
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    objTrans.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    AuditLog.WriteError(ex.Message);
+                    objTrans.Rollback();
+                    return false;
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                    sqlCommand.Dispose();
+                }
+
             }
-            catch (Exception ex)
-            {
-                AuditLog.WriteError(ex.Message);
-            }
-            return "false";
         }
 
         [HttpGet("{id}")]
@@ -48,6 +79,29 @@ namespace TNSWREISAPI.Controllers.Forms
             ds = manageSQL.GetDataSetValues("GetStudentsByAcademicYear", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
+
+        [HttpPut("{id}")]
+        public bool Put(TransferEntity entity)
+        {
+            try
+            {
+                ManageSQLConnection manageSQL = new ManageSQLConnection();
+                List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+                sqlParameters.Add(new KeyValuePair<string, string>("@StudentId", Convert.ToString(entity.StudentId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(entity.HostelId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@AcademicYear", Convert.ToString(entity.AcademicYear)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@AcademicStatus", Convert.ToString(entity.AcademicStatus)));
+                var result = manageSQL.UpdateValues("UpdateStudentsTransferStatus", sqlParameters);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                AuditLog.WriteError(ex.Message);
+                return false;
+            }
+
+        }
+
     }
 
     public class TransferEntity
@@ -59,5 +113,6 @@ namespace TNSWREISAPI.Controllers.Forms
         public string EMISNO { get; set; }
         public int AcademicStatus { get; set; }
         public int Flag { get; set; }
+        public string Remarks { get; set; }
     }
 }
