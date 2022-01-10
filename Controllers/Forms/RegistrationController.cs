@@ -130,6 +130,9 @@ namespace TNSWREISAPI.Controllers.Forms
         public string tcFilename { get; set; }
         public string bankPassbookFilename { get; set; }
         public string declarationFilename { get; set; }
+
+        //Common
+        public int Type { get; set; }
     }
 
     public class StudentBankEntity
