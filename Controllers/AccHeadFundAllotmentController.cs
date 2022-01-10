@@ -40,13 +40,14 @@ namespace TNSWREISAPI.Controllers.Forms
         }
 
         [HttpGet("{id}")]
-        public string Get(int AccountingYearId, int Type, int AccHeadId)
+        public string Get(int AccountingYearId, int Type, int AccHeadId, int GroupTypeId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@AccYearId", Convert.ToString(AccountingYearId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@AccHeadId", Convert.ToString(AccHeadId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@GroupTypeId", Convert.ToString(GroupTypeId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
 
             ds = manageSQL.GetDataSetValues("GetAccHeadFundAllotment", sqlParameters);
