@@ -23,7 +23,7 @@ namespace TNSWREISAPI.Controllers.Forms
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
                 sqlParameters.Add(new KeyValuePair<string, string>("@Slno", Convert.ToString(BioMetricEntity.Slno)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@DeviceId", Convert.ToString(BioMetricEntity.DeviceId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@DeviceId", BioMetricEntity.DeviceId));
                 sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(BioMetricEntity.HostelId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(BioMetricEntity.Flag)));
                 var result = manageSQL.InsertData("InsertBiometricDeviceMapping", sqlParameters);
@@ -50,7 +50,7 @@ namespace TNSWREISAPI.Controllers.Forms
     public class BioMetricEntity
     {
         public int Slno { get; set; }
-        public int DeviceId { get; set; }
+        public string DeviceId { get; set; }
         public int HostelId { get; set; }
         public bool Flag { get; set; }
     }
