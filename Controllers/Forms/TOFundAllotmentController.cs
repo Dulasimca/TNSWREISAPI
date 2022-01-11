@@ -40,13 +40,15 @@ namespace TNSWREISAPI.Controllers.Forms
             return "false";
         }
         [HttpGet("{id}")]
-        public string Get(int AccHeadFundId, int TCode, int Type)
+        public string Get(int AccHeadFundId, int TCode, int Type, int DCode, int AccYearId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@AccHeadFundId", Convert.ToString(AccHeadFundId)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@YearId", Convert.ToString(AccYearId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
             ds = manageSQL.GetDataSetValues("GetTOFundAllotment", sqlParameters);
             return JsonConvert.SerializeObject(ds);
