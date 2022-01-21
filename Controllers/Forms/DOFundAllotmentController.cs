@@ -24,6 +24,8 @@ namespace TNSWREISAPI.Controllers.Forms
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
                 sqlParameters.Add(new KeyValuePair<string, string>("@DOFundId", Convert.ToString(entity.DOFundId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@AccHeadFundId", Convert.ToString(entity.AccHeadFundId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@AccHeadId", (entity.AccHeadId)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@GroupTypeId",(entity.GroupTypeId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(entity.DCode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@DistrictAmount", Convert.ToString (entity.DistrictFund)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@AccountingYearId", Convert.ToString(entity.AccYearId)));
@@ -57,7 +59,8 @@ namespace TNSWREISAPI.Controllers.Forms
         {
             public int DOFundId { get; set; }
             public int AccHeadFundId { get; set; }
-
+            public string AccHeadId { get; set; }
+            public string GroupTypeId { get; set; }  
             public int DCode { get; set; }
             public int AccYearId { get; set; }
 
