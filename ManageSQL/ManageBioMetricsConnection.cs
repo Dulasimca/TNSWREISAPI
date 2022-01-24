@@ -20,7 +20,7 @@ namespace TNSWREISAPI.ManageSQL
         /// <returns></returns>
         public DataSet GetDataSetValues(string procedureName)
         {
-            sqlConnection = new SqlConnection(GlobalVariable.ConnectionStringForBioMetrics);
+            sqlConnection = new SqlConnection(GlobalVariable.ConnectionStringBiometric);
             DataSet ds = new DataSet();
             sqlCommand = new SqlCommand();
             try
@@ -48,7 +48,7 @@ namespace TNSWREISAPI.ManageSQL
 
         public DataSet GetDataSetValues(string procedureName, List<KeyValuePair<string, string>> parameterList)
         {
-            sqlConnection = new SqlConnection(GlobalVariable.ConnectionStringForBioMetrics);
+            sqlConnection = new SqlConnection(GlobalVariable.ConnectionStringBiometric);
             DataSet ds = new DataSet();
             sqlCommand = new SqlCommand();
             try
