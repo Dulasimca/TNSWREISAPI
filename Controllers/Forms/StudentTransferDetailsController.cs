@@ -82,25 +82,50 @@ namespace TNSWREISAPI.Controllers.Forms
         }
 
         [HttpPut("{id}")]
-        public bool Put(TransferEntity entity)
+        public bool Put([FromBody] List<TransferEntity> entity)
         {
-            try
+                SqlTransaction objTrans = null;
+            using (sqlConnection = new SqlConnection(GlobalVariable.ConnectionString))
             {
-                ManageSQLConnection manageSQL = new ManageSQLConnection();
-                List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@StudentId", Convert.ToString(entity.StudentId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(entity.HostelId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@AcademicYear", Convert.ToString(entity.AcademicYear)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@AcademicStatus", Convert.ToString(entity.AcademicStatus)));
-                var result = manageSQL.UpdateValues("UpdateStudentsTransferStatus", sqlParameters);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                AuditLog.WriteError(ex.Message);
-                return false;
-            }
+                sqlCommand = new SqlCommand();
+                try
+                {
+                    if (sqlConnection.State == 0)
+                    {
+                        sqlConnection.Open();
+                    }
+                    objTrans = sqlConnection.BeginTransaction();
 
+                    foreach (var item in entity)
+                    {
+                        sqlCommand.Parameters.Clear();
+                        sqlCommand.Dispose();
+                        sqlCommand = new SqlCommand();
+                        sqlCommand.Transaction = objTrans;
+                        sqlCommand.Connection = sqlConnection;
+                        sqlCommand.CommandText = "UpdateStudentsTransferStatus";
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlCommand.Parameters.AddWithValue("@HostelId", item.HostelId);
+                        sqlCommand.Parameters.AddWithValue("@AcademicYear", item.AcademicYear);
+                        sqlCommand.Parameters.AddWithValue("@StudentId", item.StudentId);
+                        sqlCommand.Parameters.AddWithValue("@AcademicStatus", item.AcademicStatus);
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    objTrans.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    AuditLog.WriteError(ex.Message);
+                    objTrans.Rollback();
+                    return false;
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                    sqlCommand.Dispose();
+                }
+            }
         }
 
     }

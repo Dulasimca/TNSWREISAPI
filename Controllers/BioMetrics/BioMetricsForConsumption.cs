@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
@@ -35,6 +36,19 @@ namespace TNSWREISAPI.Controllers.BioMetrics
                 AuditLog.WriteError(ex.Message);
             }
             return 0;
+        }
+
+        [HttpGet("{id}")]
+        public string Get(string Code, string Date)
+        {
+            ManageBioMetricsConnection manageSQL = new ManageBioMetricsConnection();
+            DataSet ds = new DataSet();
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+                sqlParameters.Add(new KeyValuePair<string, string>("@BiometricId", Code));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Date", Date));
+            ds = manageSQL.GetDataSetValues("GetBiometricStudentCount", sqlParameters);
+            return JsonConvert.SerializeObject(ds.Tables[0]);
+
         }
     }
 
