@@ -206,5 +206,42 @@ namespace TNSWREISAPI.ManageSQL
             }
         }
 
+        public DataSet GetDataSetValuesBM(string procedureName, List<KeyValuePair<string, string>> parameterList)
+        {
+            sqlConnection = new SqlConnection(GlobalVariable.ConnectionStringBiometric);
+            DataSet ds = new DataSet();
+            sqlCommand = new SqlCommand();
+            try
+            {
+                if (sqlConnection.State == 0)
+                {
+                    sqlConnection.Open();
+                }
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = procedureName;
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                foreach (KeyValuePair<string, string> keyValuePair in parameterList)
+                {
+                    sqlCommand.Parameters.AddWithValue(keyValuePair.Key, keyValuePair.Value);
+                }
+                sqlCommand.CommandTimeout = 360;
+                dataAdapter = new SqlDataAdapter(sqlCommand);
+                dataAdapter.Fill(ds);
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                AuditLog.WriteError(ex.Message);
+                throw ex;
+            }
+            finally
+            {
+                sqlConnection.Close();
+                sqlCommand.Dispose();
+                ds.Dispose();
+                dataAdapter = null;
+            }
+        }
+
     }
 }
