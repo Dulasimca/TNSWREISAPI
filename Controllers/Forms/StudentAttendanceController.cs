@@ -45,7 +45,8 @@ namespace TNSWREISAPI.Controllers.Forms
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@MealstypeId", Convert.ToString(MealsTypeId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@HostelID", Convert.ToString(HCode)));
-            
+            sqlParameters.Add(new KeyValuePair<string, string>("@TalukCode", Convert.ToString(TCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(DCode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@AttendanceDate", Convert.ToString(AttendanceDate)));
 
             ds = manageSQL.GetDataSetValues("GetStudentAttendance", sqlParameters);
