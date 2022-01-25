@@ -31,6 +31,7 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(entity.TCode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@HostelId ", Convert.ToString(entity.HCode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@HostelFund", entity.HostelAmount));
+                sqlParameters.Add(new KeyValuePair<string, string>("@YearId ", Convert.ToString(entity.AccYear)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
                 var result = manageSQL.InsertData("InsertHostelFundAllotment", sqlParameters);
                 return JsonConvert.SerializeObject(result);
@@ -42,13 +43,15 @@ namespace TNSWREISAPI.Controllers.Forms
             return "false";
         }
         [HttpGet("{id}")]
-        public string Get(int AccHeadFundId, int HCode, int Type)
+        public string Get(int AccHeadFundId,int DCode,int TCode, int HCode, int Type)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@AccHeadFundId", Convert.ToString(AccHeadFundId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(Type)));
             ds = manageSQL.GetDataSetValues("GetHostelFundAllotment", sqlParameters);
             return JsonConvert.SerializeObject(ds);
@@ -65,6 +68,7 @@ namespace TNSWREISAPI.Controllers.Forms
             public int DCode { get; set; }
             public int TCode { get; set; }
             public int HCode { get; set; }
+            public int AccYear { get; set; }
             public string HostelAmount { get; set; }
             public bool Flag { get; set; }
     }
