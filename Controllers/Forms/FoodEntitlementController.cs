@@ -37,18 +37,17 @@ namespace TNSWREISAPI.Controllers.Forms
             return "false";
         }
         [HttpGet("{id}")]
-        public string Get(int AccountingYearId)
+        public string Get()
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
-            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@AccountingYearId", Convert.ToString(AccountingYearId)));
-            var result = manageSQL.GetDataSetValues("GetFoodEntitlement", sqlParameters);
+            var result = manageSQL.GetDataSetValues("GetFoodEntitlement");
             return JsonConvert.SerializeObject(result);
         }
     }
     public class FoodEntitlementEntity
     {
         public int FoodId { get; set; }
+        
         public string HostelType { get; set; }
         public int Commodity { get; set; }  
         public int Quantity { get; set; }

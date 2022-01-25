@@ -74,15 +74,25 @@ namespace TNSWREISAPI.Controllers.Forms
         }
 
         [HttpGet("{id}")]
-        public string Get(string FromDate, string ToDate, int HostelId)
+        public string Get(string FromDate, string ToDate, int HostelId, int Type)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
+            var procedure = "";
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@FromDate", FromDate));
-            sqlParameters.Add(new KeyValuePair<string, string>("@ToDate", ToDate));
-            sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelId)));
-            ds = manageSQL.GetDataSetValues("GetDailyConsumption", sqlParameters);
+            if (Type == 1)
+            {
+                sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HostelId)));
+                procedure = "GetDeviceIdByHostelId";
+            }
+            else
+            {
+                sqlParameters.Add(new KeyValuePair<string, string>("@FromDate", FromDate));
+                sqlParameters.Add(new KeyValuePair<string, string>("@ToDate", ToDate));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelId)));
+                procedure = "GetDailyConsumption";
+            }
+            ds = manageSQL.GetDataSetValues(procedure, sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
 
