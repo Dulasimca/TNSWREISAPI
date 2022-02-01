@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
+using System.Data;
+
 namespace TNSWREISAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -15,13 +17,13 @@ namespace TNSWREISAPI.Controllers
        
 
         [HttpGet("{id}")]
-        public string Get(string Adate,string BiometricID)
+        public string Get(string Adate,string hotelId)
         {
-            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            ManageBioMetricsConnection manageSQL = new ManageBioMetricsConnection();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();           
             sqlParameters.Add(new KeyValuePair<string, string>("@Adate", Adate));
-            sqlParameters.Add(new KeyValuePair<string, string>("@Deviceid", BiometricID));
-            var result = manageSQL.GetDataSetValuesBM("GetBiometricDeviceAttendance", sqlParameters);
+            sqlParameters.Add(new KeyValuePair<string, string>("@hotelId", hotelId));
+            var result = manageSQL.GetDataSetValues("GetBiometricDeviceAttendance", sqlParameters);
             return JsonConvert.SerializeObject(result);
 
         }
