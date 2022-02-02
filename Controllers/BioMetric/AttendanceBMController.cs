@@ -17,12 +17,12 @@ namespace TNSWREISAPI.Controllers
        
 
         [HttpGet("{id}")]
-        public string Get(string Adate,string hotelId)
+        public string Get(string Adate,string HostelId)
         {
             ManageBioMetricsConnection manageSQL = new ManageBioMetricsConnection();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();           
             sqlParameters.Add(new KeyValuePair<string, string>("@Adate", Adate));
-            sqlParameters.Add(new KeyValuePair<string, string>("@hotelId", hotelId));
+            sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", HostelId));
             var result = manageSQL.GetDataSetValues("GetBiometricDeviceAttendance", sqlParameters);
             return JsonConvert.SerializeObject(result);
 
