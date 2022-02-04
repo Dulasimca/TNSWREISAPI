@@ -28,7 +28,7 @@ namespace TNSWREISAPI.Controllers.Reports
             sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(HostelId)));
             sqlParameters.Add(new KeyValuePair<string, string>("@FDate", Convert.ToString(FDate)));
             sqlParameters.Add(new KeyValuePair<string, string>("@TDate", Convert.ToString(TDate)));
-            var result = manageSQL.GetDataSetValues("GetPurchaseOrderByDate", sqlParameters);
+            var result = manageSQL.GetDataSetValues("GetPurchaseDetailByDate", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
     }
