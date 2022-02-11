@@ -22,15 +22,15 @@ namespace TNSWREISAPI.Controllers.Forms
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
                 sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.StudentId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Name", entity.Name));
+                sqlParameters.Add(new KeyValuePair<string, string>("@StudentName", entity.Name));
                 sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(entity.DCode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(entity.TCode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(entity.HCode)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Aadharno", entity.Aadharno));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Email", entity.EmailId));
+                sqlParameters.Add(new KeyValuePair<string, string>("@AadharNumber ", entity.Aadharno));
+                sqlParameters.Add(new KeyValuePair<string, string>("@EmailId", entity.EmailId));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
 
-                var result = manageSQL.InsertData("InsertOpeningBalance", sqlParameters);
+                var result = manageSQL.InsertData("InsertStudentFeedbackRegistration", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
             catch (Exception ex)
