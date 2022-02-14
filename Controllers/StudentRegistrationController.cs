@@ -40,7 +40,14 @@ namespace TNSWREISAPI.Controllers.Forms
             return "false";
         }
 
-
+        [HttpGet]
+        public string Get()
+        {
+            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
+            ds = manageSQL.GetDataSetValues("GetStudentFeedbackRegistration");
+            return JsonConvert.SerializeObject(ds.Tables[0]);
+        }
         public class StudentEntity
         {
             public long StudentId { get; set; }
