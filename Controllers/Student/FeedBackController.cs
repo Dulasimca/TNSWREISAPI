@@ -42,10 +42,20 @@ namespace TNSWREISAPI.Controllers.Student
             }
             return "false";
         }
+        [HttpGet("{id}")]
 
-    }
+        public string Get(int StudentId)
+        {
+            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@StudentId", Convert.ToString(StudentId)));
+            var result = manageSQL.GetDataSetValues("GetFeedBack", sqlParameters);
+            return JsonConvert.SerializeObject(result);
+        }
 
-    public class FeedBackEntity
+
+        public class FeedBackEntity
         {
             public int Slno { get; set; }
             public int HostelId { get; set; }
@@ -61,4 +71,5 @@ namespace TNSWREISAPI.Controllers.Student
 
         }
     }
+}
 
