@@ -70,7 +70,16 @@ namespace TNSWREISAPI.Controllers.Master
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             //Need to store image
             ImageUpload imageUpload = new ImageUpload();
-            var uploadResult = imageUpload.SaveImage(updateEntity.HostelImage._imageAsDataUrl, updateEntity.HostelImage._mimeType, Convert.ToString(updateEntity.HostelId));
+            Tuple<bool, string> uploadResult;
+            if (updateEntity.isMobile == 1)
+            {
+                uploadResult = imageUpload.SaveImage(updateEntity._imageAsDataUrl, updateEntity._mimeType, Convert.ToString(updateEntity.HostelId));
+            }
+            else
+            {
+                uploadResult = imageUpload.SaveImage(updateEntity.HostelImage._imageAsDataUrl, updateEntity.HostelImage._mimeType, Convert.ToString(updateEntity.HostelId));
+            }
+           // var uploadResult = imageUpload.SaveImage(updateEntity.HostelImage._imageAsDataUrl, updateEntity.HostelImage._mimeType, Convert.ToString(updateEntity.HostelId));
             if (uploadResult.Item1)
             {
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
@@ -97,6 +106,9 @@ namespace TNSWREISAPI.Controllers.Master
         public string Latitude { get; set; }
         public int Radius { get; set; }
         public HostelImageEntity HostelImage { get; set; }
+        public string _mimeType { get; set; }
+        public string _imageAsDataUrl { get; set; }
+        public int isMobile { get; set; }
     }
 
     public class HostelImageEntity
