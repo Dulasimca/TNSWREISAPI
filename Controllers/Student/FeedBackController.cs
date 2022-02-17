@@ -43,16 +43,30 @@ namespace TNSWREISAPI.Controllers.Student
             return "false";
         }
         [HttpGet("{id}")]
-
-        public string Get(int StudentId)
+        public string Get(int StudentId, int Type)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
+            var procedure = "";
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@StudentId", Convert.ToString(StudentId)));
-            var result = manageSQL.GetDataSetValues("GetFeedBack", sqlParameters);
-            return JsonConvert.SerializeObject(result);
+            if (Type == 1)
+            {
+                ds = manageSQL.GetDataSetValues("GetAllFeedBack");
+            }
+            else if (Type == 2)
+            {
+                ds = manageSQL.GetDataSetValues("GetFeedBackPending");
+            }
+            else
+            {
+                sqlParameters.Add(new KeyValuePair<string, string>("@StudentId", Convert.ToString(StudentId)));
+                procedure = "GetFeedBack";
+                ds = manageSQL.GetDataSetValues(procedure, sqlParameters);
+            }
+           
+            return JsonConvert.SerializeObject(ds.Tables[0]);
         }
+
 
 
         public class FeedBackEntity
