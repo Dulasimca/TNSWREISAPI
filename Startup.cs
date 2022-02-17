@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+//using SignalRChat.Hubs;
 
 namespace TNSWREISAPI
 {
@@ -36,12 +37,17 @@ namespace TNSWREISAPI
             }
 
             app.UseCors(options =>
-        options.WithOrigins("http://localhost:4200")
+        options.WithOrigins("http://localhost:4200", "http://localhost", "https://adatwd.tessolve.com", "/index.html", "/Menumaster", "/login", "/Registration")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials()
+        .SetIsOriginAllowed((host) => true)
         );
-
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //    endpoints.MapFallbackToFile("/index.html");
+            //});
             app.UseHttpsRedirection();
             app.UseMvc();
         }

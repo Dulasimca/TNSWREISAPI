@@ -21,12 +21,13 @@ namespace TNSWREISAPI.Controllers.Forms
             try
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
+                Tuple<bool, string> uploadResult;
                 /// Need to check conditions
                 DataSet ds = new DataSet();
                 //List<KeyValuePair<string, string>> sqlParameters1 = new List<KeyValuePair<string, string>>();
                 //sqlParameters1.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(AttendanceImageEntity.HostelID)));
                 //ds = manageSQL.GetDataSetValues("GetHostelMasterById", sqlParameters1);
-                //if(ds.Tables.Count>0)
+                //if(ds.Tables.Count>0) 
                 //{
                 //    if(ds.Tables[0].Rows.Count>0)
                 //    {
@@ -52,7 +53,15 @@ namespace TNSWREISAPI.Controllers.Forms
                 //}
 
                 ImageUpload imageUpload = new ImageUpload();
-                var uploadResult = imageUpload.SaveImage(AttendanceImageEntity.uploadImage._imageAsDataUrl, AttendanceImageEntity.uploadImage._mimeType, Convert.ToString(AttendanceImageEntity.HostelID));
+
+                if (AttendanceImageEntity.isMobile == 1)
+                {
+                    uploadResult = imageUpload.SaveImage(AttendanceImageEntity._imageAsDataUrl, AttendanceImageEntity._mimeType, Convert.ToString(AttendanceImageEntity.HostelID));
+                }
+                else
+                {
+                    uploadResult = imageUpload.SaveImage(AttendanceImageEntity.uploadImage._imageAsDataUrl, AttendanceImageEntity.uploadImage._mimeType, Convert.ToString(AttendanceImageEntity.HostelID));
+                }
                 if (uploadResult.Item1)
                 {
                     List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
@@ -65,6 +74,8 @@ namespace TNSWREISAPI.Controllers.Forms
                     sqlParameters.Add(new KeyValuePair<string, string>("@Remarks", AttendanceImageEntity.Remarks));
                     sqlParameters.Add(new KeyValuePair<string, string>("@ImageName", Convert.ToString(uploadResult.Item2)));
                     sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(AttendanceImageEntity.Flag)));
+                    sqlParameters.Add(new KeyValuePair<string, string>("@Longitude", AttendanceImageEntity.Longitude));
+                    sqlParameters.Add(new KeyValuePair<string, string>("@Latitude", AttendanceImageEntity.Latitute));
                     var result = manageSQL.InsertData("InsertAttendanceImage", sqlParameters);
                     return new Tuple<bool, string>(result, "Image captured successfully"); 
                 }
@@ -105,7 +116,10 @@ namespace TNSWREISAPI.Controllers.Forms
         public string Latitute { get; set; }
         public string Longitude { get; set; }
         public UploadImageEntity uploadImage { get; set; }
+        public string _mimeType { get; set; }
+        public string _imageAsDataUrl { get; set; }
 
+        public int isMobile { get; set; }
 
 
     }
