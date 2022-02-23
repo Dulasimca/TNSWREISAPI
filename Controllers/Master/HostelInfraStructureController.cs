@@ -31,6 +31,9 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@NoOfRoom", Convert.ToString(HostelInfraStructureEntity.NoOfRoom)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Kitchen", Convert.ToString(HostelInfraStructureEntity.Kitchen)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Bathroom", Convert.ToString(HostelInfraStructureEntity.Bathroom)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Playground", Convert.ToString(HostelInfraStructureEntity.PlaygroundCheck)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@CompoundWall", Convert.ToString(HostelInfraStructureEntity.CompoundWallCheck)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@RampFacility", Convert.ToString(HostelInfraStructureEntity.RampFacilityCheck)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(HostelInfraStructureEntity.Flag)));
                 var result = manageSQL.InsertData("InsertHostelInfraStructure", sqlParameters);
                 return JsonConvert.SerializeObject(result);
@@ -66,6 +69,10 @@ namespace TNSWREISAPI.Controllers.Master
         public string NoOfRoom { get; set; }
         public string Kitchen { get; set; }
         public string Bathroom { get; set; }
+        public int PlaygroundCheck { get; set; }
+        public int CompoundWallCheck { get; set; }
+        public int RampFacilityCheck { get; set; }
+
         public bool Flag { get; set; }
     }
 }

@@ -27,6 +27,7 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@Districtcode", Convert.ToString(EmployeeDetailsEntity.Districtcode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Talukid", Convert.ToString(EmployeeDetailsEntity.Talukid)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Designation", Convert.ToString(EmployeeDetailsEntity.Designation)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@ModeType", Convert.ToString(EmployeeDetailsEntity.ModeType)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@FirstName", Convert.ToString(EmployeeDetailsEntity.FirstName)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@LastName", Convert.ToString(EmployeeDetailsEntity.LastName)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Doj", Convert.ToString(EmployeeDetailsEntity.Doj)));
@@ -79,6 +80,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public int Districtcode { get; set; }
         public int Talukid { get; set; }
         public int Designation { get; set; }
+        public int ModeType { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Doj { get; set; }
