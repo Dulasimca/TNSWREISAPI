@@ -21,7 +21,10 @@ namespace TNSWREISAPI.Controllers.Master
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(Entity.Id)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(Entity.Id)));                
+                sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(Entity.DCode)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(Entity.TCode)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(Entity.HCode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@AccYear", Convert.ToString(Entity.AccYear)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@ImageDescription", Entity.ImageTitle));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Image", Entity.Image));
