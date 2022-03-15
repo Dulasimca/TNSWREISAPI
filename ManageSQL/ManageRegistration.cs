@@ -50,6 +50,7 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@Medium", studentEntity.medium);
                     sqlCommand.Parameters.AddWithValue("@ClassId", studentEntity.classId);
                     sqlCommand.Parameters.AddWithValue("@CourseTitle", studentEntity.courseTitle);
+                    sqlCommand.Parameters.AddWithValue("@CourseYearId", studentEntity.courseYearId);
                     sqlCommand.Parameters.AddWithValue("@LastInstituteName", studentEntity.lastStudiedInstituteName);
                     sqlCommand.Parameters.AddWithValue("@LastInstituteAddress", studentEntity.lastStudiedInstituteAddress);
                     sqlCommand.Parameters.AddWithValue("@DistanceToHome", studentEntity.distanceFromHostelToHome);

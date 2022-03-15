@@ -76,7 +76,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public string instituteName { get; set; }
         public string medium { get; set; }
         public int classId { get; set; }
-        public int CourseYearId { get; set; }
+        public int courseYearId { get; set; }
         public string courseTitle { get; set; }
         public string lastStudiedInstituteName { get; set; }
         public string lastStudiedInstituteAddress { get; set; }
