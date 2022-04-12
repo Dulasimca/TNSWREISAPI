@@ -1,0 +1,31 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
+using TNSWREISAPI.ManageSQL;
+using TNSWREISAPI.Controllers.Forms;
+
+namespace TNSWREISAPI.Controllers.Forms
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AadharCheckController : Controller
+    {
+        [HttpGet("{id}")]
+
+        public string Get(string AadharNo)
+        {
+            ManageSQLConnection manageSQL = new ManageSQLConnection();
+            DataSet ds = new DataSet();
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@AadharNo", AadharNo));
+
+            var result = manageSQL.GetDataSetValues("GetCheckAadharNo", sqlParameters);
+            return JsonConvert.SerializeObject(result);
+        }
+    }
+}
