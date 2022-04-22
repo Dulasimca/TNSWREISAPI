@@ -35,6 +35,7 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@Address", Convert.ToString(EmployeeDetailsEntity.Address)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@NativeDistrict", Convert.ToString(EmployeeDetailsEntity.NativeDistrict)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@MobileNo", Convert.ToString(EmployeeDetailsEntity.MobileNo)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@EmployeeImage", Convert.ToString(EmployeeDetailsEntity.EmployeeImage)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(EmployeeDetailsEntity.Flag)));
                 var result = manageSQL.InsertData("InsertEmployeeDetails", sqlParameters);
                 return JsonConvert.SerializeObject(result);
@@ -91,6 +92,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public string EndDate { get; set; }
         public string Remarks { get; set; }
         public bool Flag { get; set; }
-        
+        public string EmployeeImage { get; set; }
+
     }
 }
