@@ -30,9 +30,9 @@ namespace TNSWREISAPI.Model
                     Directory.CreateDirectory(path);
                 }
                 filename = "webcam_" + HostelId + "_" + DateTime.Now.ToString("ddMMyyyyhhmmss") + "." + extn;//Server.MapPath("~/UploadWebcamImages/webcam_") + DateTime.Now.ToString().Replace("/", "-").Replace(" ", "_").Replace(":", "") + ".png";
-               // var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folder);
+                                                                                                             // var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folder);
 
-                NewfullPath = Path.Combine(path, filename);
+                NewfullPath = path + "//" + filename; // Path.Combine(path, filename);
                 using (FileStream fs = new FileStream(NewfullPath, FileMode.Create))
                 {
                     using (BinaryWriter bw = new BinaryWriter(fs))
