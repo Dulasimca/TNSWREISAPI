@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+ 
 
 namespace TNSWREISAPI.Controllers
 {
@@ -14,7 +15,8 @@ namespace TNSWREISAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            Security security = new Security();
+            return new string[] { "Tncsc@22", security.Encryptword("Tncsc@22") };
         }
 
         // GET api/values/5
