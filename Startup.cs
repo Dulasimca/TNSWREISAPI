@@ -37,7 +37,7 @@ namespace TNSWREISAPI
             }
 
             app.UseCors(options =>
-        options.WithOrigins("http://localhost:4200", "http://localhost", "https://adatwd.tessolve.com", "/index.html", "/Menumaster", "/login", "/Registration")
+        options.WithOrigins("http://localhost:4200", "http://localhost", "https://adatwd.tessolve.com", "http://tnadw-hms.in", "https://tnadw-hms.in", "/index.html", "/Menumaster", "/login", "/Registration")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials()
