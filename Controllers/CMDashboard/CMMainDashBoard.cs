@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
 using TNSWREISAPI.Model;
 
-namespace TNSWREISAPI.Controllers.CMDashboard
+namespace TNSWREISAPI.Controllers.CMDashBoard
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CMMainDashBoard : ControllerBase
+    public class CMMainDashBoardController : ControllerBase
     {
 
         [HttpGet]
