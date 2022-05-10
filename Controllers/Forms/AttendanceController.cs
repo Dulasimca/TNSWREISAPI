@@ -38,7 +38,7 @@ namespace TNSWREISAPI.Controllers.Forms
         }
 
         [HttpGet("{id}")]
-        public string Get(string HostelID,string Districtcode, string Talukid,string FromDate, string Todate)
+        public string Get(string HostelID, string Districtcode, string Talukid, string FromDate, string Todate)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
@@ -54,14 +54,14 @@ namespace TNSWREISAPI.Controllers.Forms
     }
     public class AttendanceEntity
     {
-      public Int64  AttendId                  {get;set;}
-      public int  HostelID              {get;set;}
-      public int  Districtcode          {get;set;}
-      public int  Talukid               {get;set;}
-      public string  AttendanceDate   {get;set;}
-     public int NOOfStudent       { get; set; }
-     public string  Remarks            {get;set;}
-      public bool Flag { get; set; }
+        public Int64 AttendId { get; set; }
+        public int HostelID { get; set; }
+        public int Districtcode { get; set; }
+        public int Talukid { get; set; }
+        public string AttendanceDate { get; set; }
+        public int NOOfStudent { get; set; }
+        public string Remarks { get; set; }
+        public bool Flag { get; set; }
 
     }
 }
