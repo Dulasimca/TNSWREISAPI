@@ -12,7 +12,7 @@ namespace TNSWREISAPI.Model
         public List<CMDasshboardEntity> ManageDashBoardData(DataSet ds)
         {
             List<CMDasshboardEntity> _DashBoardData = new List<CMDasshboardEntity>();
-            
+
             try
             {
                 if (ds.Tables.Count > 1)
@@ -21,7 +21,11 @@ namespace TNSWREISAPI.Model
                     {
 
                         DataRow[] FilteredData = ds.Tables[0].Select("Code='" + Convert.ToString(ManageData["Code"]) + "'");
+<<<<<<< HEAD
                         if (FilteredData.Length >= 1)
+=======
+                        if (FilteredData.Count() > 1)
+>>>>>>> 2da9ce2d03a61d57ce8bf3d42e9316659fa3b785
                         {
                             CMDasshboardEntity _Data = new CMDasshboardEntity();
                             _Data.name = Convert.ToString(FilteredData[0]["Name"]);
@@ -29,7 +33,10 @@ namespace TNSWREISAPI.Model
                             foreach (DataRow nFData in FilteredData)
                             {
                                 _Data.hcount += Convert.ToInt32(nFData["HCount"]);
+<<<<<<< HEAD
                                 _Data.genderType = Convert.ToInt32(nFData["HGenderType"]);
+=======
+>>>>>>> 2da9ce2d03a61d57ce8bf3d42e9316659fa3b785
                                 if (Convert.ToInt32(nFData["HGenderType"]) == 1) //Boys
                                 {
                                     _Data.boysHostelCount = Convert.ToInt32(nFData["HCount"]);
