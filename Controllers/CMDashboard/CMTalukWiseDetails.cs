@@ -21,7 +21,7 @@ namespace TNSWREISAPI.Controllers.CMDashboard
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@TalukId", Convert.ToString(Code)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@DistrictCode", Convert.ToString(Code)));
                 var result = manageSQL.GetDataSetValues("GetTalukWisedetails", sqlParameters);
                 ManageCMDashboardData cMDashboardData = new ManageCMDashboardData();
                 var nData = cMDashboardData.ManageDashBoardData(result);
