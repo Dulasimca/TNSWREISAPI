@@ -22,15 +22,15 @@ namespace TNSWREISAPI.Controllers.Forms
         }
 
         [HttpGet("{id}")]
-        public string Get(int DCode, int TCode, int HCode)
+        public string Get(string AadharNo, string MobileNo, string Dob)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HCode)));
-            ds = manageSQL.GetDataSetValues("GetOnlineRegistration", sqlParameters);
+            sqlParameters.Add(new KeyValuePair<string, string>("@AadharNo",(AadharNo))); 
+            sqlParameters.Add(new KeyValuePair<string, string>("@MobileNo", (MobileNo)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Dob", (Dob)));
+            ds = manageSQL.GetDataSetValues("GetOnlineRegistrationById", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
 
