@@ -16,8 +16,20 @@ namespace TNSWREISAPI.Controllers.Forms
         [HttpPost("{id}")]
         public bool Post(onlineStudentEntity entity)
         {
-            ManageOnlineRegistration ManageOnlineRegistration = new ManageOnlineRegistration();
-            var result = ManageOnlineRegistration.InsertOnlineStudentDetails(entity);
+            bool result = false;
+            if (entity.studentId>0)
+            {
+                //Generate the PDF file. 
+
+            }
+            else
+            {
+                ManageOnlineRegistration ManageOnlineRegistration = new ManageOnlineRegistration();
+                result = ManageOnlineRegistration.InsertOnlineStudentDetails(entity);
+                //Generate the PDF file. 
+
+            }
+           
             return result;
         }
 
