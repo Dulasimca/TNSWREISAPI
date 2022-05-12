@@ -21,7 +21,7 @@ namespace TNSWREISAPI.Model
                     {
 
                         DataRow[] FilteredData = ds.Tables[0].Select("Code='" + Convert.ToString(ManageData["Code"]) + "'");
-                        if (FilteredData.Count() > 1)
+                        if (FilteredData.Length >= 1)
                         {
                             CMDasshboardEntity _Data = new CMDasshboardEntity();
                             _Data.name = Convert.ToString(FilteredData[0]["Name"]);
@@ -29,6 +29,7 @@ namespace TNSWREISAPI.Model
                             foreach (DataRow nFData in FilteredData)
                             {
                                 _Data.hcount += Convert.ToInt32(nFData["HCount"]);
+                                _Data.genderType = Convert.ToInt32(nFData["HGenderType"]);
                                 if (Convert.ToInt32(nFData["HGenderType"]) == 1) //Boys
                                 {
                                     _Data.boysHostelCount = Convert.ToInt32(nFData["HCount"]);
@@ -72,5 +73,6 @@ namespace TNSWREISAPI.Model
         public int sanctionedGirlsCount { get; set; }
         public int boysCount { get; set; }
         public int girlsCount { get; set; }
+        public int genderType { get; set; }
     }
 }
