@@ -51,11 +51,11 @@ namespace TNSWREISAPI.Controllers.CMDashboard
         /// <param name="MajorItemName">Major Item Name</param>
         /// <param name="dataTable">Data table value</param>
         /// <returns></returns>
-        public decimal[] GetValueInArray(string DesignationName, DataTable dataTable, string[] Regioninfo)
+        public decimal[] GetValueInArray(string DesignationName, DataTable dataTable, string[] districtInfo)
         {
-            decimal[] svalues = new decimal[Regioninfo.Length];
+            decimal[] svalues = new decimal[districtInfo.Length];
             int i = 0;
-            foreach (var item in Regioninfo)
+            foreach (var item in districtInfo)
             {
                 DataRow[] rowsFiltered = dataTable.Select("Districtname='" + item + "' and DesignationName='" + DesignationName + "'");
                 //FilterDataRow(item, "PALMOLIEN POUCH", dataTable);
