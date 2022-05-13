@@ -101,7 +101,7 @@ namespace TNSWREISAPI.ManageSQL
                 {
                     sqlCommand.Parameters.AddWithValue(keyValuePair.Key, keyValuePair.Value);
                 }
-                int affected = sqlCommand.ExecuteNonQuery();
+              sqlCommand.ExecuteNonQuery();
                 //  AuditLog.WriteError(affected.ToString());
                 return true;
             }

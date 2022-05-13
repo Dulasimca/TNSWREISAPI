@@ -65,10 +65,13 @@ namespace TNSWREISAPI.Controllers.Master
         {
             try
             {
+               
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 Security security = new Security();
                 var encryptedValue = security.Encryptword(entity.NewPwd);
                 var encryptedValue1 = security.Encryptword(entity.OldPwd);
+                AuditLog.WriteError(encryptedValue1);
+                AuditLog.WriteError(entity.OldEncryptedPwd);
                 if (encryptedValue1 == entity.OldEncryptedPwd)
                 {
                     List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
