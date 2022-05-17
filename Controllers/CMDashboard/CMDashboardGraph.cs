@@ -12,7 +12,7 @@ namespace TNSWREISAPI.Controllers.CMDashboard
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CMDashboardGraph : ControllerBase
+    public class CMDashboardGraphController : ControllerBase
     {
         [HttpGet]
         public string Get()
