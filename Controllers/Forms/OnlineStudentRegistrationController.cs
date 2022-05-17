@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TNSWREISAPI.ManageSQL;
+using TNSWREISAPI.Model;
 
 namespace TNSWREISAPI.Controllers.Forms
 {
@@ -20,14 +21,16 @@ namespace TNSWREISAPI.Controllers.Forms
             if (entity.studentId>0)
             {
                 //Generate the PDF file. 
-
+                GeneratePDFDocument generatePDF = new GeneratePDFDocument();
+                generatePDF.Generate(entity.aadharNo, entity.mobileNo, entity.dob);
             }
             else
             {
                 ManageOnlineRegistration ManageOnlineRegistration = new ManageOnlineRegistration();
                 result = ManageOnlineRegistration.InsertOnlineStudentDetails(entity);
                 //Generate the PDF file. 
-
+                GeneratePDFDocument generatePDF = new GeneratePDFDocument();
+                generatePDF.Generate(entity.aadharNo, entity.mobileNo, entity.dob);
             }
            
             return result;
