@@ -23,7 +23,7 @@ namespace TNSWREISAPI.Model
         public string StudentFilename { get; set; }
         public string InstituteName { get; set; }
         public string Medium { get; set; }
-        public string ClassName { get; set; }
+        public string ClassId { get; set; }
         public string CourseYearId { get; set; }
         public string CourseTitle { get; set; }
         public string LastInstitutionName { get; set; }
