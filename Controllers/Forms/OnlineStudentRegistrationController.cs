@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TNSWREISAPI.ManageSQL;
+using TNSWREISAPI.Model;
 
 namespace TNSWREISAPI.Controllers.Forms
 {
@@ -16,21 +17,37 @@ namespace TNSWREISAPI.Controllers.Forms
         [HttpPost("{id}")]
         public bool Post(onlineStudentEntity entity)
         {
-            ManageOnlineRegistration ManageOnlineRegistration = new ManageOnlineRegistration();
-            var result = ManageOnlineRegistration.InsertOnlineStudentDetails(entity);
+            bool result = false;
+            if (entity.studentId>0)
+            {
+                //Generate the PDF file. 
+                GeneratePDFDocument generatePDF = new GeneratePDFDocument();
+                generatePDF.Generate(entity.aadharNo, entity.mobileNo, entity.dob);
+            }
+            else
+            {
+                ManageOnlineRegistration ManageOnlineRegistration = new ManageOnlineRegistration();
+                result = ManageOnlineRegistration.InsertOnlineStudentDetails(entity);
+                //Generate the PDF file. 
+                GeneratePDFDocument generatePDF = new GeneratePDFDocument();
+                generatePDF.Generate(entity.aadharNo, entity.mobileNo, entity.dob);
+            }
+           
             return result;
         }
 
         [HttpGet("{id}")]
-        public string Get(int DCode, int TCode, int HCode)
+        public string Get(string AadharNo, string MobileNo, string Dob)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HCode)));
-            ds = manageSQL.GetDataSetValues("GetOnlineRegistration", sqlParameters);
+            sqlParameters.Add(new KeyValuePair<string, string>("@AadharNo",(AadharNo))); 
+            sqlParameters.Add(new KeyValuePair<string, string>("@MobileNo", (MobileNo)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Dob", (Dob)));
+            ds = manageSQL.GetDataSetValues("GetOnlineRegistrationById", sqlParameters);
+            GeneratePDFDocument generatePDF = new GeneratePDFDocument();
+            generatePDF.Generate(ds);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
 
