@@ -13,9 +13,10 @@ namespace TNSWREISAPI.Model
 {
     public class ManagePDFGeneration
     {
-        Font NormalFont = FontFactory.GetFont("Courier New", 10, Font.NORMAL, BaseColor.BLACK);
-        Font FSSAIFont = FontFactory.GetFont("Courier New", 10, Font.NORMAL, BaseColor.BLACK);
-        Font Header = new Font(Font.FontFamily.TIMES_ROMAN, 11f, Font.UNDERLINE, BaseColor.BLACK);
+        Font NormalFont = FontFactory.GetFont("Courier New", 8, Font.NORMAL, BaseColor.Black);
+        Font FSSAIFont = FontFactory.GetFont("Courier New", 8, Font.NORMAL, BaseColor.Black);
+        Font Header = FontFactory.GetFont("Times New Roman", 8, Font.UNDERLINE, BaseColor.Black);
+        //new Font(Font.fon.TIMES_ROMAN, 11f, Font.UNDERLINE, BaseColor.Black);
        // header.SetStyle(Font.UNDERLINE);
         #region
         public Tuple<bool, string> GeneratePDF(StudentEntity entity = null)
@@ -44,14 +45,14 @@ namespace TNSWREISAPI.Model
                 document.AddKeywords("TNCSC- Webcopy ");
                 document.AddSubject("Document subject - Ack Web Copy ");
                 document.AddTitle("The document title - PDF creation for Receipt Document");
-
+              
                 //Open the PDF document  
                 document.Open();
                 AddSpace(document);
                 string imagePath = GlobalVariable.FolderPath + "images\\TN_Logo.PNG";
                 iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(imagePath);
                 img.Alignment = Element.ALIGN_CENTER;
-                img.ScaleToFit(70f, 60f);
+                img.ScaleToFit(60f, 60f);
 
                 //imagePath = GlobalVariable.FolderPath + "layout\\images\\dashboard\\watermark.PNG";
                 //iTextSharp.text.Image imgWaterMark = iTextSharp.text.Image.GetInstance(imagePath);
@@ -82,7 +83,7 @@ namespace TNSWREISAPI.Model
                 table.AddCell(cell);
                 cell = new PdfPCell(new Phrase(" "));
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell.Rowspan = 1;
+               // cell.Rowspan = 1;
                 cell.BorderWidth = 0;
                 table.AddCell(cell);
                 cell = new PdfPCell(new Phrase(" STUDENT REGISTRATION ACKNOWLEDGMENT         WEB COPY"));
@@ -100,90 +101,75 @@ namespace TNSWREISAPI.Model
                 document.Add(table);
 
                 Paragraph heading = new Paragraph("");
+                Paragraph topic = new Paragraph("", Header);
                 //heading.Alignment = Element.ALIGN_CENTER;
                 //document.Add(heading); 
                 AddHRLine(document);
-                Paragraph topic = new Paragraph("PERSONAL DETAILS", Header);
-                topic.Alignment = Element.ALIGN_LEFT;
-                document.Add(topic);
-
-                //add header values
-                string Path = GlobalVariable.FolderPath + entity.HostelID + "\\Documents\\student.JPG";
-                iTextSharp.text.Image imge = iTextSharp.text.Image.GetInstance(Path);
-                imge.Alignment = Element.ALIGN_LEFT;
-                imge.ScaleToFit(80f, 60f);
-
-                PdfPCell cell1 = new PdfPCell();
-                cell1.HorizontalAlignment = Element.ALIGN_LEFT;
-                cell1.Rowspan = 3;
-                //  cell1.Colspan = 3;
-                cell1.BorderWidth = 0;
-                table.AddCell(cell1);
-                document.Add(imge);
                 AddStudentInfo(document, entity);
                 AddSpace(document);
-                heading = new Paragraph("IDENTIFICATION DETAILS", Header);
+                heading = new Paragraph(" IDENTIFICATION DETAILS", Header);
                 heading.Alignment = Element.ALIGN_LEFT;
                 AddSpace(document);
                 document.Add(heading);
                 AddSpace(document);
                 AddIdentificationDetails(document, entity);
                 AddSpace(document);
-                topic = new Paragraph("INSTITUTION DETAILS", Header);
+                topic = new Paragraph(" INSTITUTION DETAILS", Header);
                 topic.Alignment = Element.ALIGN_LEFT;
                 AddSpace(document);
                 document.Add(topic);
                 AddSpace(document);
                 AddInstituteDetails(document, entity);
                 AddSpace(document);
-                heading = new Paragraph("HOSTEL DETAILS", Header);
+                heading = new Paragraph(" HOSTEL DETAILS", Header);
                 heading.Alignment = Element.ALIGN_LEFT;
                 document.Add(heading);
                 AddSpace(document);
                 AddHostelDetails(document, entity);
                 AddSpace(document);
-                heading = new Paragraph("DISABILITY DETAILS", Header);
+                heading = new Paragraph(" DISABILITY DETAILS", Header);
                 heading.Alignment = Element.ALIGN_LEFT;
                 document.Add(heading);
                 AddSpace(document);
                 AddDisabilityDetails(document, entity);
                 AddSpace(document);
-                heading = new Paragraph("DISTANCE DETAILS(in Kms)", Header);
+                heading = new Paragraph(" DISTANCE DETAILS(in Kms)", Header);
                 heading.Alignment = Element.ALIGN_LEFT;
                 document.Add(heading);
                 AddSpace(document);
                 AddDistanceDetails(document, entity);
                 AddSpace(document);
-                heading = new Paragraph("LAST STUDIED INSTITUTION DETAILS", Header);
+                heading = new Paragraph(" LAST STUDIED INSTITUTION DETAILS", Header);
                 heading.Alignment = Element.ALIGN_LEFT;
                 document.Add(heading);
                 AddSpace(document);
                 AddLastStudiedDetails(document, entity);
                 AddSpace(document);
-                heading = new Paragraph("NATIVE ADDRESS", Header);
+                heading = new Paragraph(" NATIVE ADDRESS", Header);
                 heading.Alignment = Element.ALIGN_LEFT;
                 document.Add(heading);
                 AddSpace(document);
                 AddAddressDetails(document, entity);
                 AddSpace(document);
-                heading = new Paragraph("BANK DETAILS",Header);
+                heading = new Paragraph(" BANK DETAILS",Header);
                 heading.Alignment = Element.ALIGN_LEFT;
                 document.Add(heading);
+                AddSpace(document);
                 AddBankDetails(document, entity);
                 AddSpace(document);
-                heading = new Paragraph("PARENT'S INFO",Header);
+                heading = new Paragraph(" PARENT'S INFO",Header);
                 heading.Alignment = Element.ALIGN_LEFT;
                 document.Add(heading);
                 AddSpace(document);
                 AddParentDetails(document, entity);
                 AddSpace(document);
-                heading = new Paragraph("GUARDIAN'S INFO", Header);
+                heading = new Paragraph(" GUARDIAN'S INFO", Header);
                 heading.Alignment = Element.ALIGN_LEFT;
                 document.Add(heading);
                 AddSpace(document);
                 AddGuardianDetails(document, entity);
                 AddSpace(document);
-                heading = new Paragraph("DOCUMENT UPLOAD DETAILS", Header);
+                heading = new Paragraph(" DOCUMENT UPLOAD DETAILS", Header);
                 heading.Alignment = Element.ALIGN_LEFT;
                 document.Add(heading);
                 AddSpace(document);
@@ -196,7 +182,7 @@ namespace TNSWREISAPI.Model
                 rectangle.Right -= document.RightMargin;
                 rectangle.Top -= document.TopMargin;
                 rectangle.Bottom += document.BottomMargin;
-                content.SetColorStroke(BaseColor.BLACK);
+                content.SetColorStroke(BaseColor.Black);
                 content.Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, rectangle.Height);
                 content.Stroke();
                 // Close the document  
@@ -216,7 +202,7 @@ namespace TNSWREISAPI.Model
         }
         public void AddHRLine(iTextSharp.text.Document doc)
         {
-            LineSeparator line = new LineSeparator(1f, 100f, BaseColor.BLACK, Element.ALIGN_LEFT, 1);
+            LineSeparator line = new LineSeparator(1f, 100f, BaseColor.Black, Element.ALIGN_LEFT, 1);
             doc.Add(line);
         }
 
@@ -239,7 +225,15 @@ namespace TNSWREISAPI.Model
             int[] firstTablecellwidth = { 20, 5, 25, 20, 5, 25 };
             table.SetWidths(firstTablecellwidth);
 
-             
+            Paragraph topic = new Paragraph(" PERSONAL DETAILS", Header);
+            topic.Alignment = Element.ALIGN_LEFT;
+            doc.Add(topic);
+            AddSpace(doc);
+            //add header values
+            string Path = GlobalVariable.FolderPath + _studentEntity.HostelID + "\\Documents\\" + _studentEntity.StudentFilename;
+            iTextSharp.text.Image imge = iTextSharp.text.Image.GetInstance(Path);
+            imge.Alignment = Element.ALIGN_LEFT;
+            imge.ScaleToFit(80f, 60f);
 
             PdfPCell cell = new PdfPCell(new Phrase("Student Name", NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
@@ -253,10 +247,18 @@ namespace TNSWREISAPI.Model
 
             cell = new PdfPCell(new Phrase(_studentEntity.StudentName, NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
-            //cell.Colspan = 4;
             cell.BorderWidth = 0;
+            cell.Colspan = 2;
             table.AddCell(cell);
 
+            PdfPCell cell1 = new PdfPCell(imge);
+            cell1.HorizontalAlignment = Element.ALIGN_RIGHT;
+            cell1.Rowspan = 5;
+            cell1.Colspan = 2;
+            cell1.PaddingRight = 2;
+            cell1.BorderWidth = 0;
+            table.AddCell(cell1);
+       
             cell = new PdfPCell(new Phrase("Admission No.", NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
@@ -270,6 +272,7 @@ namespace TNSWREISAPI.Model
             cell = new PdfPCell(new Phrase(_studentEntity.AdmissionNo, NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
+            cell.Colspan = 2;
             table.AddCell(cell);
 
             cell = new PdfPCell(new Phrase("Date of Birth", NormalFont));
@@ -284,7 +287,7 @@ namespace TNSWREISAPI.Model
 
             cell = new PdfPCell(new Phrase(_studentEntity.Dob, NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
-            //cell.Colspan = 4;
+            cell.Colspan = 2;
             cell.BorderWidth = 0;
             table.AddCell(cell);
 
@@ -301,6 +304,7 @@ namespace TNSWREISAPI.Model
             cell = new PdfPCell(new Phrase(_studentEntity.Age, NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
+            cell.Colspan = 2;
             table.AddCell(cell);
 
             cell = new PdfPCell(new Phrase("Blood Group", NormalFont));
@@ -316,6 +320,7 @@ namespace TNSWREISAPI.Model
             cell = new PdfPCell(new Phrase(_studentEntity.BloodgroupName, NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
+            cell.Colspan = 2;
             table.AddCell(cell);
 
             cell = new PdfPCell(new Phrase("Gender", NormalFont));

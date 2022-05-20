@@ -56,7 +56,7 @@ namespace TNSWREISAPI.Model
                 _studentEntity.HostelID = Convert.ToString(studentDs.Tables[0].Rows[0]["hostelId"]);
                 _studentEntity.StudentName = Convert.ToString(studentDs.Tables[0].Rows[0]["studentName"]);
                 _studentEntity.Age = Convert.ToString(studentDs.Tables[0].Rows[0]["age"]);
-                _studentEntity.Dob = Convert.ToString(studentDs.Tables[0].Rows[0]["dob"]);
+                _studentEntity.Dob = Convert.ToString(studentDs.Tables[0].Rows[0]["DateofBirth"]);
                 _studentEntity.BloodGroup = Convert.ToString(studentDs.Tables[0].Rows[0]["bloodGroup"]);
                 _studentEntity.Gender = Convert.ToString(studentDs.Tables[0].Rows[0]["gender"]);
                 _studentEntity.MotherTongue = Convert.ToString(studentDs.Tables[0].Rows[0]["motherTongue"]);
@@ -150,9 +150,8 @@ namespace TNSWREISAPI.Model
             _studentEntity.IncomeCertificateFilename = !string.IsNullOrEmpty(_studentEntity.IncomeCertificateFilename) || _studentEntity.IncomeCertificateFilename != "" ? "Yes" : "No";
             _studentEntity.TcFilename = !string.IsNullOrEmpty(_studentEntity.TcFilename) || _studentEntity.TcFilename != "" ? "Yes" : "No";
             _studentEntity.MICRNO = !string.IsNullOrEmpty(_studentEntity.MICRNO) || _studentEntity.MICRNO != "" ? _studentEntity.MICRNO : "-";
-
-
             _studentEntity.DisabilityType = !string.IsNullOrEmpty(_studentEntity.DisabilityType) || _studentEntity.DisabilityType == "0" ? "No" : _studentEntity.DisabilityType;
+            _studentEntity.StudentFilename = !string.IsNullOrEmpty(_studentEntity.StudentFilename) || _studentEntity.StudentFilename != "" ? _studentEntity.StudentFilename : "";
             //};
             return _studentEntity;
         }
