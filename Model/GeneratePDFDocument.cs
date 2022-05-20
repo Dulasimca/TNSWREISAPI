@@ -64,7 +64,7 @@ namespace TNSWREISAPI.Model
                 _studentEntity.AltMobNo = Convert.ToString(studentDs.Tables[0].Rows[0]["altMobNo"]);
                 _studentEntity.Religion = Convert.ToString(studentDs.Tables[0].Rows[0]["religion"]);
                 _studentEntity.Caste = Convert.ToString(studentDs.Tables[0].Rows[0]["caste"]);
-                _studentEntity.Subcaste = Convert.ToString(studentDs.Tables[0].Rows[0]["subCast"]);
+                _studentEntity.Subcaste = Convert.ToString(studentDs.Tables[0].Rows[0]["subCaste"]);
                 _studentEntity.StudentFilename = Convert.ToString(studentDs.Tables[0].Rows[0]["studentFilename"]);
                 _studentEntity.InstituteName = Convert.ToString(studentDs.Tables[0].Rows[0]["instituteName"]);
                 _studentEntity.Medium = Convert.ToString(studentDs.Tables[0].Rows[0]["medium"]);
@@ -127,17 +127,34 @@ namespace TNSWREISAPI.Model
                 _studentEntity.Districtname = Convert.ToString(studentDs.Tables[0].Rows[0]["Districtname"]);
                 _studentEntity.Talukname = Convert.ToString(studentDs.Tables[0].Rows[0]["Talukname"]);
                 _studentEntity.HostelDName = Convert.ToString(studentDs.Tables[0].Rows[0]["hostelDName"]);
-                _studentEntity.HostelTName = Convert.ToString(studentDs.Tables[0].Rows[0]["hostelTNam"]);
+                _studentEntity.HostelTName = Convert.ToString(studentDs.Tables[0].Rows[0]["hostelTName"]);
                 _studentEntity.HostelName = Convert.ToString(studentDs.Tables[0].Rows[0]["HostelName"]);
                 _studentEntity.ScholarshipId = Convert.ToString(studentDs.Tables[0].Rows[0]["scholarshipId"]);
-                _studentEntity.Remarks = Convert.ToString(studentDs.Tables[0].Rows[0]["remark"]);
+                _studentEntity.Remarks = Convert.ToString(studentDs.Tables[0].Rows[0]["remarks"]);
                 _studentEntity.AdmissionNo = Convert.ToString(studentDs.Tables[0].Rows[0]["admissionNo"]);
                 _studentEntity.AcademicYear = Convert.ToString(studentDs.Tables[0].Rows[0]["AcademicYear"]);
                 _studentEntity.Address = Convert.ToString(studentDs.Tables[0].Rows[0]["Address"]);
                 _studentEntity.Course = Convert.ToString(studentDs.Tables[0].Rows[0]["Course"]);
             }
-            return _studentEntity;
+
+
+            return CheckValues(_studentEntity);
         }
 
+        public StudentEntity CheckValues(StudentEntity _studentEntity)
+        {
+            //StudentEntity studentEntity = new StudentEntity
+            //{
+            _studentEntity.DeclarationFilename = !string.IsNullOrEmpty(_studentEntity.DeclarationFilename) || _studentEntity.DeclarationFilename != "" ? "Yes" : "No";
+            _studentEntity.BankPassbookFilename = !string.IsNullOrEmpty(_studentEntity.BankPassbookFilename) || _studentEntity.BankPassbookFilename != "" ? "Yes" : "No";
+            _studentEntity.IncomeCertificateFilename = !string.IsNullOrEmpty(_studentEntity.IncomeCertificateFilename) || _studentEntity.IncomeCertificateFilename != "" ? "Yes" : "No";
+            _studentEntity.TcFilename = !string.IsNullOrEmpty(_studentEntity.TcFilename) || _studentEntity.TcFilename != "" ? "Yes" : "No";
+            _studentEntity.MICRNO = !string.IsNullOrEmpty(_studentEntity.MICRNO) || _studentEntity.MICRNO != "" ? _studentEntity.MICRNO : "-";
+
+
+            _studentEntity.DisabilityType = !string.IsNullOrEmpty(_studentEntity.DisabilityType) || _studentEntity.DisabilityType == "0" ? "No" : _studentEntity.DisabilityType;
+            //};
+            return _studentEntity;
+        }
     }
 }
