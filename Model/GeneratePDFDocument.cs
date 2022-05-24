@@ -151,7 +151,7 @@ namespace TNSWREISAPI.Model
             _studentEntity.TcFilename = !string.IsNullOrEmpty(_studentEntity.TcFilename) || _studentEntity.TcFilename != "" ? "Yes" : "No";
             _studentEntity.MICRNO = !string.IsNullOrEmpty(_studentEntity.MICRNO) || _studentEntity.MICRNO != "" ? _studentEntity.MICRNO : "-";
             _studentEntity.DisabilityType = !string.IsNullOrEmpty(_studentEntity.DisabilityType) || _studentEntity.DisabilityType == "0" ? "No" : _studentEntity.DisabilityType;
-            _studentEntity.StudentFilename = !string.IsNullOrEmpty(_studentEntity.StudentFilename) || _studentEntity.StudentFilename != "" ? _studentEntity.StudentFilename : "";
+            _studentEntity.StudentFilename = !string.IsNullOrEmpty(_studentEntity.StudentFilename) || _studentEntity.StudentFilename != "" ? _studentEntity.StudentFilename : GlobalVariable.FolderPath + "images\\no_image.PNG";
             //};
             return _studentEntity;
         }

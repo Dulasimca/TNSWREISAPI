@@ -16,8 +16,10 @@ namespace TNSWREISAPI.Model
         Font NormalFont = FontFactory.GetFont("Courier New", 8, Font.NORMAL, BaseColor.Black);
         Font FSSAIFont = FontFactory.GetFont("Courier New", 8, Font.NORMAL, BaseColor.Black);
         Font Header = FontFactory.GetFont("Times New Roman", 8, Font.UNDERLINE, BaseColor.Black);
+        Font Smallfont = FontFactory.GetFont("Times New Roman", 6, BaseColor.Black);
+
         //new Font(Font.fon.TIMES_ROMAN, 11f, Font.UNDERLINE, BaseColor.Black);
-       // header.SetStyle(Font.UNDERLINE);
+        // header.SetStyle(Font.UNDERLINE);
         #region
         public Tuple<bool, string> GeneratePDF(StudentEntity entity = null)
         {
@@ -76,17 +78,19 @@ namespace TNSWREISAPI.Model
                 cell.BorderWidth = 0;
                 // cell.Border = (Border.NO_BORDER);
                 table.AddCell(cell);
+                AddSpace(document);
+
                 cell = new PdfPCell(new Phrase("TAMILNADU ADI DRAVIDAR WELFARE DEPARTMENT"));
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Rowspan = 1;
-                cell.BorderWidth = 0; 
+                cell.BorderWidth = 0;
                 table.AddCell(cell);
                 cell = new PdfPCell(new Phrase(" "));
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                // cell.Rowspan = 1;
                 cell.BorderWidth = 0;
                 table.AddCell(cell);
-                cell = new PdfPCell(new Phrase(" STUDENT REGISTRATION ACKNOWLEDGMENT         WEB COPY"));
+                cell = new PdfPCell(new Phrase(" STUDENT ONLINE REGISTRATION ACKNOWLEDGMENT"));
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Rowspan = 1;
                 cell.BorderWidth = 0;
@@ -109,14 +113,14 @@ namespace TNSWREISAPI.Model
                 AddSpace(document);
                 heading = new Paragraph(" IDENTIFICATION DETAILS", Header);
                 heading.Alignment = Element.ALIGN_LEFT;
-                AddSpace(document);
+           //     AddSpace(document);
                 document.Add(heading);
                 AddSpace(document);
                 AddIdentificationDetails(document, entity);
                 AddSpace(document);
                 topic = new Paragraph(" INSTITUTION DETAILS", Header);
                 topic.Alignment = Element.ALIGN_LEFT;
-                AddSpace(document);
+             //   AddSpace(document);
                 document.Add(topic);
                 AddSpace(document);
                 AddInstituteDetails(document, entity);
@@ -169,11 +173,17 @@ namespace TNSWREISAPI.Model
                 AddSpace(document);
                 AddGuardianDetails(document, entity);
                 AddSpace(document);
-                heading = new Paragraph(" DOCUMENT UPLOAD DETAILS", Header);
+                heading = new Paragraph(" DOCUMENT UPLOADED DETAILS", Header);
                 heading.Alignment = Element.ALIGN_LEFT;
                 document.Add(heading);
                 AddSpace(document);
                 AddDocumentDetails(document, entity);
+                topic = new Paragraph("Document generated:", Smallfont);
+                topic.Alignment = Element.ALIGN_RIGHT;
+                document.Add(topic);
+                heading = new Paragraph(DateTime.UtcNow.AddHours(5.5).ToString("yyyy-MM-dd THH:mm: ss"), Smallfont);
+                heading.Alignment = Element.ALIGN_RIGHT;
+                document.Add(heading);
 
                 //Add border to page
                 PdfContentByte content = writer.DirectContent;
@@ -235,7 +245,33 @@ namespace TNSWREISAPI.Model
             imge.Alignment = Element.ALIGN_LEFT;
             imge.ScaleToFit(80f, 60f);
 
-            PdfPCell cell = new PdfPCell(new Phrase("Student Name", NormalFont));
+
+
+            PdfPCell cell = new PdfPCell(new Phrase("Online Application No.", NormalFont));
+            cell.HorizontalAlignment = Element.ALIGN_LEFT;
+            cell.BorderWidth = 0;
+            table.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase(":", NormalFont));
+            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+            cell.BorderWidth = 0;
+            table.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase(_studentEntity.StudentId, NormalFont));
+            cell.HorizontalAlignment = Element.ALIGN_LEFT;
+            cell.BorderWidth = 0;
+            cell.Colspan = 2;
+            table.AddCell(cell);
+
+            PdfPCell cell1 = new PdfPCell(imge);
+            cell1.HorizontalAlignment = Element.ALIGN_RIGHT;
+            cell1.Rowspan = 5;
+            cell1.Colspan = 2;
+            cell1.PaddingRight = 2;
+            cell1.BorderWidth = 0;
+            table.AddCell(cell1);
+
+             cell = new PdfPCell(new Phrase("Student Name", NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
             table.AddCell(cell);
@@ -251,14 +287,7 @@ namespace TNSWREISAPI.Model
             cell.Colspan = 2;
             table.AddCell(cell);
 
-            PdfPCell cell1 = new PdfPCell(imge);
-            cell1.HorizontalAlignment = Element.ALIGN_RIGHT;
-            cell1.Rowspan = 5;
-            cell1.Colspan = 2;
-            cell1.PaddingRight = 2;
-            cell1.BorderWidth = 0;
-            table.AddCell(cell1);
-       
+
             cell = new PdfPCell(new Phrase("Admission No.", NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
@@ -304,7 +333,7 @@ namespace TNSWREISAPI.Model
             cell = new PdfPCell(new Phrase(_studentEntity.Age, NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
-            cell.Colspan = 2;
+            cell.Colspan = 4;
             table.AddCell(cell);
 
             cell = new PdfPCell(new Phrase("Blood Group", NormalFont));
@@ -320,7 +349,7 @@ namespace TNSWREISAPI.Model
             cell = new PdfPCell(new Phrase(_studentEntity.BloodgroupName, NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
-            cell.Colspan = 2;
+        //    cell.Colspan = 2;
             table.AddCell(cell);
 
             cell = new PdfPCell(new Phrase("Gender", NormalFont));
@@ -787,6 +816,22 @@ namespace TNSWREISAPI.Model
             cell.BorderWidth = 0;
             table.AddCell(cell);
 
+            cell = new PdfPCell(new Phrase("Village/Town", NormalFont));
+            cell.HorizontalAlignment = Element.ALIGN_LEFT;
+            cell.BorderWidth = 0;
+            table.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase(":", NormalFont));
+            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+            cell.BorderWidth = 0;
+            table.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase(_studentEntity.Village, NormalFont));
+            cell.HorizontalAlignment = Element.ALIGN_LEFT;
+            //cell.Colspan = 4;
+            cell.BorderWidth = 0;
+            table.AddCell(cell);
+
             cell = new PdfPCell(new Phrase("District", NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
@@ -819,21 +864,7 @@ namespace TNSWREISAPI.Model
             cell.BorderWidth = 0;
             table.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase("Village", NormalFont));
-            cell.HorizontalAlignment = Element.ALIGN_LEFT;
-            cell.BorderWidth = 0;
-            table.AddCell(cell);
-
-            cell = new PdfPCell(new Phrase(":", NormalFont));
-            cell.HorizontalAlignment = Element.ALIGN_CENTER;
-            cell.BorderWidth = 0;
-            table.AddCell(cell);
-
-            cell = new PdfPCell(new Phrase(_studentEntity.Village, NormalFont));
-            cell.HorizontalAlignment = Element.ALIGN_LEFT;
-            //cell.Colspan = 4;
-            cell.BorderWidth = 0;
-            table.AddCell(cell);
+            
 
             cell = new PdfPCell(new Phrase("Pincode", NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
@@ -975,6 +1006,22 @@ namespace TNSWREISAPI.Model
             cell.BorderWidth = 0;
             table.AddCell(cell);
 
+            cell = new PdfPCell(new Phrase("Mother's Name", NormalFont));
+            cell.HorizontalAlignment = Element.ALIGN_LEFT;
+            cell.BorderWidth = 0;
+            table.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase(":", NormalFont));
+            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+            cell.BorderWidth = 0;
+            table.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase(_studentEntity.MotherName, NormalFont));
+            cell.HorizontalAlignment = Element.ALIGN_LEFT;
+            //cell.Colspan = 4;
+            cell.BorderWidth = 0;
+            table.AddCell(cell);
+
             cell = new PdfPCell(new Phrase("Father's Qualification", NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
@@ -991,21 +1038,7 @@ namespace TNSWREISAPI.Model
             cell.BorderWidth = 0;
             table.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase("Mother's Name", NormalFont));
-            cell.HorizontalAlignment = Element.ALIGN_LEFT;
-            cell.BorderWidth = 0;
-            table.AddCell(cell);
-
-            cell = new PdfPCell(new Phrase(":", NormalFont));
-            cell.HorizontalAlignment = Element.ALIGN_CENTER;
-            cell.BorderWidth = 0;
-            table.AddCell(cell);
-
-            cell = new PdfPCell(new Phrase(_studentEntity.MotherName, NormalFont));
-            cell.HorizontalAlignment = Element.ALIGN_LEFT;
-            //cell.Colspan = 4;
-            cell.BorderWidth = 0;
-            table.AddCell(cell);
+            
 
             cell = new PdfPCell(new Phrase("Mother's Qualification", NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
@@ -1039,24 +1072,6 @@ namespace TNSWREISAPI.Model
             cell.BorderWidth = 0;
             table.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase("Father's Contact", NormalFont));
-            cell.HorizontalAlignment = Element.ALIGN_LEFT;
-            cell.BorderWidth = 0;
-            table.AddCell(cell);
-
-            cell = new PdfPCell(new Phrase(":", NormalFont));
-            cell.HorizontalAlignment = Element.ALIGN_CENTER;
-            cell.BorderWidth = 0;
-            table.AddCell(cell);
-
-            cell = new PdfPCell(new Phrase(_studentEntity.FatherMoileNo, NormalFont));
-            cell.HorizontalAlignment = Element.ALIGN_LEFT;
-            //cell.Colspan = 4;
-            cell.BorderWidth = 0;
-            table.AddCell(cell);
-
-             
-
             cell = new PdfPCell(new Phrase("Mother's Occupation", NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
@@ -1068,6 +1083,22 @@ namespace TNSWREISAPI.Model
             table.AddCell(cell);
 
             cell = new PdfPCell(new Phrase(_studentEntity.MotherOccupation, NormalFont));
+            cell.HorizontalAlignment = Element.ALIGN_LEFT;
+            //cell.Colspan = 4;
+            cell.BorderWidth = 0;
+            table.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase("Father's Contact", NormalFont));
+            cell.HorizontalAlignment = Element.ALIGN_LEFT;
+            cell.BorderWidth = 0;
+            table.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase(":", NormalFont));
+            cell.HorizontalAlignment = Element.ALIGN_CENTER;
+            cell.BorderWidth = 0;
+            table.AddCell(cell);
+
+            cell = new PdfPCell(new Phrase(_studentEntity.FatherMoileNo, NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             //cell.Colspan = 4;
             cell.BorderWidth = 0;
@@ -1212,7 +1243,7 @@ namespace TNSWREISAPI.Model
             int[] firstTablecellwidth = { 20, 5, 25, 20, 5, 25 };
             table.SetWidths(firstTablecellwidth);
 
-            PdfPCell cell = new PdfPCell(new Phrase("Aadhar Number", NormalFont));
+            PdfPCell cell = new PdfPCell(new Phrase("Aadhaar Number", NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
             table.AddCell(cell);
@@ -1324,6 +1355,11 @@ namespace TNSWREISAPI.Model
             table.AddCell(cell);
 
             doc.Add(table);
+            // DateTime.UtcNow.ToString("yyyy-MM-dd");
+           
+
+            DateTime thisDate1 = new DateTime(2011, 6, 10);
+           Console.WriteLine("Today is " + thisDate1.ToString("MMMM dd, yyyy") + ".");
 
         }
 
