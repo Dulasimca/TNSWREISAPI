@@ -47,7 +47,7 @@ namespace TNSWREISAPI.Controllers.Forms
             sqlParameters.Add(new KeyValuePair<string, string>("@Dob", (Dob)));
             ds = manageSQL.GetDataSetValues("GetOnlineRegistrationById", sqlParameters);
             GeneratePDFDocument generatePDF = new GeneratePDFDocument();
-            generatePDF.Generate(ds);
+           generatePDF.Generate(ds);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
 
