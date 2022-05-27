@@ -31,6 +31,7 @@ namespace TNSWREISAPI.Controllers
                     var value = files.Split('^');
                     var fileName = value[0];
                     var folderName = value[1];
+                    var newFilename = value[2];
                     var folder = GlobalVariable.FolderPath + folderName; // Path.Combine("Resources", folderName);
                     if (!Directory.Exists(folder))
                     {
@@ -44,19 +45,19 @@ namespace TNSWREISAPI.Controllers
                         file.CopyTo(stream);
                         isCopied = true;
                     }
-                    newFileName = fileName;
-                    //if(isCopied)
-                    //{
-                    //    System.IO.FileInfo fi = new System.IO.FileInfo(fullPath);
-                    //    if(fi.Exists)
-                    //    {
-                    //         sFileName = DateTime.Now.ToString("ddMMyyyyhhmmss");
-                    //         newFileName = fileName.Replace("."+ fi.Extension, "_") + sFileName +  fi.Extension;
-                    //        var NewfullPath = Path.Combine(pathToSave, newFileName);
-                    //        fi.MoveTo(NewfullPath);
-                    //    }
-                    //}
-                    return new Tuple<bool, string>(isCopied, newFileName);
+                    //newFileName = fileName;
+                    if (isCopied)
+                    {
+                        System.IO.FileInfo fi = new System.IO.FileInfo(fullPath);
+                        if (fi.Exists)
+                        {
+                            //sFileName = DateTime.Now.ToString("ddMMyyyyhhmmss");
+                            //newFileName = fileName.Replace("." + fi.Extension, "_") + sFileName + fi.Extension;
+                            var NewfullPath = Path.Combine(pathToSave, newFilename);
+                            fi.MoveTo(NewfullPath);
+                        }
+                    }
+                    return new Tuple<bool, string>(isCopied, newFilename);
                     // return Ok(new { dbPath });
                 }
                 else
