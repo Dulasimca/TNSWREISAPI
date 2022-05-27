@@ -51,7 +51,7 @@ namespace TNSWREISAPI.Model
                 //Open the PDF document  
                 document.Open();
                 AddSpace(document);
-                string imagePath = GlobalVariable.FolderPath + "images\\TN_Logo.PNG";
+                string imagePath = GlobalVariable.FolderPath + "images//TN_Logo.PNG";
                 iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(imagePath);
                 img.Alignment = Element.ALIGN_CENTER;
                 img.ScaleToFit(60f, 60f);
@@ -240,7 +240,7 @@ namespace TNSWREISAPI.Model
             doc.Add(topic);
             AddSpace(doc);
             //add header values
-            string Path = GlobalVariable.FolderPath + _studentEntity.HostelID + "\\Documents\\" + _studentEntity.StudentFilename;
+            string Path = GlobalVariable.FolderPath + "images//" + _studentEntity.StudentFilename;
             iTextSharp.text.Image imge = iTextSharp.text.Image.GetInstance(Path);
             imge.Alignment = Element.ALIGN_LEFT;
             imge.ScaleToFit(80f, 60f);
