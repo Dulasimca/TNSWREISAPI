@@ -240,7 +240,7 @@ namespace TNSWREISAPI.Model
             doc.Add(topic);
             AddSpace(doc);
             //add header values
-            string Path = GlobalVariable.FolderPath + "images//" + _studentEntity.StudentFilename;
+            string Path = GlobalVariable.FolderPath  + _studentEntity.HostelID+"/"+"Documents/"+ _studentEntity.StudentFilename;
             iTextSharp.text.Image imge = iTextSharp.text.Image.GetInstance(Path);
             imge.Alignment = Element.ALIGN_LEFT;
             imge.ScaleToFit(80f, 60f);
