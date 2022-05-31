@@ -11,7 +11,7 @@ namespace TNSWREISAPI
         public const string ConnectionString = "data source=183.82.34.129;initial catalog=TNSWREIS;user id = sqladmin; password =sql@svc&ac!147;";
         public const string ConnectionStringBiometric = "data source=183.82.34.129;initial catalog=etimetracklite1;user id = sqladmin; password =sql@svc&ac!147;";
         public const string ConnectionStringForFaceReadingPostgreSQL = "data source=183.82.34.129;initial catalog=etimetracklite1;user id = sqladmin; password =sql@svc&ac!147;";
-        public const string FolderPath = "E://Angular//TNSWREIS//src//assets//layout//";
+        public const string FolderPath = "E://TestandVerification//Projects//TNSWREIS//WebAPP//src//assets//layout//";
 
         //Live connection
         //public const string ConnectionString = "data source=localhost;initial catalog=TNADWHMS;user id =sa; password =Tryme@43$#7&!2;";
