@@ -71,6 +71,7 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@ScholarshipId", onlineStudentEntity.scholarshipId);
                     sqlCommand.Parameters.AddWithValue("@AdmissionNo", onlineStudentEntity.admissionNo);
                     sqlCommand.Parameters.AddWithValue("@Remarks", onlineStudentEntity.remarks);
+                    sqlCommand.Parameters.AddWithValue("@ReasonForDisApprove", onlineStudentEntity.ReasonForDisApprove);            
                     sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt, 13);
                     sqlCommand.Parameters["@StudentId"].Direction = ParameterDirection.Output;
                     sqlCommand.ExecuteNonQuery();

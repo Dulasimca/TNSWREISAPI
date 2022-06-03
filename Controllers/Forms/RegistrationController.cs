@@ -98,6 +98,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public string admissionNo { get; set; }
         public string remarks { get; set; }
         public string scholarshipId { get; set; }
+        public string wardenApproval { get; set; }
 
         //Bank
         public int bankId { get; set; }
