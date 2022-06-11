@@ -29,8 +29,8 @@ namespace TNSWREISAPI.Controllers.Forms
             generatePDF.Generate(ds);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
-        [HttpPut("{id}")]
-        public bool Put(onlineStudentEntity entity)
+        [HttpPost("{id}")]
+        public bool Post(onlineStudentEntity entity)
         {
             try
             {
