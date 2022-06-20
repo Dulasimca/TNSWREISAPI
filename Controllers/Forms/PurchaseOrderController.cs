@@ -46,29 +46,8 @@ namespace TNSWREISAPI.Controllers.Forms
             DataSet ds = new DataSet();
             List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
             sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(OrderId)));
-
             ds = manageSQL.GetDataSetValues("GetPurchaseOrderById", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
-        }
-
-        [HttpPut("{id}")]
-        public bool Put(PurchaseEntity entity)
-        {
-            try
-            {
-                ManageSQLConnection manageSQL = new ManageSQLConnection();
-                List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.PurchaseId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Type", Convert.ToString(entity.Type)));
-                var result = manageSQL.UpdateValues("DeletePuchaseOrder", sqlParameters);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                AuditLog.WriteError(ex.Message);
-                return false;
-            }
-
         }
     }
 

@@ -45,25 +45,6 @@ namespace TNSWREISAPI.Controllers.Forms
             ds = manageSQL.GetDataSetValues("GetHomePageImage");
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
-
-        [HttpPut("{id}")]
-        public bool Put(HomePageImageEntity entity)
-        {
-            try
-            {
-                ManageSQLConnection manageSQL = new ManageSQLConnection();
-                List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.ImageId)));
-                var result = manageSQL.UpdateValues("DeleteHomeImageUpload", sqlParameters);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                AuditLog.WriteError(ex.Message);
-                return false;
-            }
-
-        }
     }
 
     public class HomePageImageEntity

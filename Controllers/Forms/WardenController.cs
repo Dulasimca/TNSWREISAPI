@@ -60,26 +60,6 @@ namespace TNSWREISAPI.Controllers.Forms
             var result = manageSQL.GetDataSetValues("GetWarden", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
-
-        [HttpPut("{id}")]
-        public bool Put(WardenEntity entity)
-        {
-            try
-            { 
-            ManageSQLConnection manageSQL = new ManageSQLConnection();
-            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@Date", entity.EndDate));
-            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.WardenId)));
-            var result = manageSQL.UpdateValues("UpdateWardenDetails", sqlParameters);
-            return result;
-        }
-            catch (Exception ex)
-            {
-                AuditLog.WriteError(ex.Message);
-                return false;
-            }
-
-}
     }
 
     public class WardenEntity
