@@ -154,6 +154,10 @@ namespace TNSWREISAPI.Controllers.Forms
 
         //Common
         public int Type { get; set; }
+        public int flag { get; set; }
+        public int accYearId { get; set; }
+        public string studentAccId { get; set; }
+
     }
 
     public class OnlineStudentBankEntity
@@ -196,4 +200,6 @@ namespace TNSWREISAPI.Controllers.Forms
         public string declarationFilename { get; set; }
 
     }
+
+     
 }
