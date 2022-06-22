@@ -63,18 +63,6 @@ namespace TNSWREISAPI.Controllers.Forms
             var result = manageSQL.GetDataSetValues("GetEmployeeDetails", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
-        [HttpPut("{id}")]
-        public string Put(EmployeeDetailsEntity EmployeeDetailsEntity)
-        {
-            ManageSQLConnection manageSQL = new ManageSQLConnection();
-            DataSet ds = new DataSet();
-            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(EmployeeDetailsEntity.Id)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@EndDate", Convert.ToString(EmployeeDetailsEntity.EndDate)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@Remarks", Convert.ToString(EmployeeDetailsEntity.Remarks)));
-            var result = manageSQL.UpdateValues("UpdateEmployeeDetails", sqlParameters);
-            return JsonConvert.SerializeObject(result);
-        }
     }
 
 

@@ -54,19 +54,6 @@ namespace TNSWREISAPI.Controllers.Forms
             ds = manageSQL.GetDataSetValues("GetMonthlywiseIntent", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
-        [HttpPut("{id}")]
-        public string Put(MonthlywiseIntentEntity MonthlywiseIntentEntity)
-        {
-            ManageSQLConnection manageSQL = new ManageSQLConnection();
-            DataSet ds = new DataSet();
-            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(MonthlywiseIntentEntity.Id)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@ApprovalStatus", Convert.ToString(MonthlywiseIntentEntity.ApprovalStatus)));
-            var result = manageSQL.UpdateValues("UpdateMonthlywiseIntent", sqlParameters);
-            return JsonConvert.SerializeObject(result);
-        }
-
-
     }
     public class MonthlywiseIntentEntity
     {

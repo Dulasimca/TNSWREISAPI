@@ -29,9 +29,20 @@ namespace TNSWREISAPI.Controllers
                 {
                     var files = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
                     var value = files.Split('^');
-                    var fileName = value[0];
-                    var folderName = value[1];
-                    var newFilename = value[2];
+                    string fileName = string.Empty,folderName = string.Empty,newFilename = string.Empty;
+                    if (value.Length>2)
+                    {
+                         fileName = value[0];
+                         folderName = value[1];
+                         newFilename = value[2];
+                    }
+                    else
+                    {
+                         fileName = value[0];
+                         folderName = value[1];
+                         newFilename = value[0];
+                    }
+                    
                     var folder = GlobalVariable.FolderPath + folderName; // Path.Combine("Resources", folderName);
                     if (!Directory.Exists(folder))
                     {
