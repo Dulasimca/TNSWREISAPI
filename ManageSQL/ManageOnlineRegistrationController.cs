@@ -12,7 +12,7 @@ namespace TNSWREISAPI.ManageSQL
     {
         SqlConnection sqlConnection = new SqlConnection();
         SqlCommand sqlCommand = new SqlCommand();
-        StudentAccountingYearController studentAccountingYearController = new StudentAccountingYearController();
+     //   StudentAccountingYearController studentAccountingYearController = new StudentAccountingYearController();
 
         public bool InsertOnlineStudentDetails(onlineStudentEntity onlineStudentEntity)
         {
