@@ -53,7 +53,7 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@ClassId", onlineStudentEntity.classId);
                     sqlCommand.Parameters.AddWithValue("@CourseTitle", onlineStudentEntity.courseTitle);
                     sqlCommand.Parameters.AddWithValue("@CourseYearId", onlineStudentEntity.courseYearId);
-                    sqlCommand.Parameters.AddWithValue("@LastInstituteName", onlineStudentEntity.lastStudiedInstituteName);
+                    sqlCommand.Parameters.AddWithValue("@LastInstituteName", onlineStudentEntity.lastStudiedInstituteCode);
                     sqlCommand.Parameters.AddWithValue("@LastInstituteAddress", onlineStudentEntity.lastStudiedInstituteAddress);
                     sqlCommand.Parameters.AddWithValue("@DistanceToHome", onlineStudentEntity.distanceFromHostelToHome);
                     sqlCommand.Parameters.AddWithValue("@DistanceToInstitute", onlineStudentEntity.distanceFromHostelToInstitute);
@@ -73,6 +73,9 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@ScholarshipId", onlineStudentEntity.scholarshipId);
                     sqlCommand.Parameters.AddWithValue("@AdmissionNo", onlineStudentEntity.admissionNo);
                     sqlCommand.Parameters.AddWithValue("@Remarks", onlineStudentEntity.remarks);
+                    sqlCommand.Parameters.AddWithValue("@RefugeeId", onlineStudentEntity.RefugeeId);
+                    sqlCommand.Parameters.AddWithValue("@isRefugee", onlineStudentEntity.refugeeSelectedType);
+                    sqlCommand.Parameters.AddWithValue("@CurrentInstituteId", onlineStudentEntity.currentInstituteId);
                     sqlCommand.Parameters.AddWithValue("@ReasonForDisApprove", onlineStudentEntity.ReasonForDisApprove);            
                     sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt, 13);
                     sqlCommand.Parameters["@StudentId"].Direction = ParameterDirection.Output;
@@ -106,16 +109,19 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.CommandText = "InsertOnlineStudentParentInfo";
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlCommand.Parameters.AddWithValue("@StudentId", StudentId);
+                    sqlCommand.Parameters.AddWithValue("@FatherTitle", onlineStudentEntity.fatherTitle);
                     sqlCommand.Parameters.AddWithValue("@FatherName", onlineStudentEntity.fatherName);
                     sqlCommand.Parameters.AddWithValue("@FatherOccupation", onlineStudentEntity.fatherOccupation);
                     sqlCommand.Parameters.AddWithValue("@FatherMobileNo", onlineStudentEntity.fatherMoileNo);
                     sqlCommand.Parameters.AddWithValue("@FatherQualification", onlineStudentEntity.fatherQualification);
                     sqlCommand.Parameters.AddWithValue("@FatherYIncome", onlineStudentEntity.fatherYIncome);
+                    sqlCommand.Parameters.AddWithValue("@MotherTitle", onlineStudentEntity.motherTitle);
                     sqlCommand.Parameters.AddWithValue("@MotherName", onlineStudentEntity.motherName);
                     sqlCommand.Parameters.AddWithValue("@MotherOccupation", onlineStudentEntity.motherOccupation);
                     sqlCommand.Parameters.AddWithValue("@MotherQualification", onlineStudentEntity.motherQualification);
                     sqlCommand.Parameters.AddWithValue("@MotherMobileNo", onlineStudentEntity.motherMoileNo);
                     sqlCommand.Parameters.AddWithValue("@MotherYIncome", onlineStudentEntity.motherYIncome);
+                    sqlCommand.Parameters.AddWithValue("@GuardianTitle", onlineStudentEntity.guardianTitle);
                     sqlCommand.Parameters.AddWithValue("@GuardianName", onlineStudentEntity.guardianName);
                     sqlCommand.Parameters.AddWithValue("@GuardianOccupation", onlineStudentEntity.guardianOccupation);
                     sqlCommand.Parameters.AddWithValue("@GuardianMobileNo", onlineStudentEntity.guardianMobileNo);

@@ -91,11 +91,12 @@ namespace TNSWREISAPI.Controllers.Forms
         public string subcaste { get; set; }
         public string studentFilename { get; set; }
         public string instituteName { get; set; }
+        public string currentInstituteId { get; set; }
         public string medium { get; set; }
         public int classId { get; set; }
         public int courseYearId { get; set; }
         public string courseTitle { get; set; }
-        public string lastStudiedInstituteName { get; set; }
+        public string lastStudiedInstituteCode { get; set; }
         public string lastStudiedInstituteAddress { get; set; }
         public string distanceFromHostelToHome { get; set; }
         public string distanceFromHostelToInstitute { get; set; }
@@ -117,8 +118,8 @@ namespace TNSWREISAPI.Controllers.Forms
         public string scholarshipId { get; set; }
         public string wardenApproval { get; set; }
         public string ReasonForDisApprove { get; set; }
-        
-
+        public string refugeeSelectedType { get; set; }
+        public string RefugeeId { get; set; }
         //Bank
         public int bankId { get; set; }
         public string bankName { get; set; }
@@ -129,16 +130,19 @@ namespace TNSWREISAPI.Controllers.Forms
 
         //Parent
         public int parentId { get; set; }
+        public int fatherTitle { get; set; }
         public string fatherName { get; set; }
         public string fatherOccupation { get; set; }
         public string fatherMoileNo { get; set; }
         public string fatherQualification { get; set; }
         public string fatherYIncome { get; set; }
+        public int motherTitle { get; set; }
         public string motherName { get; set; }
         public string motherOccupation { get; set; }
         public string motherMoileNo { get; set; }
         public string motherQualification { get; set; }
         public string motherYIncome { get; set; }
+        public int guardianTitle { get; set; }
         public string guardianName { get; set; }
         public string guardianOccupation { get; set; }
         public string guardianMobileNo { get; set; }

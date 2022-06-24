@@ -11,7 +11,7 @@ namespace TNSWREISAPI.Controllers
     public class EmployeeApprovalController : Controller
     {
         [HttpPost("{id}")]
-        public bool Put(EmployeeDetailsEntity entity)
+        public bool Post(EmployeeDetailsEntity entity)
         {
             try
             {
