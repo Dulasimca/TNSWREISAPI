@@ -47,7 +47,10 @@ namespace TNSWREISAPI.Model
                 document.AddKeywords("TNCSC- Webcopy ");
                 document.AddSubject("Document subject - Ack Web Copy ");
                 document.AddTitle("The document title - PDF creation for Receipt Document");
-              
+
+                try
+                {
+
                 //Open the PDF document  
                 document.Open();
                 AddSpace(document);
@@ -195,18 +198,32 @@ namespace TNSWREISAPI.Model
                 content.SetColorStroke(BaseColor.Black);
                 content.Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, rectangle.Height);
                 content.Stroke();
-                // Close the document  
-                document.Close();
-                // Close the writer instance  
-                writer.Close();
-                // Always close open filehandles explicity  
-                fs.Close();
+               
 
+                }
+                catch (Exception ex)
+                {
+
+                    AuditLog.WriteError(" GeneratePDF :  " + ex.Message + " " + ex.StackTrace);
+                   
+                }
+                finally
+                {
+                    // Close the document  
+                    document.Close();
+                    // Close the writer instance  
+                    writer.Close();
+                    // Always close open filehandles explicity  
+                    fs.Close();
+                }
             }
             catch (Exception ex)
             {
                 AuditLog.WriteError(" GeneratePDF :  " + ex.Message + " " + ex.StackTrace);
                 return new Tuple<bool, string>(false, "Please Contact system Admin");
+            }
+            finally
+            { 
             }
             return new Tuple<bool, string>(true, "Print Generated Successfully");
         }
@@ -239,8 +256,17 @@ namespace TNSWREISAPI.Model
             topic.Alignment = Element.ALIGN_LEFT;
             doc.Add(topic);
             AddSpace(doc);
-            //add header values
-            string Path = GlobalVariable.FolderPath + "images//" + _studentEntity.StudentFilename;
+            string Path = string.Empty;
+            //add header values  no_image.PNG
+            if (_studentEntity.StudentFilename == "dulasi")
+            {
+                 Path = GlobalVariable.FolderPath + "images/no_image.PNG";
+            }
+            else
+            {
+                 Path = GlobalVariable.FolderPath + _studentEntity.HostelID + "/" + "Documents/" + _studentEntity.StudentFilename;
+            }
+           
             iTextSharp.text.Image imge = iTextSharp.text.Image.GetInstance(Path);
             imge.Alignment = Element.ALIGN_LEFT;
             imge.ScaleToFit(80f, 60f);

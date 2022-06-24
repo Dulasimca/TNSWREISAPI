@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿ 
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -7,27 +8,24 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
-using TNSWREISAPI.Model;
 
-namespace TNSWREISAPI.Controllers.Forms
+namespace TNSWREISAPI.Controllers.Master
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HomePageImageUploadController : ControllerBase
+    public class UnitMasterEntryController : ControllerBase
     {
         [HttpPost("{id}")]
-        public string Post(HomePageImageEntity entity)
+        public string Post(UnitMasterEntity entity)
         {
             try
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@ImageId", Convert.ToString(entity.ImageId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@UploadDate", Convert.ToString(entity.UploadDate)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@Title",entity.ImageTitle));
-                sqlParameters.Add(new KeyValuePair<string, string>("@FileName",entity.ImageFilename));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(entity.Id)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Name", entity.Name));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
-                var result = manageSQL.InsertData("InsertHomePageImage", sqlParameters);
+                var result = manageSQL.InsertData("InsertUnitMaster", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
             catch (Exception ex)
@@ -42,18 +40,15 @@ namespace TNSWREISAPI.Controllers.Forms
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
-            ds = manageSQL.GetDataSetValues("GetHomePageImage");
+            ds = manageSQL.GetDataSetValues("GetUnitMaster");
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
     }
-
-    public class HomePageImageEntity
+    public class UnitMasterEntity
     {
-        public long ImageId { get; set; }
-        public string UploadDate { get; set; }
-        public string ImageTitle { get; set; }
-        public string ImageFilename { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public bool Flag { get; set; }
     }
-
 }
+

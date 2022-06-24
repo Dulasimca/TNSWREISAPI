@@ -12,6 +12,8 @@ namespace TNSWREISAPI.ManageSQL
     {
         SqlConnection sqlConnection = new SqlConnection();
         SqlCommand sqlCommand = new SqlCommand();
+     //   StudentAccountingYearController studentAccountingYearController = new StudentAccountingYearController();
+
         public bool InsertOnlineStudentDetails(onlineStudentEntity onlineStudentEntity)
         {
             SqlTransaction objTrans = null;
@@ -74,11 +76,13 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@RefugeeId", onlineStudentEntity.RefugeeId);
                     sqlCommand.Parameters.AddWithValue("@isRefugee", onlineStudentEntity.refugeeSelectedType);
                     sqlCommand.Parameters.AddWithValue("@CurrentInstituteId", onlineStudentEntity.currentInstituteId);
+                    sqlCommand.Parameters.AddWithValue("@ReasonForDisApprove", onlineStudentEntity.ReasonForDisApprove);            
                     sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt, 13);
                     sqlCommand.Parameters["@StudentId"].Direction = ParameterDirection.Output;
                     sqlCommand.ExecuteNonQuery();
 
                     StudentId = (int)(long)(sqlCommand.Parameters["@StudentId"].Value);
+                    onlineStudentEntity.studentId = StudentId;
                     sqlCommand.Parameters.Clear();
                     sqlCommand.Dispose();
 
@@ -138,6 +142,10 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.ExecuteNonQuery();
                     sqlCommand.Parameters.Clear();
                     sqlCommand.Dispose();
+
+                    ///
+                    InsertStudentAccountingYear(onlineStudentEntity, sqlCommand, objTrans);
+
                     objTrans.Commit();
                     return true;
 
@@ -154,6 +162,33 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Dispose();
                     ds.Dispose();
                 }
+            }
+        }
+        public bool InsertStudentAccountingYear(onlineStudentEntity entity, SqlCommand sql, SqlTransaction objTrans)
+        {
+            try
+            {
+                sqlCommand = new SqlCommand();
+                sqlCommand.Transaction = objTrans;
+                sqlCommand.Connection = sqlConnection;
+                sqlCommand.CommandText = "InsertStudentAccountingYear";
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@Id", Convert.ToString(entity.studentAccId));
+                sqlCommand.Parameters.AddWithValue("@DCode", Convert.ToString(entity.distrctCode));
+                sqlCommand.Parameters.AddWithValue("@TCode", Convert.ToString(entity.talukCode));
+                sqlCommand.Parameters.AddWithValue("@HCode", Convert.ToString(entity.hostelId));
+                sqlCommand.Parameters.AddWithValue("@StudentId", Convert.ToString(entity.studentId));
+                sqlCommand.Parameters.AddWithValue("@AccYearId", Convert.ToString(entity.accYearId));
+                sqlCommand.Parameters.AddWithValue("@Flag", "1");
+                sqlCommand.ExecuteNonQuery();
+                sqlCommand.Parameters.Clear();
+                sqlCommand.Dispose();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                AuditLog.WriteError(ex.Message);
+                return false;
             }
         }
     }

@@ -33,28 +33,6 @@ namespace TNSWREISAPI.Controllers.Forms
             ds = manageSQL.GetDataSetValues("GetStudentDetails", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
-
-        [HttpPut("{id}")]
-        public bool Put(StudentEntity entity)
-        {
-            try
-            {
-                ManageSQLConnection manageSQL = new ManageSQLConnection();
-                List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@StudentId", Convert.ToString(entity.studentId)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@DApproval", Convert.ToString(entity.districtApproval)));
-                sqlParameters.Add(new KeyValuePair<string, string>("@TApproval", Convert.ToString(entity.talukApproval)));
-                var result = manageSQL.UpdateValues("StudentApproval", sqlParameters);
-                return result;
-            }
-            catch (Exception ex)
-            {
-                AuditLog.WriteError(ex.Message);
-                return false;
-            }
-
-        }
-
     }
 
     public class StudentEntity
@@ -101,6 +79,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public string refugeeSelectedType { get; set; }
         public string refugeeId { get; set; }
         public string currentInstituteId { get; set; }
+        public string wardenApproval { get; set; }
 
         //Bank
         public int bankId { get; set; }

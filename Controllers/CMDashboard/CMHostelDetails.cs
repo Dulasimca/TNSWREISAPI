@@ -14,15 +14,18 @@ namespace TNSWREISAPI.Controllers.CMDashboard
     public class CMHostelDetails : ControllerBase
     {
         [HttpGet("{id}")]
-        public string Get(int Code)
+        public string Get(string HostelId,string Month, string Year)
         {
             try
             {
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
                 List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-                sqlParameters.Add(new KeyValuePair<string, string>("@Code ", Convert.ToString(Code)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", HostelId));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Month", Month));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Year", Year));
                 var result = manageSQL.GetDataSetValues("GetHostelAlldetails", sqlParameters);
                 return JsonConvert.SerializeObject(result);
+                //HostelId=55&Month=5&Year=2022
             }
             catch (Exception ex)
             {

@@ -31,10 +31,14 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@FirstName", Convert.ToString(EmployeeDetailsEntity.FirstName)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@LastName", Convert.ToString(EmployeeDetailsEntity.LastName)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Doj", Convert.ToString(EmployeeDetailsEntity.Doj)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@EmployeeJoinedDate", Convert.ToString(EmployeeDetailsEntity.EmployeeJoinedDate)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Gender", Convert.ToString(EmployeeDetailsEntity.Gender)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Address", Convert.ToString(EmployeeDetailsEntity.Address)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@NativeDistrict", Convert.ToString(EmployeeDetailsEntity.NativeDistrict)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@NativeTaluk", Convert.ToString(EmployeeDetailsEntity.NativeTaluk)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@MobileNo", Convert.ToString(EmployeeDetailsEntity.MobileNo)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@AltMobNo", Convert.ToString(EmployeeDetailsEntity.AltMobNo)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Pincode", Convert.ToString(EmployeeDetailsEntity.Pincode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@EmployeeImage", Convert.ToString(EmployeeDetailsEntity.EmployeeImage)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(EmployeeDetailsEntity.Flag)));
                 var result = manageSQL.InsertData("InsertEmployeeDetails", sqlParameters);
@@ -59,18 +63,6 @@ namespace TNSWREISAPI.Controllers.Forms
             var result = manageSQL.GetDataSetValues("GetEmployeeDetails", sqlParameters);
             return JsonConvert.SerializeObject(result);
         }
-        [HttpPut("{id}")]
-        public string Put(EmployeeDetailsEntity EmployeeDetailsEntity)
-        {
-            ManageSQLConnection manageSQL = new ManageSQLConnection();
-            DataSet ds = new DataSet();
-            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
-            sqlParameters.Add(new KeyValuePair<string, string>("@Id", Convert.ToString(EmployeeDetailsEntity.Id)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@EndDate", Convert.ToString(EmployeeDetailsEntity.EndDate)));
-            sqlParameters.Add(new KeyValuePair<string, string>("@Remarks", Convert.ToString(EmployeeDetailsEntity.Remarks)));
-            var result = manageSQL.UpdateValues("UpdateEmployeeDetails", sqlParameters);
-            return JsonConvert.SerializeObject(result);
-        }
     }
 
 
@@ -85,12 +77,16 @@ namespace TNSWREISAPI.Controllers.Forms
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Doj { get; set; }
+        public string EmployeeJoinedDate { get; set; }
         public int Gender { get; set; }
         public string Address { get; set; }
         public string NativeDistrict { get; set; }
+        public string NativeTaluk { get; set; }
         public string MobileNo { get; set; }
+        public string AltMobNo { get; set; }
         public string EndDate { get; set; }
         public string Remarks { get; set; }
+        public string Pincode { get; set; }
         public bool Flag { get; set; }
         public string EmployeeImage { get; set; }
 

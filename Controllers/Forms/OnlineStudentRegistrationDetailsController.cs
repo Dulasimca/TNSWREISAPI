@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace TNSWREISAPI.Controllers.Forms
     public class OnlineStudentRegistrationDetailsController : ControllerBase
     {
         [HttpGet("{id}")]
-        public string Get(int DCode, int TCode, int HCode)
+        public string Get(int DCode, int TCode, int HCode, string Roleid)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
@@ -23,13 +23,14 @@ namespace TNSWREISAPI.Controllers.Forms
             sqlParameters.Add(new KeyValuePair<string, string>("@DCode", Convert.ToString(DCode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@TCode", Convert.ToString(TCode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HCode)));
+            sqlParameters.Add(new KeyValuePair<string, string>("@Roleid", Convert.ToString(Roleid)));
             ds = manageSQL.GetDataSetValues("GetOnlineRegistration", sqlParameters);
             GeneratePDFDocument generatePDF = new GeneratePDFDocument();
             generatePDF.Generate(ds);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
-        [HttpPut("{id}")]
-        public bool Put(StudentEntity entity)
+        [HttpPost("{id}")]
+        public bool Post(onlineStudentEntity entity)
         {
             try
             {
@@ -38,6 +39,8 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@StudentId", Convert.ToString(entity.studentId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@DApproval", Convert.ToString(entity.districtApproval)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@TApproval", Convert.ToString(entity.talukApproval)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@WApproval", Convert.ToString(entity.wardenApproval)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@ReasonForDisApprove", Convert.ToString(entity.ReasonForDisApprove)));
                 var result = manageSQL.UpdateValues("OnlineRegStudentApproval", sqlParameters);
                 return result;
             }
