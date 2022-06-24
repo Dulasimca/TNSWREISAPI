@@ -145,13 +145,13 @@ namespace TNSWREISAPI.Model
         {
             //StudentEntity studentEntity = new StudentEntity
             //{
-            _studentEntity.DeclarationFilename = !string.IsNullOrEmpty(_studentEntity.DeclarationFilename) || _studentEntity.DeclarationFilename != "" ? "Yes" : "No";
-            _studentEntity.BankPassbookFilename = !string.IsNullOrEmpty(_studentEntity.BankPassbookFilename) || _studentEntity.BankPassbookFilename != "" ? "Yes" : "No";
-            _studentEntity.IncomeCertificateFilename = !string.IsNullOrEmpty(_studentEntity.IncomeCertificateFilename) || _studentEntity.IncomeCertificateFilename != "" ? "Yes" : "No";
-            _studentEntity.TcFilename = !string.IsNullOrEmpty(_studentEntity.TcFilename) || _studentEntity.TcFilename != "" ? "Yes" : "No";
-            _studentEntity.MICRNO = !string.IsNullOrEmpty(_studentEntity.MICRNO) || _studentEntity.MICRNO != "" ? _studentEntity.MICRNO : "-";
-            _studentEntity.DisabilityType = !string.IsNullOrEmpty(_studentEntity.DisabilityType) || _studentEntity.DisabilityType == "0" ? "No" : _studentEntity.DisabilityType;
-            _studentEntity.StudentFilename = !string.IsNullOrEmpty(_studentEntity.StudentFilename) || _studentEntity.StudentFilename != "" ? _studentEntity.StudentFilename : "dulasi";
+            _studentEntity.DeclarationFilename = !string.IsNullOrEmpty(_studentEntity.DeclarationFilename) && _studentEntity.DeclarationFilename != "" && _studentEntity.DeclarationFilename != null ? "Yes" : "No";
+            _studentEntity.BankPassbookFilename = !string.IsNullOrEmpty(_studentEntity.BankPassbookFilename) && _studentEntity.BankPassbookFilename != "" && _studentEntity.BankPassbookFilename != null ? "Yes" : "No";
+            _studentEntity.IncomeCertificateFilename = !string.IsNullOrEmpty(_studentEntity.IncomeCertificateFilename) && _studentEntity.IncomeCertificateFilename != "" && _studentEntity.IncomeCertificateFilename != null ? "Yes" : "No";
+            _studentEntity.TcFilename = !string.IsNullOrEmpty(_studentEntity.TcFilename) && _studentEntity.TcFilename != "" && _studentEntity.TcFilename != null ? "Yes" : "No";
+            _studentEntity.MICRNO = !string.IsNullOrEmpty(_studentEntity.MICRNO) && _studentEntity.MICRNO != "" && _studentEntity.MICRNO != null ? _studentEntity.MICRNO : "-";
+            _studentEntity.DisabilityType = !string.IsNullOrEmpty(_studentEntity.DisabilityType) && _studentEntity.DisabilityType == "0" && _studentEntity.DisabilityType != null  ? "No" : _studentEntity.DisabilityType;
+            _studentEntity.StudentFilename = !string.IsNullOrEmpty(_studentEntity.StudentFilename) && _studentEntity.StudentFilename != "" && _studentEntity.StudentFilename != null ? _studentEntity.StudentFilename : "dulasi";
             //};
             return _studentEntity;
         }
