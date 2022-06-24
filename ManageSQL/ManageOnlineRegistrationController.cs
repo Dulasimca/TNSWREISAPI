@@ -51,7 +51,7 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@ClassId", onlineStudentEntity.classId);
                     sqlCommand.Parameters.AddWithValue("@CourseTitle", onlineStudentEntity.courseTitle);
                     sqlCommand.Parameters.AddWithValue("@CourseYearId", onlineStudentEntity.courseYearId);
-                    sqlCommand.Parameters.AddWithValue("@LastInstituteName", onlineStudentEntity.lastStudiedInstituteName);
+                    sqlCommand.Parameters.AddWithValue("@LastInstituteName", onlineStudentEntity.lastStudiedInstituteCode);
                     sqlCommand.Parameters.AddWithValue("@LastInstituteAddress", onlineStudentEntity.lastStudiedInstituteAddress);
                     sqlCommand.Parameters.AddWithValue("@DistanceToHome", onlineStudentEntity.distanceFromHostelToHome);
                     sqlCommand.Parameters.AddWithValue("@DistanceToInstitute", onlineStudentEntity.distanceFromHostelToInstitute);
@@ -71,6 +71,9 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@ScholarshipId", onlineStudentEntity.scholarshipId);
                     sqlCommand.Parameters.AddWithValue("@AdmissionNo", onlineStudentEntity.admissionNo);
                     sqlCommand.Parameters.AddWithValue("@Remarks", onlineStudentEntity.remarks);
+                    sqlCommand.Parameters.AddWithValue("@RefugeeId", onlineStudentEntity.RefugeeId);
+                    sqlCommand.Parameters.AddWithValue("@isRefugee", onlineStudentEntity.refugeeSelectedType);
+                    sqlCommand.Parameters.AddWithValue("@CurrentInstituteId", onlineStudentEntity.currentInstituteId);
                     sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt, 13);
                     sqlCommand.Parameters["@StudentId"].Direction = ParameterDirection.Output;
                     sqlCommand.ExecuteNonQuery();
