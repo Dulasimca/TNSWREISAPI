@@ -56,7 +56,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public int classId { get; set; }
         public int courseYearId { get; set; }
         public string courseTitle { get; set; }
-        public string lastStudiedInstituteName { get; set; }
+        public string lastStudiedInstituteCode { get; set; }
         public string lastStudiedInstituteAddress { get; set; }
         public string distanceFromHostelToHome { get; set; }
         public string distanceFromHostelToInstitute { get; set; }
@@ -76,6 +76,9 @@ namespace TNSWREISAPI.Controllers.Forms
         public string admissionNo { get; set; }
         public string remarks { get; set; }
         public string scholarshipId { get; set; }
+        public string refugeeSelectedType { get; set; }
+        public string refugeeId { get; set; }
+        public string currentInstituteId { get; set; }
         public string wardenApproval { get; set; }
 
         //Bank
