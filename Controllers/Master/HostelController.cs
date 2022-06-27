@@ -38,6 +38,9 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@PoliceStationAddress", hostelEntity.PoliceStationAddress));
                 sqlParameters.Add(new KeyValuePair<string, string>("@HostelOpeningDate", hostelEntity.HostelOpeningDate));
                 sqlParameters.Add(new KeyValuePair<string, string>("@NearestPhc", hostelEntity.NearestPhc));
+                sqlParameters.Add(new KeyValuePair<string, string>("@MPId", hostelEntity.MPId));
+                sqlParameters.Add(new KeyValuePair<string, string>("@MLAId", hostelEntity.MLAId));
+                sqlParameters.Add(new KeyValuePair<string, string>("@SpecialDashildar", hostelEntity.SpecialDashildar));
                 var result = manageSQL.InsertData("InsertHostelMaster", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
@@ -50,7 +53,6 @@ namespace TNSWREISAPI.Controllers.Master
 
 
         [HttpGet("{id}")]
-
         public string Get(int Type, int DCode, int TCode, int HostelId)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
@@ -139,6 +141,9 @@ namespace TNSWREISAPI.Controllers.Master
         public string HostelOpeningDate { get; set; }
         public string HostelFunctioningType { get; set; }
         public string NearestPhc { get; set; }
+        public string MPId { get; set; }
+        public string MLAId { get; set; }
+        public string SpecialDashildar { get; set; }
 
     }
 }

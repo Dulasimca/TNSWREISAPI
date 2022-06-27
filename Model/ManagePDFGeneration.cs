@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TNSWREISAPI.ManageSQL;
 using iTextSharp.text;
+using iTextSharp;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.draw;
 using System.IO;
@@ -198,8 +199,18 @@ namespace TNSWREISAPI.Model
                 content.SetColorStroke(BaseColor.Black);
                 content.Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, rectangle.Height);
                 content.Stroke();
-               
+                    // Close the document  
 
+                    // Close the writer instance  
+
+                    // Merge the PDF files
+                    if(Convert.ToInt32(entity.DistrictApproval) == 1)
+                    {
+                        AddDeclaration(document, writer);
+                    }
+
+                    // Create a footer.
+ 
                 }
                 catch (Exception ex)
                 {
@@ -209,9 +220,7 @@ namespace TNSWREISAPI.Model
                 }
                 finally
                 {
-                    // Close the document  
                     document.Close();
-                    // Close the writer instance  
                     writer.Close();
                     // Always close open filehandles explicity  
                     fs.Close();
@@ -231,6 +240,20 @@ namespace TNSWREISAPI.Model
         {
             LineSeparator line = new LineSeparator(1f, 100f, BaseColor.Black, Element.ALIGN_LEFT, 1);
             doc.Add(line);
+        }
+
+        public void AddDeclaration(iTextSharp.text.Document document, PdfWriter writer)
+        {
+            document.NewPage();
+            string declarationPath = GlobalVariable.FolderPath + "images//DeclarationForm.pdf";
+            PdfReader reader = new PdfReader(declarationPath);
+            reader.ConsolidateNamedDestinations();
+            for (int i = 1; i <= reader.NumberOfPages; i++)
+            {
+                PdfImportedPage page = writer.GetImportedPage(reader, i);
+                document.Add(Image.GetInstance(page));
+            }
+            reader.Close();
         }
 
         public void AddSpace(iTextSharp.text.Document doc)

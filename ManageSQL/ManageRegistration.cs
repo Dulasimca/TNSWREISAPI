@@ -51,7 +51,7 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@ClassId", studentEntity.classId);
                     sqlCommand.Parameters.AddWithValue("@CourseTitle", studentEntity.courseTitle);
                     sqlCommand.Parameters.AddWithValue("@CourseYearId", studentEntity.courseYearId);
-                    sqlCommand.Parameters.AddWithValue("@LastInstituteName", studentEntity.lastStudiedInstituteName);
+                    sqlCommand.Parameters.AddWithValue("@LastInstituteName", studentEntity.lastStudiedInstituteCode);
                     sqlCommand.Parameters.AddWithValue("@LastInstituteAddress", studentEntity.lastStudiedInstituteAddress);
                     sqlCommand.Parameters.AddWithValue("@DistanceToHome", studentEntity.distanceFromHostelToHome);
                     sqlCommand.Parameters.AddWithValue("@DistanceToInstitute", studentEntity.distanceFromHostelToInstitute);
@@ -71,6 +71,9 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@ScholarshipId", studentEntity.scholarshipId);
                     sqlCommand.Parameters.AddWithValue("@AdmissionNo", studentEntity.admissionNo);
                     sqlCommand.Parameters.AddWithValue("@Remarks", studentEntity.remarks);
+                    sqlCommand.Parameters.AddWithValue("@RefugeeId", studentEntity.refugeeId);
+                    sqlCommand.Parameters.AddWithValue("@isRefugee", studentEntity.refugeeSelectedType);
+                    sqlCommand.Parameters.AddWithValue("@CurrentInstituteId", studentEntity.currentInstituteId);
                     sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt, 13);
                     sqlCommand.Parameters["@StudentId"].Direction = ParameterDirection.Output;
                     sqlCommand.ExecuteNonQuery();
