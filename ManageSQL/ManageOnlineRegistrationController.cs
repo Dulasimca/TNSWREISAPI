@@ -73,8 +73,11 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@ScholarshipId", onlineStudentEntity.scholarshipId);
                     sqlCommand.Parameters.AddWithValue("@AdmissionNo", onlineStudentEntity.admissionNo);
                     sqlCommand.Parameters.AddWithValue("@Remarks", onlineStudentEntity.remarks);
-                    sqlCommand.Parameters.AddWithValue("@RefugeeId", onlineStudentEntity.RefugeeId);
+                    sqlCommand.Parameters.AddWithValue("@RefugeeId", onlineStudentEntity.refugeeId);
                     sqlCommand.Parameters.AddWithValue("@isRefugee", onlineStudentEntity.refugeeSelectedType);
+                    sqlCommand.Parameters.AddWithValue("@isOrphan", onlineStudentEntity.orphanageSelectedType);
+                    sqlCommand.Parameters.AddWithValue("@CommunityCertificateNo", onlineStudentEntity.communityCertificateNo);
+                    sqlCommand.Parameters.AddWithValue("@isNewStudent", onlineStudentEntity.isNewStudent);
                     sqlCommand.Parameters.AddWithValue("@CurrentInstituteId", onlineStudentEntity.currentInstituteId);
                     sqlCommand.Parameters.AddWithValue("@ReasonForDisApprove", onlineStudentEntity.ReasonForDisApprove);            
                     sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt, 13);
