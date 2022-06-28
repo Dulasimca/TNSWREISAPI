@@ -106,6 +106,10 @@ namespace TNSWREISAPI.Controllers.Forms
         public string guardianMobileNo { get; set; }
         public string guardianQualification { get; set; }
         public string totalYIncome { get; set; }
+        public int fnTitleCode { get; set; }
+        public int mnTitleCode { get; set; }
+        public int gnTitleCode { get; set; }
+
 
         //Document
         public int documentId { get; set; }
