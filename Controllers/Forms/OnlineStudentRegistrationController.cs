@@ -119,7 +119,10 @@ namespace TNSWREISAPI.Controllers.Forms
         public string wardenApproval { get; set; }
         public string ReasonForDisApprove { get; set; }
         public string refugeeSelectedType { get; set; }
-        public string RefugeeId { get; set; }
+        public string refugeeId { get; set; }
+        public string orphanageSelectedType { get; set; }
+        public string communityCertificateNo { get; set; }
+        public string isNewStudent { get; set; }
         //Bank
         public int bankId { get; set; }
         public string bankName { get; set; }

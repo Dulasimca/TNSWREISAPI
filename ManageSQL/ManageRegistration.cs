@@ -74,6 +74,9 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@RefugeeId", studentEntity.refugeeId);
                     sqlCommand.Parameters.AddWithValue("@isRefugee", studentEntity.refugeeSelectedType);
                     sqlCommand.Parameters.AddWithValue("@CurrentInstituteId", studentEntity.currentInstituteId);
+                    sqlCommand.Parameters.AddWithValue("@isOrphan", studentEntity.orphanageSelectedType);
+                    sqlCommand.Parameters.AddWithValue("@CommunityCertificateNo", studentEntity.communityCertificateNo);
+                    sqlCommand.Parameters.AddWithValue("@isNewStudent", studentEntity.isNewStudent);
                     sqlCommand.Parameters.Add("@StudentId", SqlDbType.BigInt, 13);
                     sqlCommand.Parameters["@StudentId"].Direction = ParameterDirection.Output;
                     sqlCommand.ExecuteNonQuery();
