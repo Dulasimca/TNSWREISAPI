@@ -80,7 +80,9 @@ namespace TNSWREISAPI.Controllers.Forms
         public string refugeeId { get; set; }
         public string currentInstituteId { get; set; }
         public string wardenApproval { get; set; }
-
+        public string orphanageSelectedType { get; set; }
+        public string communityCertificateNo { get; set; }
+        public string isNewStudent { get; set; }
         //Bank
         public int bankId { get; set; }
         public string bankName { get; set; }
@@ -106,6 +108,10 @@ namespace TNSWREISAPI.Controllers.Forms
         public string guardianMobileNo { get; set; }
         public string guardianQualification { get; set; }
         public string totalYIncome { get; set; }
+        public int fnTitleCode { get; set; }
+        public int mnTitleCode { get; set; }
+        public int gnTitleCode { get; set; }
+
 
         //Document
         public int documentId { get; set; }
