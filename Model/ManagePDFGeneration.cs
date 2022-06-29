@@ -94,7 +94,7 @@ namespace TNSWREISAPI.Model
                // cell.Rowspan = 1;
                 cell.BorderWidth = 0;
                 table.AddCell(cell);
-                cell = new PdfPCell(new Phrase(" STUDENT ONLINE REGISTRATION ACKNOWLEDGMENT"));
+                cell = new PdfPCell(new Phrase(" STUDENT ONLINE REGISTRATION ACKNOWLEDGEMENT"));
                 cell.HorizontalAlignment = Element.ALIGN_LEFT;
                 cell.Rowspan = 1;
                 cell.BorderWidth = 0;
@@ -1301,8 +1301,8 @@ namespace TNSWREISAPI.Model
             cell.HorizontalAlignment = Element.ALIGN_CENTER;
             cell.BorderWidth = 0;
             table.AddCell(cell);
-
-            cell = new PdfPCell(new Phrase(_studentEntity.AadharNo, NormalFont));
+            int length = _studentEntity.AadharNo.Length;
+            cell = new PdfPCell(new Phrase("********" +  _studentEntity.AadharNo.Substring(length-4, 4), NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             //cell.Colspan = 4;
             cell.BorderWidth = 0;
