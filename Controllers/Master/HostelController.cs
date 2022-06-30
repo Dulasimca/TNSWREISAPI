@@ -41,6 +41,7 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@MPId", hostelEntity.MPId));
                 sqlParameters.Add(new KeyValuePair<string, string>("@MLAId", hostelEntity.MLAId));
                 sqlParameters.Add(new KeyValuePair<string, string>("@SpecialDashildar", hostelEntity.SpecialDashildar));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(hostelEntity.Flag)));
                 var result = manageSQL.InsertData("InsertHostelMaster", sqlParameters);
                 return JsonConvert.SerializeObject(result);
             }
@@ -144,6 +145,7 @@ namespace TNSWREISAPI.Controllers.Master
         public string MPId { get; set; }
         public string MLAId { get; set; }
         public string SpecialDashildar { get; set; }
+        public bool Flag { get; set; }
 
     }
 }

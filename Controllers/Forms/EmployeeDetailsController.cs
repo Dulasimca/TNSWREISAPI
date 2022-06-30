@@ -40,9 +40,11 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@AltMobNo", Convert.ToString(EmployeeDetailsEntity.AltMobNo)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Pincode", Convert.ToString(EmployeeDetailsEntity.Pincode)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@EmployeeImage", Convert.ToString(EmployeeDetailsEntity.EmployeeImage)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@DOB", Convert.ToString(EmployeeDetailsEntity.DOB)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(EmployeeDetailsEntity.Flag)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@DApproval", Convert.ToString(EmployeeDetailsEntity.DApproval)));
                 var result = manageSQL.InsertData("InsertEmployeeDetails", sqlParameters);
-                return JsonConvert.SerializeObject(result);
+                return JsonConvert.SerializeObject(result); 
             }
             catch (Exception ex)
             {
@@ -89,6 +91,8 @@ namespace TNSWREISAPI.Controllers.Forms
         public string Pincode { get; set; }
         public bool Flag { get; set; }
         public string EmployeeImage { get; set; }
+        public DateTime DOB { get; set; }
+        public int DApproval { get; set; }
 
     }
 }

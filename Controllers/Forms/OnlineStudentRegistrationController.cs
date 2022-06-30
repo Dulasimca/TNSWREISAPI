@@ -133,19 +133,19 @@ namespace TNSWREISAPI.Controllers.Forms
 
         //Parent
         public int parentId { get; set; }
-        public int fatherTitle { get; set; }
+        public int fnTitleCode { get; set; }
         public string fatherName { get; set; }
         public string fatherOccupation { get; set; }
         public string fatherMoileNo { get; set; }
         public string fatherQualification { get; set; }
         public string fatherYIncome { get; set; }
-        public int motherTitle { get; set; }
+        public int mnTitleCode { get; set; }
         public string motherName { get; set; }
         public string motherOccupation { get; set; }
         public string motherMoileNo { get; set; }
         public string motherQualification { get; set; }
         public string motherYIncome { get; set; }
-        public int guardianTitle { get; set; }
+        public int gnTitleCode { get; set; }
         public string guardianName { get; set; }
         public string guardianOccupation { get; set; }
         public string guardianMobileNo { get; set; }
