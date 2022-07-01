@@ -28,6 +28,7 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@GoDate", hostelgoEntity.GoDate));
                 sqlParameters.Add(new KeyValuePair<string, string>("@AllotmentStudent", hostelgoEntity.TotalStudent));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Remarks", Convert.ToString(hostelgoEntity.Remarks)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@Filename", Convert.ToString(hostelgoEntity.filename)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", hostelgoEntity.flag));
                 var result = manageSQL.InsertData("InsertGOMaster", sqlParameters);
                 return JsonConvert.SerializeObject(result); 
@@ -63,6 +64,7 @@ namespace TNSWREISAPI.Controllers.Master
         public string GoDate { get; set; }
         public string Remarks { get; set; }
         public string TotalStudent { get; set; }
+        public string filename { get; set; }
         public string flag { get; set; }
         
     }
