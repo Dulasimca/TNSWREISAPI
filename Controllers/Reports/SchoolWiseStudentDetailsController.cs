@@ -13,7 +13,7 @@ namespace TNSWREISAPI.Controllers.Reports
     [Route("api/[controller]")]
     [ApiController]
     public class SchoolWiseStudentDetailsController : ControllerBase
-    { 
+    {  
    [HttpGet("{id}")]
         public string Get(int Type, int DCode, int TCode, int HostelId)
     {
