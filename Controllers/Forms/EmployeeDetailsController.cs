@@ -83,13 +83,13 @@ namespace TNSWREISAPI.Controllers.Forms
         public int Gender { get; set; }
         public string Address { get; set; }
         public string NativeDistrict { get; set; }
-        public string NativeTaluk { get; set; }
+        public string NativeTaluk { get; set; }   public bool Flag { get; set; }
         public string MobileNo { get; set; }
         public string AltMobNo { get; set; }
         public string EndDate { get; set; }
         public string Remarks { get; set; }
         public string Pincode { get; set; }
-        public bool Flag { get; set; }
+     
         public string EmployeeImage { get; set; }
         public DateTime DOB { get; set; }
         public int DApproval { get; set; }
