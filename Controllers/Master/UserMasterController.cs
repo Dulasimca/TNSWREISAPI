@@ -41,6 +41,7 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(entity.Flag)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Pwd", entity.Pwd));
                 sqlParameters.Add(new KeyValuePair<string, string>("@EntryptedPwd", encryptedValue));
+                sqlParameters.Add(new KeyValuePair<string, string>("@TasildharId", Convert.ToString(entity.TasildharId)));
                 var result = manageSQL.UpdateValues("InsertUserMaster", sqlParameters);
                 return JsonConvert.SerializeObject(result);
 
@@ -106,6 +107,7 @@ namespace TNSWREISAPI.Controllers.Master
         public string EMailId { get; set; }
         public string Pwd { get; set; }
         public bool Flag { get; set; }
+        public string TasildharId { get; set; }
     }
 
     public class ChangePasswordEntity

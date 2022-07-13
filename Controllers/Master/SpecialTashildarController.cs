@@ -38,12 +38,14 @@ namespace TNSWREISAPI.Controllers.Master
             }
             return "false";
         }
-        [HttpGet]
-        public string Get()
+        [HttpGet("{id}")]
+        public string Get(string Dcode)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
-            ds = manageSQL.GetDataSetValues("GetSpecialTashildarMaster");
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            sqlParameters.Add(new KeyValuePair<string, string>("@Dcode", Dcode));
+            ds = manageSQL.GetDataSetValues("GetSpecialTashildarMaster", sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
     }
