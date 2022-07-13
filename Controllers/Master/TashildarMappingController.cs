@@ -36,12 +36,23 @@ namespace TNSWREISAPI.Controllers.Master
             }
             return "false";
         }
-        [HttpGet]
-        public string Get()
+        [HttpGet("{id}")]
+        public string Get(int type, string value)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
-            ds = manageSQL.GetDataSetValues("GetTashildarMapping");
+            List<KeyValuePair<string, string>> sqlParameters = new List<KeyValuePair<string, string>>();
+            string procedure = string.Empty;
+            if (type == 1)
+            {
+                procedure = "GetTalishdarDetailsByEmail";
+                sqlParameters.Add(new KeyValuePair<string, string>("@EmailId", value));
+            }
+            else
+            {
+                procedure = "GetTashildarMapping";
+            }
+            ds = manageSQL.GetDataSetValues(procedure, sqlParameters);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
         public class SpecialTashildarEntity
