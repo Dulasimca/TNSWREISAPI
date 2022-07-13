@@ -37,7 +37,7 @@ namespace TNSWREISAPI.Controllers.Master
             return "false";
         }
         [HttpGet("{id}")]
-        public string Get(int type, string email)
+        public string Get(int type, string value)
         {
             ManageSQLConnection manageSQL = new ManageSQLConnection();
             DataSet ds = new DataSet();
@@ -46,7 +46,7 @@ namespace TNSWREISAPI.Controllers.Master
             if (type == 1)
             {
                 procedure = "GetTalishdarDetailsByEmail";
-                sqlParameters.Add(new KeyValuePair<string, string>("@EmailId", email));
+                sqlParameters.Add(new KeyValuePair<string, string>("@EmailId", value));
             }
             else
             {
