@@ -26,6 +26,7 @@ namespace TNSWREISAPI.Controllers.Master
                 sqlParameters.Add(new KeyValuePair<string, string>("@DistrictId", Convert.ToString(SpecialTashildarEntity.DistrictId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@TalukId", Convert.ToString(SpecialTashildarEntity.TalukId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@TashildarName", Convert.ToString(SpecialTashildarEntity.TashildarName)));
+                sqlParameters.Add(new KeyValuePair<string, string>("@HostelId", Convert.ToString(SpecialTashildarEntity.HostelId)));
                 sqlParameters.Add(new KeyValuePair<string, string>("@Flag", Convert.ToString(SpecialTashildarEntity.Flag)));
                 var result = manageSQL.InsertData("InsertTashildarMapping", sqlParameters);
                 return JsonConvert.SerializeObject(result);
@@ -62,6 +63,7 @@ namespace TNSWREISAPI.Controllers.Master
             public int TalukId { get; set; }
             public string TashildarName { get; set; }
             public bool Flag { get; set; }
+            public int HostelId { get; set; }
 
         }
         }
