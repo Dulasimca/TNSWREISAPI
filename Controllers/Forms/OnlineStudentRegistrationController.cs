@@ -88,7 +88,7 @@ namespace TNSWREISAPI.Controllers.Forms
         public string altMobNo { get; set; }
         public int religion { get; set; }
         public int caste { get; set; }
-        public string subcaste { get; set; }
+        public string subCaste { get; set; }
         public string studentFilename { get; set; }
         public string instituteName { get; set; }
         public string currentInstituteId { get; set; }

@@ -46,7 +46,7 @@ namespace TNSWREISAPI.ManageSQL
                     sqlCommand.Parameters.AddWithValue("@AltMobNo", onlineStudentEntity.altMobNo);
                     sqlCommand.Parameters.AddWithValue("@Religion", onlineStudentEntity.religion);
                     sqlCommand.Parameters.AddWithValue("@Caste", onlineStudentEntity.caste);
-                    sqlCommand.Parameters.AddWithValue("@Subcaste", onlineStudentEntity.subcaste);
+                    sqlCommand.Parameters.AddWithValue("@Subcaste", onlineStudentEntity.subCaste);
                     sqlCommand.Parameters.AddWithValue("@StudentFilename", onlineStudentEntity.studentFilename);
                     sqlCommand.Parameters.AddWithValue("@InstituteName", onlineStudentEntity.instituteName);
                     sqlCommand.Parameters.AddWithValue("@Medium", onlineStudentEntity.medium);
