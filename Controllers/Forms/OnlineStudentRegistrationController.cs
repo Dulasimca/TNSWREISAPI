@@ -15,7 +15,7 @@ namespace TNSWREISAPI.Controllers.Forms
     public class OnlineStudentRegistrationController : Controller
     {
         [HttpPost("{id}")]
-        public bool Post(onlineStudentEntity entity)
+        public Tuple<bool,string> Post(onlineStudentEntity entity)
         {
             bool result = false;
             //if (entity.studentId>0)
@@ -33,7 +33,7 @@ namespace TNSWREISAPI.Controllers.Forms
                 generatePDF.Generate(entity.aadharNo, entity.mobileNo, entity.dob);
           //  }
            
-            return result;
+            return new Tuple<bool,string>(result,"Registered Successfuly");
         }
 
         [HttpGet("{id}")]
