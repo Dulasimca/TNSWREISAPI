@@ -13,6 +13,8 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.Text;
 using System.Drawing.Drawing2D;
+using System.Xml;
+ 
 
 namespace TNSWREISAPI.Model
 {
@@ -22,28 +24,33 @@ namespace TNSWREISAPI.Model
         iTextSharp.text.Font FSSAIFont = FontFactory.GetFont("Courier New", 8, iTextSharp.text.Font.NORMAL, BaseColor.Black);
         iTextSharp.text.Font Header = FontFactory.GetFont("Times New Roman", 8, iTextSharp.text.Font.UNDERLINE, BaseColor.Black);
         iTextSharp.text.Font Smallfont = FontFactory.GetFont("Times New Roman", 6, BaseColor.Black);
-        //iTextSharp.text.Font tamilFont = GetFont("TSCu_SaiIndira", "TSCU_SAIINDIRA.TTF");
-        //int totalfonts = FontFactory.RegisterDirectory("C://WINDOWS//Fonts");
-        //new Font(Font.fon.TIMES_ROMAN, 11f, Font.UNDERLINE, BaseColor.Black);
-        // header.SetStyle(Font.UNDERLINE);
+        //  iTextSharp.text.Font tamilFont = GetFont("TSCu_SaiIndira", "TSCU_SAIINDIRA.TTF");
 
-
+        #region tamilfont
         //public static iTextSharp.text.Font GetFont(string fontName, string filename)
         //{
-        //    if (!FontFactory.IsRegistered(fontName))
-        //    {
-        //        var fontPath = "C://USERS//DULASIAYYA_4723//APPDATA//LOCAL//MICROSOFT//WINDOWS//FONTS//"+ filename; // Environment.GetEnvironmentVariable("SystemRoot") + "\\fonts\\" + filename;
-        //        FontFactory.Register(fontPath);
-        //    }
-        //    iTextSharp.text.Font f=  FontFactory.GetFont(fontName, BaseFont.IDENTITY_H, BaseFont.EMBEDDED,8); //,BaseColor.Black);
+        //    //if (!FontFactory.IsRegistered(fontName))
+        //    //{
+        //    //    var fontPath = "C://USERS//DULASIAYYA_4723//APPDATA//LOCAL//MICROSOFT//WINDOWS//FONTS//" + filename; // Environment.GetEnvironmentVariable("SystemRoot") + "\\fonts\\" + filename;
+        //    //    FontFactory.Register(fontPath);
+        //    //}
+        //    //iTextSharp.text.Font f = FontFactory.GetFont(fontName, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 8); //,BaseColor.Black);
 
+        //    string TSCu_SaiIndira = "C://USERS//DULASIAYYA_4723//APPDATA//LOCAL//MICROSOFT//WINDOWS//FONTS//" + filename;
+
+        //    //Create a base font object making sure to specify IDENTITY-H
+        //    BaseFont bf = BaseFont.CreateFont(TSCu_SaiIndira, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+
+        //    //Create a specific font object
+        //    iTextSharp.text.Font f = new iTextSharp.text.Font(bf, 12, iTextSharp.text.Font.NORMAL);
         //    return f;
         //}
+        #endregion
 
-        #region
         public Tuple<bool, string> GeneratePDF(StudentEntity entity = null)
         {
-            string fPath = string.Empty, subF_Path = string.Empty, fileName = string.Empty, filePath = string.Empty;
+
+           string fPath = string.Empty, subF_Path = string.Empty, fileName = string.Empty, filePath = string.Empty;
             try
             {
                 fileName = entity.AadharNo + "_" + entity.StudentId;
@@ -137,7 +144,7 @@ namespace TNSWREISAPI.Model
 
 
 
-                    // Text to image convert. 
+                    // Text to image convert. "Tutorialspoint" 
                     #region Text to image convert
                     //string text = "விடுதி  மாணாக்கர் உறுதிமொழி";
                     //Bitmap bitmap = new Bitmap(1, 1);
@@ -158,9 +165,7 @@ namespace TNSWREISAPI.Model
                     //document.Add(pdfImage);
                     #endregion
 
-
-
-                    // heading = new Paragraph ("Name of the hostel விடுதி  மாணாக்கர் உறுதிமொழி", tamilFont);
+                    //heading = new Paragraph ("விடுதி  மாணாக்கர் உறுதிமொழி", tamilFont);
                     heading = new Paragraph(" IDENTIFICATION DETAILS", Header);
                     heading.Alignment = Element.ALIGN_LEFT;
                     //     AddSpace(document);
@@ -291,6 +296,8 @@ namespace TNSWREISAPI.Model
 
         public void AddDeclaration(iTextSharp.text.Document document, PdfWriter writer)
         {
+
+            #region Original
             document.NewPage();
             string declarationPath = GlobalVariable.FolderPath + "images//DeclarationForm.pdf";
             PdfReader reader = new PdfReader(declarationPath);
@@ -301,6 +308,7 @@ namespace TNSWREISAPI.Model
                 document.Add(iTextSharp.text.Image.GetInstance(page));
             }
             reader.Close();
+            #endregion
         }
 
         public void AddSpace(iTextSharp.text.Document doc)
@@ -328,27 +336,7 @@ namespace TNSWREISAPI.Model
             AddSpace(doc);
             string Path = string.Empty;
             //add header values  no_image.PNG
-            if (_studentEntity.StudentFilename == "dulasi")
-            {
-                Path = GlobalVariable.FolderPath + "images/no_image.PNG";
-            }
-            else
-            {
-                try
-                {
-                    Path = GlobalVariable.FolderPath + _studentEntity.HostelID + "/" + "Documents/" + _studentEntity.StudentFilename;
-                }
-                catch (Exception ex)
-                {
-                    Path = GlobalVariable.FolderPath + "images/no_image.PNG";
-                    AuditLog.WriteError(ex.Message);
-                }
-                
-            }
-
-            iTextSharp.text.Image imge = iTextSharp.text.Image.GetInstance(Path);
-            imge.Alignment = Element.ALIGN_LEFT;
-            imge.ScaleToFit(80f, 60f);
+           
 
 
 
@@ -362,12 +350,39 @@ namespace TNSWREISAPI.Model
             cell.BorderWidth = 0;
             table.AddCell(cell);
 
-            cell = new PdfPCell(new Phrase("உறுதிமொழி" + _studentEntity.StudentId, NormalFont));
+            cell = new PdfPCell(new Phrase(_studentEntity.StudentId, NormalFont));
             cell.HorizontalAlignment = Element.ALIGN_LEFT;
             cell.BorderWidth = 0;
             cell.Colspan = 2;
             table.AddCell(cell);
 
+            iTextSharp.text.Image imge;
+            if (_studentEntity.StudentFilename == "dulasi")
+            {
+                Path = GlobalVariable.FolderPath + "images/no_image.PNG";
+                imge = iTextSharp.text.Image.GetInstance(Path);
+                imge.Alignment = Element.ALIGN_LEFT;
+                imge.ScaleToFit(80f, 60f);
+            }
+            else
+            {
+                try
+                {
+                    Path = GlobalVariable.FolderPath + _studentEntity.HostelID + "/" + "Documents/" + _studentEntity.StudentFilename;
+                    imge = iTextSharp.text.Image.GetInstance(Path);
+                    imge.Alignment = Element.ALIGN_LEFT;
+                    imge.ScaleToFit(80f, 60f);
+                }
+                catch (Exception ex)
+                {
+                    Path = GlobalVariable.FolderPath + "images/no_image.PNG";
+                    imge = iTextSharp.text.Image.GetInstance(Path);
+                    imge.Alignment = Element.ALIGN_LEFT;
+                    imge.ScaleToFit(80f, 60f);
+                    AuditLog.WriteError(ex.Message);
+                }
+
+            }
             PdfPCell cell1 = new PdfPCell(imge);
             cell1.HorizontalAlignment = Element.ALIGN_RIGHT;
             cell1.Rowspan = 5;
@@ -1469,11 +1484,8 @@ namespace TNSWREISAPI.Model
 
         }
 
-
-
-        #endregion
-        private Tuple<bool, string> GetImageName(string GCode)
-        {
+         private Tuple<bool, string> GetImageName(string GCode)
+         {
             try
             {
                 DataSet ds = new DataSet();
@@ -1619,6 +1631,93 @@ namespace TNSWREISAPI.Model
                 AuditLog.WriteError("DeleteFileIfExists " + ex.Message);
             }
 
+        }
+
+
+        private void russianPDF()
+        {
+            try
+            {
+                Document document = new Document(PageSize.A4, 72, 65, 72, 65);
+
+                string filename = "Tamil" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Second.ToString() + ".pdf";
+                PdfWriter writer = PdfWriter.GetInstance(document, new FileStream("E:\\temp\\" + filename, FileMode.Create));
+                document.AddAuthor("RussianPDFtest");
+                document.AddTitle("Подтверждение бронирования");
+                document.AddCreationDate();
+
+
+                string TSCu_SaiIndira = "C://USERS//DULASIAYYA_4723//APPDATA//LOCAL//MICROSOFT//WINDOWS//FONTS//TSCU_SAIINDIRA.TTF";
+
+
+               // BaseFont bf = BaseFont.CreateFont(TSCu_SaiIndira, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+
+                //Create a specific font object
+              //  iTextSharp.text.Font f = new iTextSharp.text.Font(bf, 12, iTextSharp.text.Font.NORMAL);
+
+
+                BaseFont sylfaen = BaseFont.CreateFont(TSCu_SaiIndira, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                iTextSharp.text.Font head1 = new iTextSharp.text.Font(sylfaen, 12f, iTextSharp.text.Font.NORMAL, BaseColor.Blue);
+                iTextSharp.text.Font normal1 = new iTextSharp.text.Font(sylfaen, 10f, iTextSharp.text.Font.NORMAL, BaseColor.Black);
+                iTextSharp.text.Font underline1 = new iTextSharp.text.Font(sylfaen, 10f, iTextSharp.text.Font.UNDERLINE, BaseColor.Black);
+
+                document.Open();
+                document.Add(new Paragraph("CZ-Reservation / விடுதி  மாணாக்கர் உறுதிமொழி          BU-16122011-37", head1));
+                document.Add(new Paragraph(" ", normal1));
+                document.Add(new Paragraph(" ", normal1));
+                document.Add(new Paragraph("ஆகிய நான் இம்மாணவரில்லத்தில் சேர்க்கப்பட்ட பின்னர், விடுதியில் உள்ள பொருட்களை ", underline1));
+                document.Add(new Paragraph(" ", normal1));
+                PdfPTable table1 = new PdfPTable(2);
+                table1.TotalWidth = document.PageSize.Width - 72f - 65f;
+                table1.LockedWidth = true;
+                float[] widths1 = new float[] { 1f, 4f };
+                table1.SetWidths(widths1);
+                table1.HorizontalAlignment = 0;
+                PdfPCell table1cell11 = new PdfPCell(new Phrase("Объект:", normal1));
+                table1cell11.Border = 0;
+                table1.AddCell(table1cell11);
+                PdfPCell table1cell12 = new PdfPCell(new Phrase("Ferienhaus 'Waldesruh'", normal1));
+                table1cell12.Border = 0;
+                table1.AddCell(table1cell12);
+                PdfPCell table1cell21 = new PdfPCell(new Phrase("Адрес:", normal1));
+                table1cell21.Border = 0;
+                table1.AddCell(table1cell21);
+                PdfPCell table1cell22 = new PdfPCell(new Phrase("15344 Strausberg, Am Marienberg 45", normal1));
+                table1cell22.Border = 0;
+                table1.AddCell(table1cell22);
+                PdfPCell table1cell31 = new PdfPCell(new Phrase("Номер объекта:", normal1));
+                table1cell31.Border = 0;
+                table1.AddCell(table1cell31);
+                PdfPCell table1cell32 = new PdfPCell(new Phrase("czr04012012", normal1));
+                table1cell32.Border = 0;
+                table1.AddCell(table1cell32);
+                PdfPCell table1cell41 = new PdfPCell(new Phrase("Дата заезда:", normal1));
+                table1cell41.Border = 0;
+                table1.AddCell(table1cell41);
+                PdfPCell table1cell42 = new PdfPCell(new Phrase("12.02.2012", normal1));
+                table1cell42.Border = 0;
+                table1.AddCell(table1cell42);
+                PdfPCell table1cell51 = new PdfPCell(new Phrase("Дата выезда:", normal1));
+                table1cell51.Border = 0;
+                table1.AddCell(table1cell51);
+                PdfPCell table1cell52 = new PdfPCell(new Phrase("18.02.2012", normal1));
+                table1cell52.Border = 0;
+                table1.AddCell(table1cell52);
+                PdfPCell table1cell61 = new PdfPCell(new Phrase("Человек:", normal1));
+                table1cell61.Border = 0;
+                table1.AddCell(table1cell61);
+                PdfPCell table1cell62 = new PdfPCell(new Phrase("5", normal1));
+                table1cell62.Border = 0;
+                table1.AddCell(table1cell62);
+                document.Add(table1);
+                document.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Try-Catch-Fehler!");
+                Console.WriteLine(ex.Message);
+                Console.ReadLine();
+            }
         }
     }
 }
