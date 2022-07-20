@@ -18,20 +18,20 @@ namespace TNSWREISAPI.Controllers.Forms
         public bool Post(onlineStudentEntity entity)
         {
             bool result = false;
-            if (entity.studentId>0)
-            {
-                //Generate the PDF file. 
-                GeneratePDFDocument generatePDF = new GeneratePDFDocument();
-                generatePDF.Generate(entity.aadharNo, entity.mobileNo, entity.dob);
-            }
-            else
-            {
+            //if (entity.studentId>0)
+            //{
+            //    //Generate the PDF file. 
+            //    GeneratePDFDocument generatePDF = new GeneratePDFDocument();
+            //    generatePDF.Generate(entity.aadharNo, entity.mobileNo, entity.dob);
+            //}
+            //else
+            //{
                 ManageOnlineRegistration ManageOnlineRegistration = new ManageOnlineRegistration();
                 result = ManageOnlineRegistration.InsertOnlineStudentDetails(entity);
                 //Generate the PDF file. 
                 GeneratePDFDocument generatePDF = new GeneratePDFDocument();
                 generatePDF.Generate(entity.aadharNo, entity.mobileNo, entity.dob);
-            }
+          //  }
            
             return result;
         }
