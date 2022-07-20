@@ -25,8 +25,8 @@ namespace TNSWREISAPI.Controllers.Forms
             sqlParameters.Add(new KeyValuePair<string, string>("@HCode", Convert.ToString(HCode)));
             sqlParameters.Add(new KeyValuePair<string, string>("@Roleid", Convert.ToString(Roleid)));
             ds = manageSQL.GetDataSetValues("GetOnlineRegistration", sqlParameters);
-            GeneratePDFDocument generatePDF = new GeneratePDFDocument();
-            generatePDF.Generate(ds);
+            //GeneratePDFDocument generatePDF = new GeneratePDFDocument();
+            //generatePDF.Generate(ds);
             return JsonConvert.SerializeObject(ds.Tables[0]);
         }
         [HttpPost("{id}")]
