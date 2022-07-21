@@ -18,8 +18,8 @@ namespace TNSWREISAPI.Controllers.Forms
         public Tuple<bool,string> Post(onlineStudentEntity entity)
         {
             bool result = false;
- 
-            if(entity.studentId == 0)
+
+            if (entity.studentId == 0)
             {
                 DataSet ds = new DataSet();
                 ManageSQLConnection manageSQL = new ManageSQLConnection();
@@ -28,17 +28,19 @@ namespace TNSWREISAPI.Controllers.Forms
                 sqlParameters.Add(new KeyValuePair<string, string>("@isNewStudent", Convert.ToInt32(entity.isNewStudent) == 0 ? "2" : entity.isNewStudent));
                 ds = manageSQL.GetDataSetValues("OnlineApplicationControlForHO", sqlParameters);
                 ManagePDFGeneration manage = new ManagePDFGeneration();
-                if(!manage.CheckDataAvailable(ds))
+                if (!manage.CheckDataAvailable(ds))
                 {
                     return new Tuple<bool, string>(false, " Online Registration has been clossed, Please check with TNADWHO ");
                 }
                 // Need to check
             }
+            
                 ManageOnlineRegistration ManageOnlineRegistration = new ManageOnlineRegistration();
                 result = ManageOnlineRegistration.InsertOnlineStudentDetails(entity);
                 //Generate the PDF file. 
                 GeneratePDFDocument generatePDF = new GeneratePDFDocument();
                 generatePDF.Generate(entity.aadharNo, entity.mobileNo, entity.dob);
+            
           //  }
            
             return new Tuple<bool,string>(result,"Registered Successfuly");
